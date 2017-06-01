@@ -5,7 +5,7 @@ var banner = '/*!\n' +
 ' * Copyright 2017 Amazon.com,\n' +
 ' * Inc. or its affiliates. All Rights Reserved.\n' +
 ' * \n' +
-' * Licensed under the Amazon Software License (the "License").\n' +
+' * Licensed under the Apache License, Version 2.0 (the "License").\n' +
 ' * You may not use this file except in compliance with the\n' +
 ' * License. A copy of the License is located at\n' +
 ' * \n' +
