@@ -1,7 +1,8 @@
 # Amazon Cognito Auth SDK for JavaScript
-You can now use Amazon Cognito Auth to easily add sign-in and sign-out to your mobile and web apps. Your user pool in Amazon Cognito is a fully managed user directory that can scale to hundreds of millions of users, so you don't have to worry about building, securing, and scaling a solution to handle user management and authentication.
+You can now use Amazon Cognito Auth to easily add sign in and sign out to your mobile and web apps. Your user pool in Amazon Cognito is a fully managed user directory that can scale to hundreds of millions of users, so you don't have to worry about building, securing, and scaling a solution to handle user management and authentication.
 
-[For more information about this new feature, see Amazon Cognito User Pools App Integration and Federation Beta Release.](http://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-federation-beta-release-overview.html)
+[For more information about this new feature, see Amazon Cognito 
+User Pools App Integration and Federation Beta Release.](http://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-federation-beta-release-overview.html)
 
 We welcome developer feedback on this project. You can reach us by creating an issue on the GitHub repository or posting to the Amazon Cognito Identity forums:
 
@@ -9,9 +10,9 @@ We welcome developer feedback on this project. You can reach us by creating an i
 * <https://forums.aws.amazon.com/forum.jspa?forumID=173>
 
 # Introduction
-The Amazon Cognito Auth SDK for JavaScript simplifies adding sign-up, sign-in with user profile functionality to web apps.
+The Amazon Cognito Auth SDK for JavaScript simplifies adding sign-up, sign in with user profile functionality to web apps.
 
-Instead of implementing a UI for sign-up and sign-in, this SDK provides the UI via a hosted page.  It supports sign-up, sign-in, confirmation, multifactor authentication, and sign-out.
+Instead of implementing a UI for sign-up and sign in, this SDK provides the UI via a hosted page.  It supports sign up, sign in, confirmation, multifactor authentication, and sign out.
 
 # Setup
 
@@ -106,11 +107,11 @@ module.exports = {
 
 The Amazon Cognito Auth SDK for JavaScript requires three configuration values from your AWS Account in order to access your Cognito User Pool:
 
-* An User Pool App Client Id, e.g. `<TODO: add ClientId>` 
+* An User Pool App Client Id, 
     * When creating the App, the generate client secret box must be **unchecked** because the JavaScript SDK doesn't support apps that have a client secret.
-* An App Web Domain, e.g. `<TODO: add App Web Domain>`
+* An App Web Domain,
     * When you click the `Domain name` tab, you can create a domain name there and save it for record. 
-* Scope Array, e.g. `<TODO: add scope array>` 
+* Scope Array,
     * When you click the `App settings` tab, you can select the identity provider which you want to use on your App. 
     * In the `sign in and sign out URLs` tab, you can set the `Callback URLs` and `Sign out URLs`. 
     * Under the `OAuth2.0` tab, you can select the OAuth flows and scopes enabled for this app. 
@@ -139,7 +140,7 @@ var CognitoAuth = AmazonCognitoIdentity.CognitoAuth;
 import {CognitoAuth} from 'amazon-cognito-auth-js';
 ```
 
-**Use case 1.** Registering an auth with the application. You need to create a CognitoAuth object by providing a App client ID, a App web domain, a scope array, a sign-in redirect URL, and a sign-out redirect URL:
+**Use case 1.** Registering an auth with the application. You need to create a CognitoAuth object by providing a App client ID, a App web domain, a scope array, a sign in redirect URL, and a sign out redirect URL:
 
 ```
 var authData = {
@@ -165,7 +166,7 @@ auth.userhandler = {
 	}
 };
 ```
-**Use case 2.** Sign-in using `getSession()` API:
+**Use case 2.** Sign in using `getSession()` API:
 
 ```
 auth.getSession();
@@ -187,18 +188,8 @@ function onLoad() {
 }
 ```
 
-**Use case 3.** Sign-out using `signOut()`:
+**Use case 3.** Sign out using `signOut()`:
 
 ```
 auth.signOut();
 ```
-
-
-
-
-
-
-
-
-
-
