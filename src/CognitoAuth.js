@@ -30,29 +30,29 @@ export default class CognitoAuth {
 	 * @param {string} data.ClientId Required: User pool application client id.
 	 * @param {string} data.AppWebDomain Required: The application/user-pools Cognito web hostname,
 	 *                     this is set at the Cognito console.
-	 * @param {array} data.tokenScopesArray Optional: The token scopes
-	 * @param {string} data.redirectUriSignIn Required: The redirect Uri,
+	 * @param {array} data.TokenScopesArray Optional: The token scopes
+	 * @param {string} data.RedirectUriSignIn Required: The redirect Uri,
 	 * which will be launched after authentication as signed in.
-	 * @param {string} data.redirectUriSignOut Required:
+	 * @param {string} data.RedirectUriSignOut Required:
 	 * The redirect Uri, which will be launched when signed out.
 	 * @param {nodeCallback<CognitoAuthSession>} Optional: userhandler Called on success or error.
 	 */
   constructor(data) {
-    const { ClientId, AppWebDomain, tokenScopesArray,
-    redirectUriSignIn, redirectUriSignOut } = data || { };
-    if (data == null || !ClientId || !AppWebDomain || !redirectUriSignIn || !redirectUriSignOut) {
+    const { ClientId, AppWebDomain, TokenScopesArray,
+    RedirectUriSignIn, RedirectUriSignOut } = data || { };
+    if (data == null || !ClientId || !AppWebDomain || !RedirectUriSignIn || !RedirectUriSignOut) {
       throw new Error(this.getCognitoConstants().PARAMETERERROR);
     }
 
     this.clientId = ClientId;
     this.appWebDomain = AppWebDomain;
-    if (!Array.isArray(tokenScopesArray)) {
+    if (!Array.isArray(TokenScopesArray)) {
       throw new Error(this.getCognitoConstants().SCOPETYPEERROR);
     }
-    this.tokenScopesArray = tokenScopesArray || [];
-    const tokenScopes = new CognitoTokenScopes(this.tokenScopesArray);
-    this.redirectUriSignIn = redirectUriSignIn;
-    this.redirectUriSignOut = redirectUriSignOut;
+    this.TokenScopesArray = TokenScopesArray || [];
+    const tokenScopes = new CognitoTokenScopes(this.TokenScopesArray);
+    this.RedirectUriSignIn = RedirectUriSignIn;
+    this.RedirectUriSignOut = RedirectUriSignOut;
     this.signInUserSession = new CognitoAuthSession();
     this.responseType = this.getCognitoConstants().TOKEN;
     this.storage = new StorageHelper().getStorage();
@@ -184,14 +184,14 @@ export default class CognitoAuth {
   /**
    * This is used to get a session, either from the session object
    * or from the local storage, or by using a refresh token
-   * @param {string} redirectUriSignIn Required: The redirect Uri,
+   * @param {string} RedirectUriSignIn Required: The redirect Uri,
    * which will be launched after authentication.
-   * @param {array} tokenScopesArray Required: The token scopes, it is an
+   * @param {array} TokenScopesArray Required: The token scopes, it is an
    * array of strings specifying all scopes for the tokens.
    * @returns {void}
    */
   getSession() {
-    const tokenScopesInputSet = new Set(this.tokenScopesArray);
+    const tokenScopesInputSet = new Set(this.TokenScopesArray);
     const cachedScopesSet = new Set(this.signInUserSession.tokenScopes.getScopes());
     const URL = this.getFQDNSignIn();
     if (this.signInUserSession != null && this.signInUserSession.isValid()) {
@@ -200,7 +200,7 @@ export default class CognitoAuth {
     this.signInUserSession = this.getCachedSession();
     // compare scopes
     if (!this.compareSets(tokenScopesInputSet, cachedScopesSet)) {
-      const tokenScopes = new CognitoTokenScopes(this.tokenScopesArray);
+      const tokenScopes = new CognitoTokenScopes(this.TokenScopesArray);
       const idToken = new CognitoIdToken();
       const accessToken = new CognitoAccessToken();
       const refreshToken = new CognitoRefreshToken();
@@ -252,7 +252,7 @@ export default class CognitoAuth {
       const header = this.getCognitoConstants().HEADER;
       const body = { grant_type: this.getCognitoConstants().AUTHORIZATIONCODE,
         client_id: this.getClientId(),
-        redirect_uri: this.redirectUriSignIn,
+        redirect_uri: this.RedirectUriSignIn,
         code: codeParameter };
       const boundOnSuccess = (this.onSuccessExchangeForToken).bind(this);
       const boundOnFailure = (this.onFailure).bind(this);
@@ -472,7 +472,7 @@ export default class CognitoAuth {
     const header = this.getCognitoConstants().HEADER;
     const body = { grant_type: this.getCognitoConstants().REFRESHTOKEN,
       client_id: this.getClientId(),
-      redirect_uri: this.redirectUriSignIn,
+      redirect_uri: this.RedirectUriSignIn,
       refresh_token: refreshToken };
     const boundOnSuccess = (this.onSuccessRefreshToken).bind(this);
     const boundOnFailure = (this.onFailure).bind(this);
@@ -650,7 +650,7 @@ export default class CognitoAuth {
     this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNIN,
     this.getCognitoConstants().QUESTIONMARK,
     this.getCognitoConstants().DOMAIN_QUERY_PARAM_REDIRECT_URI,
-    this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.redirectUriSignIn),
+    this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignIn),
     this.getCognitoConstants().AMPERSAND,
     this.getCognitoConstants().DOMAIN_QUERY_PARAM_RESPONSE_TYPE,
     this.getCognitoConstants().EQUALSIGN,
@@ -683,7 +683,7 @@ export default class CognitoAuth {
     this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNOUT,
     this.getCognitoConstants().QUESTIONMARK,
     this.getCognitoConstants().DOMAIN_QUERY_PARAM_SIGNOUT_URI,
-    this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.redirectUriSignOut),
+    this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignOut),
     this.getCognitoConstants().AMPERSAND,
     this.getCognitoConstants().CLIENT_ID,
     this.getCognitoConstants().EQUALSIGN, this.getClientId());

@@ -106,9 +106,9 @@ module.exports = {
 
 The Amazon Cognito Auth SDK for JavaScript requires three configuration values from your AWS Account in order to access your Cognito User Pool:
 
-* A User Pool App Client Id, e.g. `<TODO: add ClientId>` 
+* An User Pool App Client Id, e.g. `<TODO: add ClientId>` 
     * When creating the App, the generate client secret box must be **unchecked** because the JavaScript SDK doesn't support apps that have a client secret.
-* A App Web Domain, e.g. `<TODO: add App Web Domain>`
+* An App Web Domain, e.g. `<TODO: add App Web Domain>`
     * When you click the `Domain name` tab, you can create a domain name there and save it for record. 
 * Scope Array, e.g. `<TODO: add scope array>` 
     * When you click the `App settings` tab, you can select the identity provider which you want to use on your App. 
@@ -145,9 +145,9 @@ import {CognitoAuth} from 'amazon-cognito-auth-js';
 var authData = {
 	ClientId : '<TODO: add ClientId>', // Your client id here
 	AppWebDomain : '<TODO: add App Web Domain>',
-	tokenScopesArray : '<TODO: add scope array>',
-	redirectUriSignIn : '<TODO: add redirect url when signed in>',
-	redirectUriSignOut : '<TODO: add redirect url when signed out>'
+	TokenScopesArray : '<TODO: add scope array>',
+	RedirectUriSignIn : '<TODO: add redirect url when signed in>',
+	RedirectUriSignOut : '<TODO: add redirect url when signed out>'
 	var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
 };
 ```
@@ -177,7 +177,7 @@ For the cache tokens and scopes, use the `parseCognitoWebResponse(Response)` API
 var curUrl = window.location.href;
 auth.parseCognitoWebResponse(curUrl);
 ```
-Probably, you can put this part of logic in the `onLoad()`, e.g.:
+Typically, you can put this part of logic in the `onLoad()`, e.g.:
 
 ```
 function onLoad() {
@@ -192,4 +192,13 @@ function onLoad() {
 ```
 auth.signOut();
 ```
+
+
+
+
+
+
+
+
+
 

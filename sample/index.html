@@ -190,9 +190,9 @@
 		var authData = {
 			ClientId : '<TODO: your app client ID here>', // Your client id here
 			AppWebDomain : '<TODO: your app web domain here>',
-			tokenScopesArray : '<TODO: your scope array here>',
-			redirectUriSignIn : '<TODO: your redirect url when signed in here>',
-			redirectUriSignOut : '<TODO: your redirect url when signed out here>'
+			TokenScopesArray : '<TODO: your scope array here>',
+			RedirectUriSignIn : '<TODO: your redirect url when signed in here>',
+			RedirectUriSignOut : '<TODO: your redirect url when signed out here>'
 		};
 		var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
 		auth.userhandler = {

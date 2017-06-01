@@ -19,11 +19,11 @@
 export default class CognitoTokenScopes {
   /**
    * Constructs a new CognitoTokenScopes object
-   * @param {array=} tokenScopesArray The token scopes
+   * @param {array=} TokenScopesArray The token scopes
    */
-  constructor(tokenScopesArray) {
+  constructor(TokenScopesArray) {
     // Assign object
-    this.tokenScopes = tokenScopesArray || [];
+    this.tokenScopes = TokenScopesArray || [];
   }
 
   /**
