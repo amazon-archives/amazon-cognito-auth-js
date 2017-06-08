@@ -193,3 +193,14 @@ function onLoad() {
 ```
 auth.signOut();
 ```
+### Change Log
+v1.1.0
+
+* Fixed the missing part in an error message.
+
+* Fixed "tokenScopesArray" initialization order error. 
+
+
+v1.0.0
+
+* Initial release. Developer preview.
