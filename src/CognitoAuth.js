@@ -78,7 +78,8 @@ export default class CognitoAuth {
       CODE: 'code',
       POST: 'POST',
       PARAMETERERROR: 'The parameters: App client Id, App web domain' +
-                      'and the redirect URL when you are signed in and the redirect URL when you are signed out are required.',
+                      ', the redirect URL when you are signed in and the ' + 
+	              'redirect URL when you are signed out are required.',
       SCOPETYPEERROR: 'Scopes have to be array type. ',
       QUESTIONMARK: '?',
       POUNDSIGN: '#',
