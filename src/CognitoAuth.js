@@ -46,10 +46,10 @@ export default class CognitoAuth {
 
     this.clientId = ClientId;
     this.appWebDomain = AppWebDomain;
+    this.TokenScopesArray = TokenScopesArray || [];
     if (!Array.isArray(TokenScopesArray)) {
       throw new Error(this.getCognitoConstants().SCOPETYPEERROR);
     }
-    this.TokenScopesArray = TokenScopesArray || [];
     const tokenScopes = new CognitoTokenScopes(this.TokenScopesArray);
     this.RedirectUriSignIn = RedirectUriSignIn;
     this.RedirectUriSignOut = RedirectUriSignOut;
@@ -78,7 +78,7 @@ export default class CognitoAuth {
       CODE: 'code',
       POST: 'POST',
       PARAMETERERROR: 'The parameters: App client Id, App web domain' +
-                      'and the rediect URL when you are signed in are required.',
+                      'and the redirect URL when you are signed in and the redirect URL when you are signed out are required.',
       SCOPETYPEERROR: 'Scopes have to be array type. ',
       QUESTIONMARK: '?',
       POUNDSIGN: '#',
