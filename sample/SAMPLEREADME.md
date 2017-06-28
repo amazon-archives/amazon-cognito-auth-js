@@ -3,6 +3,14 @@ This web page is a sample of using our SDK. It will initialize a CognitoAuth obj
 
 # Steps to try this sample
 
+To add our SDK, you need to include the following two files:
+
+```
+<script src="dist/aws-cognito-sdk.js"></script>
+<script src="dist/amazon-cognito-auth.min.js"></script>
+```
+
+And make sure the "dist" folder is located in the sample directory. 
 Inside the function "initCognitoSDK()",
 add your app client ID, app web domain, scope array, the redirect url when signed in and the redirect url when signed out. 
 
