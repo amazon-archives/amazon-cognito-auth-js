@@ -21,3 +21,5 @@ The default response_type is token.
 After you added all the values mentioned above, you can open the html page. And you can try the sign-up, sign-in and sign-out flows.
 
 If you want to set the response_type as code, you can simply uncomment line 181 in this html file source code and refresh the page. Then you can try all the workflows. 
+
+In order to effectively try this sample, your user pool's application settings "Implicit grant" must be enabled.
