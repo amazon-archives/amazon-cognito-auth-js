@@ -66,7 +66,8 @@ export default class CognitoAuth {
   getCognitoConstants() {
     const CognitoConstants = {
       DOMAIN_SCHEME: 'https',
-      DOMAIN_PATH_SIGNIN: 'authorize',
+      DOMAIN_PATH_SIGNIN: 'oauth2/authorize',
+      DOMAIN_PATH_TOKEN: 'oauth2/token',
       DOMAIN_PATH_SIGNOUT: 'logout',
       DOMAIN_QUERY_PARAM_REDIRECT_URI: 'redirect_uri',
       DOMAIN_QUERY_PARAM_SIGNOUT_URI: 'logout_uri',
@@ -78,8 +79,8 @@ export default class CognitoAuth {
       CODE: 'code',
       POST: 'POST',
       PARAMETERERROR: 'The parameters: App client Id, App web domain' +
-                      ', the redirect URL when you are signed in and the ' + 
-	              'redirect URL when you are signed out are required.',
+                      ', the redirect URL when you are signed in and the ' +
+                      'redirect URL when you are signed out are required.',
       SCOPETYPEERROR: 'Scopes have to be array type. ',
       QUESTIONMARK: '?',
       POUNDSIGN: '#',
@@ -249,7 +250,7 @@ export default class CognitoAuth {
       const codeParameter = this.getCodeParameter(httpRequestResponse);
       const url = this.getCognitoConstants().DOMAIN_SCHEME.concat(
       this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(),
-      this.getCognitoConstants().SLASH, this.getCognitoConstants().TOKEN);
+      this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_TOKEN);
       const header = this.getCognitoConstants().HEADER;
       const body = { grant_type: this.getCognitoConstants().AUTHORIZATIONCODE,
         client_id: this.getClientId(),
@@ -469,7 +470,7 @@ export default class CognitoAuth {
     // https POST call for refreshing token
     const url = this.getCognitoConstants().DOMAIN_SCHEME.concat(
     this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(),
-    this.getCognitoConstants().SLASH, this.getCognitoConstants().TOKEN);
+    this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_TOKEN);
     const header = this.getCognitoConstants().HEADER;
     const body = { grant_type: this.getCognitoConstants().REFRESHTOKEN,
       client_id: this.getClientId(),
@@ -660,6 +661,7 @@ export default class CognitoAuth {
     this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE,
     this.getCognitoConstants().EQUALSIGN, state, this.getCognitoConstants().AMPERSAND,
     this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString);
+    console.log('--uri: '.concat(uri));
     return uri;
   }
 
