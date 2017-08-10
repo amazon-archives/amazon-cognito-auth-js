@@ -821,10 +821,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    this.clientId = ClientId;
 	    this.appWebDomain = AppWebDomain;
+	    this.TokenScopesArray = TokenScopesArray || [];
 	    if (!Array.isArray(TokenScopesArray)) {
 	      throw new Error(this.getCognitoConstants().SCOPETYPEERROR);
 	    }
-	    this.TokenScopesArray = TokenScopesArray || [];
 	    var tokenScopes = new _CognitoTokenScopes2.default(this.TokenScopesArray);
 	    this.RedirectUriSignIn = RedirectUriSignIn;
 	    this.RedirectUriSignOut = RedirectUriSignOut;
@@ -843,7 +843,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  CognitoAuth.prototype.getCognitoConstants = function getCognitoConstants() {
 	    var CognitoConstants = {
 	      DOMAIN_SCHEME: 'https',
-	      DOMAIN_PATH_SIGNIN: 'authorize',
+	      DOMAIN_PATH_SIGNIN: 'oauth2/authorize',
+	      DOMAIN_PATH_TOKEN: 'oauth2/token',
 	      DOMAIN_PATH_SIGNOUT: 'logout',
 	      DOMAIN_QUERY_PARAM_REDIRECT_URI: 'redirect_uri',
 	      DOMAIN_QUERY_PARAM_SIGNOUT_URI: 'logout_uri',
@@ -854,7 +855,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      TOKEN: 'token',
 	      CODE: 'code',
 	      POST: 'POST',
-	      PARAMETERERROR: 'The parameters: App client Id, App web domain' + 'and the rediect URL when you are signed in are required.',
+	      PARAMETERERROR: 'The parameters: App client Id, App web domain' + ', the redirect URL when you are signed in and the ' + 'redirect URL when you are signed out are required.',
 	      SCOPETYPEERROR: 'Scopes have to be array type. ',
 	      QUESTIONMARK: '?',
 	      POUNDSIGN: '#',
@@ -1045,7 +1046,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // if the response contains code
 	      // To parse the response and get the code value.
 	      var codeParameter = this.getCodeParameter(httpRequestResponse);
-	      var url = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().TOKEN);
+	      var url = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_TOKEN);
 	      var header = this.getCognitoConstants().HEADER;
 	      var body = { grant_type: this.getCognitoConstants().AUTHORIZATIONCODE,
 	        client_id: this.getClientId(),
@@ -1298,7 +1299,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  CognitoAuth.prototype.refreshSession = function refreshSession(refreshToken) {
 	    // https POST call for refreshing token
-	    var url = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().TOKEN);
+	    var url = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_TOKEN);
 	    var header = this.getCognitoConstants().HEADER;
 	    var body = { grant_type: this.getCognitoConstants().REFRESHTOKEN,
 	      client_id: this.getClientId(),
@@ -1478,6 +1479,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var tokenScopesString = this.getSpaceSeperatedScopeString();
 	    // Build the complete web domain to launch the login screen
 	    var uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNIN, this.getCognitoConstants().QUESTIONMARK, this.getCognitoConstants().DOMAIN_QUERY_PARAM_REDIRECT_URI, this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignIn), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().DOMAIN_QUERY_PARAM_RESPONSE_TYPE, this.getCognitoConstants().EQUALSIGN, this.responseType, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID, this.getCognitoConstants().EQUALSIGN, this.getClientId(), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE, this.getCognitoConstants().EQUALSIGN, state, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString);
+	    console.log('--uri: '.concat(uri));
 	    return uri;
 	  };
 
