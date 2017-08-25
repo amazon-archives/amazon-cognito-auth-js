@@ -35,11 +35,13 @@ export default class CognitoAuth {
 	 * which will be launched after authentication as signed in.
 	 * @param {string} data.RedirectUriSignOut Required:
 	 * The redirect Uri, which will be launched when signed out.
+     * @param {string} data.IdentityProvider Optional: Pre-selected identity provider (this allows to
+     * automatically trigger social provider authentication flow).
 	 * @param {nodeCallback<CognitoAuthSession>} Optional: userhandler Called on success or error.
 	 */
   constructor(data) {
     const { ClientId, AppWebDomain, TokenScopesArray,
-    RedirectUriSignIn, RedirectUriSignOut } = data || { };
+    RedirectUriSignIn, RedirectUriSignOut, IdentityProvider } = data || { };
     if (data == null || !ClientId || !AppWebDomain || !RedirectUriSignIn || !RedirectUriSignOut) {
       throw new Error(this.getCognitoConstants().PARAMETERERROR);
     }
@@ -53,6 +55,7 @@ export default class CognitoAuth {
     const tokenScopes = new CognitoTokenScopes(this.TokenScopesArray);
     this.RedirectUriSignIn = RedirectUriSignIn;
     this.RedirectUriSignOut = RedirectUriSignOut;
+    this.IdentityProvider = IdentityProvider;
     this.signInUserSession = new CognitoAuthSession();
     this.responseType = this.getCognitoConstants().TOKEN;
     this.storage = new StorageHelper().getStorage();
@@ -72,6 +75,7 @@ export default class CognitoAuth {
       DOMAIN_QUERY_PARAM_REDIRECT_URI: 'redirect_uri',
       DOMAIN_QUERY_PARAM_SIGNOUT_URI: 'logout_uri',
       DOMAIN_QUERY_PARAM_RESPONSE_TYPE: 'response_type',
+      DOMAIN_QUERY_PARAM_IDENTITY_PROVIDER: 'identity_provider',
       CLIENT_ID: 'client_id',
       STATE: 'state',
       SCOPE: 'scope',
@@ -645,6 +649,11 @@ export default class CognitoAuth {
   getFQDNSignIn() {
     const state = this.generateRandomString(this.getCognitoConstants().STATELENGTH,
     this.getCognitoConstants().STATEORIGINSTRING);
+    const identityProviderParam = this.IdentityProvider
+        ? this.getCognitoConstants().AMPERSAND.concat(
+            this.getCognitoConstants().DOMAIN_QUERY_PARAM_IDENTITY_PROVIDER,
+            this.getCognitoConstants().EQUALSIGN, this.IdentityProvider)
+        : '';
     const tokenScopesString = this.getSpaceSeperatedScopeString();
     // Build the complete web domain to launch the login screen
     const uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(
@@ -660,7 +669,8 @@ export default class CognitoAuth {
     this.getCognitoConstants().EQUALSIGN, this.getClientId(),
     this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE,
     this.getCognitoConstants().EQUALSIGN, state, this.getCognitoConstants().AMPERSAND,
-    this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString);
+    this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString,
+    identityProviderParam);
     console.log('--uri: '.concat(uri));
     return uri;
   }
