@@ -660,8 +660,7 @@ export default class CognitoAuth {
     this.getCognitoConstants().EQUALSIGN, this.getClientId(),
     this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE,
     this.getCognitoConstants().EQUALSIGN, state, this.getCognitoConstants().AMPERSAND,
-    this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString);
-    console.log('--uri: '.concat(uri));
+    this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString);    
     return uri;
   }
 
