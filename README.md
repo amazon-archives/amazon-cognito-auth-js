@@ -13,6 +13,7 @@ The Amazon Cognito Auth SDK for JavaScript simplifies adding sign-up, sign-in wi
 
 Instead of implementing a UI for sign-up and sign-in, this SDK provides the UI via a hosted page.  It supports sign-up, sign-in, confirmation, multifactor authentication, and sign-out.
 
+
 # Setup
 
 The Amazon Cognito Auth SDK for JavaScript depends on:
