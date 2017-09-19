@@ -1419,7 +1419,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // This is a sample server that supports CORS.
 	      var xhr = this.createCORSRequest(this.getCognitoConstants().POST, url);
 	      var bodyString = '';
-	      var jsonData = xhr.responseText;
 	      if (!xhr) {
 	        return;
 	      }
@@ -1435,9 +1434,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      xhr.onreadystatechange = function addressState() {
 	        if (xhr.readyState === 4) {
 	          if (xhr.status === 200) {
-	            xhr.onload = onSuccess(jsonData);
+	            onSuccess(xhr.responseText);
 	          } else {
-	            xhr.onerror = onFailure(jsonData);
+	            onFailure(xhr.responseText);
 	          }
 	        }
 	      };
@@ -1484,7 +1483,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    /**
 	     * The http POST request onSuccess callback when refreshing tokens.
 	     * @param {JSON} jsonData tokens
-	     * @returns {function} onSuccess
 	     */
 
 	  }, {
@@ -1502,15 +1500,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	          this.signInUserSession.setAccessToken(new _CognitoAccessToken2.default(jsonDataObject.access_token));
 	        }
 	        this.cacheTokensScopes();
-	        return this.userhandler.onSuccess(this.signInUserSession);
+	        this.userhandler.onSuccess(this.signInUserSession);
 	      }
-	      return undefined;
 	    }
 
 	    /**
 	     * The http POST request onSuccess callback when exchanging code for tokens.
 	     * @param {JSON} jsonData tokens
-	     * @returns {function} onSuccess
 	     */
 
 	  }, {
@@ -1539,7 +1535,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.signInUserSession.setRefreshToken(refreshToken);
 	      }
 	      this.cacheTokensScopes();
-	      return this.userhandler.onSuccess(this.signInUserSession);
+	      this.userhandler.onSuccess(this.signInUserSession);
 	    }
 
 	    /**

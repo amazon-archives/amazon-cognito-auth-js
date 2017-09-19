@@ -490,7 +490,6 @@ export default class CognitoAuth {
     // This is a sample server that supports CORS.
     const xhr = this.createCORSRequest(this.getCognitoConstants().POST, url);
     let bodyString = '';
-    const jsonData = xhr.responseText;
     if (!xhr) {
       return;
     }
@@ -507,9 +506,9 @@ export default class CognitoAuth {
     xhr.onreadystatechange = function addressState() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          xhr.onload = onSuccess(jsonData);
+          onSuccess(xhr.responseText);
         } else {
-          xhr.onerror = onFailure(jsonData);
+          onFailure(xhr.responseText);
         }
       }
     };
@@ -550,7 +549,6 @@ export default class CognitoAuth {
   /**
    * The http POST request onSuccess callback when refreshing tokens.
    * @param {JSON} jsonData tokens
-   * @returns {function} onSuccess
    */
   onSuccessRefreshToken(jsonData) {
     const jsonDataObject = JSON.parse(jsonData);
@@ -570,15 +568,13 @@ export default class CognitoAuth {
         CognitoAccessToken(jsonDataObject.access_token));
       }
       this.cacheTokensScopes();
-      return this.userhandler.onSuccess(this.signInUserSession);
+      this.userhandler.onSuccess(this.signInUserSession);
     }
-    return undefined;
   }
 
   /**
    * The http POST request onSuccess callback when exchanging code for tokens.
    * @param {JSON} jsonData tokens
-   * @returns {function} onSuccess
    */
   onSuccessExchangeForToken(jsonData) {
     const jsonDataObject = JSON.parse(jsonData);
@@ -611,7 +607,7 @@ export default class CognitoAuth {
       this.signInUserSession.setRefreshToken(refreshToken);
     }
     this.cacheTokensScopes();
-    return this.userhandler.onSuccess(this.signInUserSession);
+    this.userhandler.onSuccess(this.signInUserSession);
   }
 
   /**
