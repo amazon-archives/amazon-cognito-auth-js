@@ -144,7 +144,7 @@ import {CognitoAuth} from 'amazon-cognito-auth-js';
 
 ```
 /*
- TokenSopesArray
+ TokenScopesArray
  Valid values are found under:
    AWS Console -> User Pools -> <Your user pool> -> App Integration -> App client settings
    Example values: ['profile', 'email', 'openid', 'aws.cognito.signin.user.admin', 'phone']
