@@ -144,14 +144,14 @@ import {CognitoAuth} from 'amazon-cognito-auth-js';
 
 ```
 /*
- TokenScopesArray
- Valid values are found under:
-   AWS Console -> User Pools -> <Your user pool> -> App Integration -> App client settings
-   Example values: ['profile', 'email', 'openid', 'aws.cognito.signin.user.admin', 'phone']
+  TokenScopesArray
+  Valid values are found under:
+  AWS Console -> User Pools -> <Your user pool> -> App Integration -> App client settings
+  Example values: ['profile', 'email', 'openid', 'aws.cognito.signin.user.admin', 'phone']
 
-   RedirectUriSignOut 
-   This value must match the value specified under:
-   AWS Console -> User Pools -> <Your user pool> -> App Integration -> App client settings -> Sign out URL(s)
+  RedirectUriSignOut 
+  This value must match the value specified under:
+  AWS Console -> User Pools -> <Your user pool> -> App Integration -> App client settings -> Sign out URL(s)
 */
 var authData = {
 	ClientId : '<TODO: add ClientId>', // Your client id here
