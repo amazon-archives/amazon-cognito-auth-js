@@ -51,6 +51,7 @@ var config = {
         exclude: /node_modules/,
         loader: 'babel',
         query: {
+          presets: ['es2015'],
           cacheDirectory: './node_modules/.cache/babel'
         }
       }

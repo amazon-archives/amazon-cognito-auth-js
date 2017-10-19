@@ -246,12 +246,14 @@ export default class CognitoAuth {
    * Parse the http request response and proceed according to code response type.
    */
   getCodeQueryParameter(httpRequestResponse) {
-    let mapSecond = new Map();
-    mapSecond = this.getQueryParameters(httpRequestResponse, mapSecond);
-    if (mapSecond.has(this.getCognitoConstants().CODE)) {
+    const map = this.getQueryParameters(
+      httpRequestResponse,
+      this.getCognitoConstants().QUESTIONMARK
+    );
+    if (map.has(this.getCognitoConstants().CODE)) {
       // if the response contains code
       // To parse the response and get the code value.
-      const codeParameter = this.getCodeParameter(httpRequestResponse);
+      const codeParameter = map.get(this.getCognitoConstants().CODE);
       const url = this.getCognitoConstants().DOMAIN_SCHEME.concat(
       this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(),
       this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_TOKEN);
@@ -272,24 +274,26 @@ export default class CognitoAuth {
    * @returns {void}
    */
   getTokenQueryParameter(httpRequestResponse) {
-    let map = new Map();
-    map = this.getQueryParameters(httpRequestResponse, map);
+    const map = this.getQueryParameters(
+      httpRequestResponse,
+      this.getCognitoConstants().QUERYPARAMETERREGEX1
+    );
     const idToken = new CognitoIdToken();
     const accessToken = new CognitoAccessToken();
     const refreshToken = new CognitoRefreshToken();
-    if (httpRequestResponse.indexOf(this.getCognitoConstants().IDTOKEN) > -1) {
+    if (map.has(this.getCognitoConstants().IDTOKEN)) {
       idToken.setJwtToken(map.get(this.getCognitoConstants().IDTOKEN));
       this.signInUserSession.setIdToken(idToken);
     } else {
       this.signInUserSession.setIdToken(idToken);
     }
-    if (httpRequestResponse.indexOf(this.getCognitoConstants().ACCESSTOKEN) > -1) {
+    if (map.has(this.getCognitoConstants().ACCESSTOKEN)) {
       accessToken.setJwtToken(map.get(this.getCognitoConstants().ACCESSTOKEN));
       this.signInUserSession.setAccessToken(accessToken);
     } else {
       this.signInUserSession.setAccessToken(accessToken);
     }
-    if (httpRequestResponse.indexOf(this.getCognitoConstants().REFRESHTOKEN) > -1) {
+    if (map.has(this.getCognitoConstants().REFRESHTOKEN)) {
       refreshToken.setToken(map.get(this.getCognitoConstants().REFRESHTOKEN));
       this.signInUserSession.setRefreshToken(refreshToken);
     } else {
@@ -402,35 +406,23 @@ export default class CognitoAuth {
   }
 
   /**
-   * Get http query parameters and store them into a map.
+   * Get http query parameters and return them as a map.
    * @param {string} url the url string
-   * @param {map} map the query parameter map
+   * @param {string} splitMark query parameters split mark (prefix)
    * @returns {map} map
    */
-  getQueryParameters(url, map) {
-    const str = String(url).split(this.getCognitoConstants().QUERYPARAMETERREGEX1);
+  getQueryParameters(url, splitMark) {
+    const str = String(url).split(splitMark);
     const url2 = str[1];
     const str1 = String(url2).split(this.getCognitoConstants().AMPERSAND);
     const num = str1.length;
+    const map = new Map();
     let i;
     for (i = 0; i < num; i++) {
       str1[i] = String(str1[i]).split(this.getCognitoConstants().QUERYPARAMETERREGEX2);
       map.set(str1[i][0], str1[i][1]);
     }
     return map;
-  }
-
-  /**
-   * Get the code parameter from the url.
-   * @param {string} url the url string
-   * @returns {string} code
-   */
-  getCodeParameter(url) {
-    const urlEdit = String(url).split(this.getCognitoConstants().QUESTIONMARK);
-    const url1 = urlEdit[1];
-    const urlStr = String(url1).split(this.getCognitoConstants().EQUALSIGN);
-    const code = urlStr[1];
-    return code;
   }
 
   /**
@@ -498,28 +490,25 @@ export default class CognitoAuth {
     // This is a sample server that supports CORS.
     const xhr = this.createCORSRequest(this.getCognitoConstants().POST, url);
     let bodyString = '';
-    let i = 0;
-    let j = 0;
-    const jsonData = xhr.responseText;
     if (!xhr) {
       return;
     }
     // set header
-    for (; j < header.length; j++) {
-      xhr.setRequestHeader(j, header[j]);
+    for (let key in header) {
+      xhr.setRequestHeader(key, header[key]);
     }
-    for (; i < body.length; i++) {
-      bodyString = bodyString.concat(i, this.getCognitoConstants().EQUALSIGN,
-      body[i], this.getCognitoConstants().AMPERSAND);
+    for (let key in body) {
+      bodyString = bodyString.concat(key, this.getCognitoConstants().EQUALSIGN,
+      body[key], this.getCognitoConstants().AMPERSAND);
     }
     bodyString = bodyString.substring(0, bodyString.length - 1);
     xhr.send(bodyString);
     xhr.onreadystatechange = function addressState() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          xhr.onload = onSuccess(jsonData);
+          onSuccess(xhr.responseText);
         } else {
-          xhr.onerror = onFailure(jsonData);
+          onFailure(xhr.responseText);
         }
       }
     };
@@ -560,7 +549,6 @@ export default class CognitoAuth {
   /**
    * The http POST request onSuccess callback when refreshing tokens.
    * @param {JSON} jsonData tokens
-   * @returns {function} onSuccess
    */
   onSuccessRefreshToken(jsonData) {
     const jsonDataObject = JSON.parse(jsonData);
@@ -580,15 +568,13 @@ export default class CognitoAuth {
         CognitoAccessToken(jsonDataObject.access_token));
       }
       this.cacheTokensScopes();
-      return this.userhandler.onSuccess(this.signInUserSession);
+      this.userhandler.onSuccess(this.signInUserSession);
     }
-    return undefined;
   }
 
   /**
    * The http POST request onSuccess callback when exchanging code for tokens.
    * @param {JSON} jsonData tokens
-   * @returns {function} onSuccess
    */
   onSuccessExchangeForToken(jsonData) {
     const jsonDataObject = JSON.parse(jsonData);
@@ -621,7 +607,7 @@ export default class CognitoAuth {
       this.signInUserSession.setRefreshToken(refreshToken);
     }
     this.cacheTokensScopes();
-    return this.userhandler.onSuccess(this.signInUserSession);
+    this.userhandler.onSuccess(this.signInUserSession);
   }
 
   /**
