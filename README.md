@@ -143,6 +143,16 @@ import {CognitoAuth} from 'amazon-cognito-auth-js';
 **Use case 1.** Registering an auth with the application. You need to create a CognitoAuth object by providing a App client ID, a App web domain, a scope array, a sign-in redirect URL, and a sign-out redirect URL:
 
 ```
+/*
+  TokenScopesArray
+  Valid values are found under:
+  AWS Console -> User Pools -> <Your user pool> -> App Integration -> App client settings
+  Example values: ['profile', 'email', 'openid', 'aws.cognito.signin.user.admin', 'phone']
+
+  RedirectUriSignOut 
+  This value must match the value specified under:
+  AWS Console -> User Pools -> <Your user pool> -> App Integration -> App client settings -> Sign out URL(s)
+*/
 var authData = {
 	ClientId : '<TODO: add ClientId>', // Your client id here
 	AppWebDomain : '<TODO: add App Web Domain>',
