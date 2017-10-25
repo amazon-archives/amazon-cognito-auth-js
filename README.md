@@ -203,6 +203,10 @@ function onLoad() {
 ```
 auth.signOut();
 ```
+**Important to know**
+
+By default, the SDK uses implicit flow(token flow), if you want to enable authorization code grant flow, you need to call useCodeGrantFlow(). For example, please check our sample index.html, in that file, you need to uncomment "auth.useCodeGrantFlow()".  
+Also, when you meet some problems using our SDK, please make sure you downloaded the lastest version directly from Github repo. 
 
 ### Change Log
 
