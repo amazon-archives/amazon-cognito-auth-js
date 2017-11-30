@@ -210,6 +210,10 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.0.1**
+
+* With multiple bug fixes.
+
 **v1.0.0**
 
 * GA release. In this GA service launch, we made this feature generally available. 
