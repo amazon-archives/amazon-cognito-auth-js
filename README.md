@@ -210,9 +210,15 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.1.0**
+
+* Added support for Cognito Advanced Security.  
+
+
 **v1.0.1**
 
 * With multiple bug fixes.
+
 
 **v1.0.0**
 
