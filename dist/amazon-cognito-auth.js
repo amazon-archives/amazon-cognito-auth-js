@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -128,9 +128,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  window.crypto = window.msCrypto;
 	}
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -228,9 +228,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = CognitoAccessToken;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -313,9 +313,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = CognitoIdToken;
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -386,9 +386,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = CognitoRefreshToken;
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -459,9 +459,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = CognitoTokenScopes;
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -664,9 +664,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = CognitoAuthSession;
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -798,15 +798,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = StorageHelper;
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -817,21 +817,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*!
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Amazon Cognito Auth SDK for JavaScript
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Licensed under the Apache License, Version 2.0 (the "License").
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * You may not use this file except in compliance with the License.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * A copy of the License is located at
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *         http://aws.amazon.com/apache2.0/
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * or in the "license" file accompanying this file.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR CONDITIONS OF ANY KIND, either express or implied. See the
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * License for the specific language governing permissions
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * and limitations under the License.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * Amazon Cognito Auth SDK for JavaScript
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * Licensed under the Apache License, Version 2.0 (the "License").
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * You may not use this file except in compliance with the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * A copy of the License is located at
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       *         http://aws.amazon.com/apache2.0/
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * or in the "license" file accompanying this file.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * OR CONDITIONS OF ANY KIND, either express or implied. See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * License for the specific language governing permissions
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * and limitations under the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
 	var _CognitoTokenScopes = __webpack_require__(4);
 
@@ -874,8 +874,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * which will be launched after authentication as signed in.
 	   * @param {string} data.RedirectUriSignOut Required:
 	   * The redirect Uri, which will be launched when signed out.
-	      * @param {string} data.IdentityProvider Optional: Pre-selected identity provider (this allows to
-	      * automatically trigger social provider authentication flow).
+	   * @param {string} data.IdentityProvider Optional: Pre-selected identity provider (this allows to
+	   * automatically trigger social provider authentication flow).
+	   * @param {string} data.UserPoolId Optional: UserPoolId for the configured cognito userPool.
+	   * @param {boolean} data.AdvancedSecurityDataCollectionFlag Optional: boolean flag indicating if the
+	   *        data collection is enabled to support cognito advanced security features. By default, this
+	   *        flag is set to true.
 	   * @param {nodeCallback<CognitoAuthSession>} Optional: userhandler Called on success or error.
 	   */
 	  function CognitoAuth(data) {
@@ -887,7 +891,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        TokenScopesArray = _ref.TokenScopesArray,
 	        RedirectUriSignIn = _ref.RedirectUriSignIn,
 	        RedirectUriSignOut = _ref.RedirectUriSignOut,
-	        IdentityProvider = _ref.IdentityProvider;
+	        IdentityProvider = _ref.IdentityProvider,
+	        UserPoolId = _ref.UserPoolId,
+	        AdvancedSecurityDataCollectionFlag = _ref.AdvancedSecurityDataCollectionFlag;
 
 	    if (data == null || !ClientId || !AppWebDomain || !RedirectUriSignIn || !RedirectUriSignOut) {
 	      throw new Error(this.getCognitoConstants().PARAMETERERROR);
@@ -908,6 +914,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.storage = new _StorageHelper2.default().getStorage();
 	    this.signInUserSession.setTokenScopes(tokenScopes);
 	    this.username = this.getLastUser();
+	    this.userPoolId = UserPoolId;
+
+	    /**
+	     * By default, AdvancedSecurityDataCollectionFlag is set to true, if no input value is provided.
+	     */
+	    this.advancedSecurityDataCollectionFlag = true;
+	    if (AdvancedSecurityDataCollectionFlag) {
+	      this.advancedSecurityDataCollectionFlag = AdvancedSecurityDataCollectionFlag;
+	    }
 	  }
 
 	  /**
@@ -927,6 +942,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        DOMAIN_QUERY_PARAM_SIGNOUT_URI: 'logout_uri',
 	        DOMAIN_QUERY_PARAM_RESPONSE_TYPE: 'response_type',
 	        DOMAIN_QUERY_PARAM_IDENTITY_PROVIDER: 'identity_provider',
+	        DOMAIN_QUERY_PARAM_USERCONTEXTDATA: "userContextData",
 	        CLIENT_ID: 'client_id',
 	        STATE: 'state',
 	        SCOPE: 'scope',
@@ -1573,9 +1589,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var state = this.generateRandomString(this.getCognitoConstants().STATELENGTH, this.getCognitoConstants().STATEORIGINSTRING);
 	      var identityProviderParam = this.IdentityProvider ? this.getCognitoConstants().AMPERSAND.concat(this.getCognitoConstants().DOMAIN_QUERY_PARAM_IDENTITY_PROVIDER, this.getCognitoConstants().EQUALSIGN, this.IdentityProvider) : '';
 	      var tokenScopesString = this.getSpaceSeperatedScopeString();
+
+	      var userContextDataParam = '';
+	      var userContextData = this.getUserContextData();
+	      if (userContextData) {
+	        userContextDataParam = this.getCognitoConstants().AMPERSAND + this.getCognitoConstants().DOMAIN_QUERY_PARAM_USERCONTEXTDATA + this.getCognitoConstants().EQUALSIGN + this.getUserContextData();
+	      }
+
 	      // Build the complete web domain to launch the login screen
-	      var uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNIN, this.getCognitoConstants().QUESTIONMARK, this.getCognitoConstants().DOMAIN_QUERY_PARAM_REDIRECT_URI, this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignIn), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().DOMAIN_QUERY_PARAM_RESPONSE_TYPE, this.getCognitoConstants().EQUALSIGN, this.responseType, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID, this.getCognitoConstants().EQUALSIGN, this.getClientId(), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE, this.getCognitoConstants().EQUALSIGN, state, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString, identityProviderParam);
-	      console.log('--uri: '.concat(uri));
+	      var uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNIN, this.getCognitoConstants().QUESTIONMARK, this.getCognitoConstants().DOMAIN_QUERY_PARAM_REDIRECT_URI, this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignIn), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().DOMAIN_QUERY_PARAM_RESPONSE_TYPE, this.getCognitoConstants().EQUALSIGN, this.responseType, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID, this.getCognitoConstants().EQUALSIGN, this.getClientId(), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE, this.getCognitoConstants().EQUALSIGN, state, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString, identityProviderParam, userContextDataParam);
+
 	      return uri;
 	    }
 
@@ -1604,6 +1627,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNOUT, this.getCognitoConstants().QUESTIONMARK, this.getCognitoConstants().DOMAIN_QUERY_PARAM_SIGNOUT_URI, this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignOut), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID, this.getCognitoConstants().EQUALSIGN, this.getClientId());
 	      return uri;
 	    }
+
+	    /**
+	     * This method returns the encoded data string used for cognito advanced security feature.
+	     * This would be generated only when developer has included the JS used for collecting the
+	     * data on their client. Please refer to documentation to know more about using AdvancedSecurity
+	     * features
+	     **/
+
+	  }, {
+	    key: 'getUserContextData',
+	    value: function getUserContextData() {
+	      if (typeof AmazonCognitoAdvancedSecurityData === "undefined") {
+	        return;
+	      }
+
+	      var _username = "";
+	      if (this.username) {
+	        _username = this.username;
+	      }
+
+	      var _userpoolId = "";
+	      if (this.userpoolId) {
+	        _userpoolId = this.userpoolId;
+	      }
+
+	      if (this.advancedSecurityDataCollectionFlag) {
+	        return AmazonCognitoAdvancedSecurityData.getData(_username, _userpoolId, this.clientId);
+	      }
+	    }
 	  }]);
 
 	  return CognitoAuth;
@@ -1611,9 +1663,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = CognitoAuth;
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -1693,9 +1745,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = DateHelper;
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1777,13 +1829,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/***/ },
+/***/ }),
 /* 11 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_11__;
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;
