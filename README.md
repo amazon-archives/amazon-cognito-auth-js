@@ -137,7 +137,7 @@ var AmazonCognitoIdentity = require('amazon-cognito-auth-js');
 var CognitoAuth = AmazonCognitoIdentity.CognitoAuth;
 
 // ES Modules, e.g. transpiling with Babel
-import {CognitoAuth} from 'amazon-cognito-auth-js';
+import {CognitoAuth} from 'amazon-cognito-auth-js/dist/amazon-cognito-auth';
 ```
 
 **Use case 1.** Registering an auth with the application. You need to create a CognitoAuth object by providing a App client ID, a App web domain, a scope array, a sign-in redirect URL, and a sign-out redirect URL:
