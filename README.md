@@ -111,7 +111,7 @@ The Amazon Cognito Auth SDK for JavaScript requires three configuration values f
     * When creating the App, the generate client secret box must be **unchecked** because the JavaScript SDK doesn't support apps that have a client secret.
 * An App Web Domain, e.g. `<TODO: add App Web Domain>`
     * When you click the `Domain name` tab, you can create a domain name there and save it for record. 
-* Scope Array, e.g. `<TODO: add scope array>` 
+* Scope Array, `['<TODO: your scope array here, try "phone", "email", ...>'],` e.g.`['phone', 'email', 'profile','openid', 'aws.cognito.signin.user.admin']`
     * When you click the `App settings` tab, you can select the identity provider which you want to use on your App. 
     * In the `sign in and sign out URLs` tab, you can set the `Callback URLs` and `Sign out URLs`. 
     * Under the `OAuth2.0` tab, you can select the OAuth flows and scopes enabled for this app. 
@@ -156,7 +156,7 @@ import {CognitoAuth} from 'amazon-cognito-auth-js/dist/amazon-cognito-auth';
 var authData = {
 	ClientId : '<TODO: add ClientId>', // Your client id here
 	AppWebDomain : '<TODO: add App Web Domain>',
-	TokenScopesArray : '<TODO: add scope array>',
+	TokenScopesArray : '<TODO: add scope array>', e.g.['phone', 'email', 'profile','openid', 'aws.cognito.signin.user.admin'],
 	RedirectUriSignIn : '<TODO: add redirect url when signed in>',
 	RedirectUriSignOut : '<TODO: add redirect url when signed out>'
 };
