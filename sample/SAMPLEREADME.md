@@ -12,14 +12,21 @@ To add our SDK, you need to include the following two files:
 
 And make sure the "dist" folder is located in the sample directory. 
 Inside the function "initCognitoSDK()",
-add your app client ID, app web domain, scope array, the redirect url when signed in and the redirect url when signed out. 
+add your app client ID, app web domain, scope array, the redirect url when signed in and the redirect url when signed out.
+
+And you can also add the optional value "IdentityProvider" to automatically trigger social provider authentication flow.
+
+You can add the optional values "UserPoolId" and "AdvancedSecurityDataCollectionFlag" to enable advanced security feature. 
+Also, to enable the advanced security feature, you need to include one JS source file(e.g. https://amazon-cognito-assets.us-east-1.amazoncognito.com/amazon-cognito-advanced-security-data.min.js) for collecting data. Please see our index.html source code for reference. 
 
 And also define your onSuccess and onFailure callbacks in this function. 
 
-The default response_type is token. 
+The default response_type is token. To try the token flow, make sure you enabled "Implicit grant" in your app client settings. 
 
 After you added all the values mentioned above, you can open the html page. And you can try the sign-up, sign-in and sign-out flows.
 
-If you want to set the response_type as code, you can simply uncomment line 181 in this html file source code and refresh the page. Then you can try all the workflows. 
-
-In order to effectively try this sample, your user pool's application settings "Implicit grant" must be enabled.
+If you want to set the response_type as code, you can simply uncomment 
+```
+auth.useCodeGrantFlow();
+```
+in this html file source code (make sure you also enabled "Authorization code grant" in your app client settings) and refresh the page. Then you can try the code grant flow. 
