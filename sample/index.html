@@ -24,6 +24,10 @@
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="dist/aws-cognito-sdk.js"></script>
 	<script src="dist/amazon-cognito-auth.min.js"></script>
+	<!-- To enable the advanced security feature -->
+	<!-- <script src="https://amazon-cognito-assets.<region>.amazoncognito.com/amazon-cognito-advanced-security-data.min.js"></script> -->
+	<!-- E.g. -->
+	<!-- <script src="https://amazon-cognito-assets.us-east-1.amazoncognito.com/amazon-cognito-advanced-security-data.min.js"></script> -->
 </head>
 
 <body  onload="onLoad()">
@@ -190,9 +194,12 @@
 		var authData = {
 			ClientId : '<TODO: your app client ID here>', // Your client id here
 			AppWebDomain : '<TODO: your app web domain here>',
-			TokenScopesArray : '<TODO: your scope array here>',
+			TokenScopesArray : <TODO: your scope array here>,
 			RedirectUriSignIn : '<TODO: your redirect url when signed in here>',
-			RedirectUriSignOut : '<TODO: your redirect url when signed out here>'
+			RedirectUriSignOut : '<TODO: your redirect url when signed out here>',
+			IdentityProvider : '<TODO: your identity provider you want to specify here>', 
+	                UserPoolId : '<TODO: your user pool id here>', 
+	                AdvancedSecurityDataCollectionFlag : <TODO: boolean value indicating whether you want to enable advanced security data collection>
 		};
 		var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
 		auth.userhandler = {
