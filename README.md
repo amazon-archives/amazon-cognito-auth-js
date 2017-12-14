@@ -107,14 +107,14 @@ module.exports = {
 
 The Amazon Cognito Auth SDK for JavaScript requires three configuration values from your AWS Account in order to access your Cognito User Pool:
 
-* An User Pool App Client Id, e.g. `<TODO: add ClientId>` 
-    * When creating the App, the generate client secret box must be **unchecked** because the JavaScript SDK doesn't support apps that have a client secret.
-* An App Web Domain, e.g. `<TODO: add App Web Domain>`
+* An User Pool App Client Id (required): e.g. `<TODO: add ClientId>` 
+    * When creating the App, if the generate client secret box was **checked**, for /oauth2/token endpoint which gets the user's tokens, the client must pass its client_id and client_secret in the authorization header. For more info, please reference [here](http://docs.aws.amazon.com/cognito/latest/developerguide/token-endpoint.html).
+* An App Web Domain (required): e.g. `<TODO: add App Web Domain>`
     * When you click the `Domain name` tab, you can create a domain name there and save it for record. 
-* Scope Array, `['<TODO: your scope array here, try "phone", "email", ...>'],` e.g.`['phone', 'email', 'profile','openid', 'aws.cognito.signin.user.admin']`
+* Scope Array (required): `['<TODO: your scope array here, try "phone", "email", ...>'],` e.g.`['phone', 'email', 'profile','openid', 'aws.cognito.signin.user.admin']` (to get more info about scope, please reference ["scope" section of our doc](http://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html))
     * When you click the `App settings` tab, you can select the identity provider which you want to use on your App. 
-    * In the `sign in and sign out URLs` tab, you can set the `Callback URLs` and `Sign out URLs`. 
-    * Under the `OAuth2.0` tab, you can select the OAuth flows and scopes enabled for this app. 
+    * In the `sign in and sign out URLs` tab, you can set the `Callback URLs` and `Sign out URLs`. (both are required)
+    * Under the `OAuth2.0` tab, you can select the OAuth flows and scopes enabled for this app. (both are required)
 * IdentityProvider (Optional): Pre-selected identity provider (this allows to automatically trigger social provider authentication flow).e.g. `Facebook`
 * UserPoolId (Optional): e.g. `<TODO: add UserPoolId>` 
 * AdvancedSecurityDataCollectionFlag (Optional): boolean flag indicating if the data collection is enabled to support cognito advanced security features. By default, this flag is set to true.
@@ -159,7 +159,7 @@ import {CognitoAuth} from 'amazon-cognito-auth-js/dist/amazon-cognito-auth';
 var authData = {
 	ClientId : '<TODO: add ClientId>', // Your client id here
 	AppWebDomain : '<TODO: add App Web Domain>',
-	TokenScopesArray : <TODO: add scope array>, e.g.['phone', 'email', 'profile','openid', 'aws.cognito.signin.user.admin'],
+	TokenScopesArray : <TODO: add scope array>, e.g.['phone', 'email', 'profile','openid', 'aws.cognito.signin.user.admin'], 
 	RedirectUriSignIn : '<TODO: add redirect url when signed in>',
 	RedirectUriSignOut : '<TODO: add redirect url when signed out>', 
 	IdentityProvider : '<TODO: add identity provider you want to specify>', e.g. 'Facebook',
