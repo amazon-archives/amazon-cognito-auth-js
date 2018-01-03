@@ -1263,6 +1263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function cacheTokensScopes() {
 	      var keyPrefix = 'CognitoIdentityServiceProvider.' + this.getClientId();
 	      var tokenUserName = this.signInUserSession.getAccessToken().getUsername();
+	      this.username = tokenUserName;
 	      var idTokenKey = keyPrefix + '.' + tokenUserName + '.idToken';
 	      var accessTokenKey = keyPrefix + '.' + tokenUserName + '.accessToken';
 	      var refreshTokenKey = keyPrefix + '.' + tokenUserName + '.refreshToken';
