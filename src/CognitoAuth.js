@@ -374,6 +374,7 @@
     cacheTokensScopes() {
       const keyPrefix = `CognitoIdentityServiceProvider.${this.getClientId()}`;
       const tokenUserName = this.signInUserSession.getAccessToken().getUsername();
+      this.username = tokenUserName;
       const idTokenKey = `${keyPrefix}.${tokenUserName}.idToken`;
       const accessTokenKey = `${keyPrefix}.${tokenUserName}.accessToken`;
       const refreshTokenKey = `${keyPrefix}.${tokenUserName}.refreshToken`;
