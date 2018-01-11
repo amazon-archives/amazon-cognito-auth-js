@@ -41,7 +41,7 @@ Optionally, to use other AWS services, include a build of the `AWS SDK for JavaS
 
 Include all of the files in your HTML page before calling any Amazon Cognito Auth SDK APIs:
 
-```
+```html
 <script src="/path/to/aws-cognito-sdk.min.js"></script>
 <script src="/path/to/amazon-cognito-auth.min.js"></script>
 <!-- optional: only if you use other AWS services -->
@@ -57,21 +57,21 @@ Note that webpack expects your source files to be structured as [CommonJS (Node.
 * Install [Node.js](https://nodejs.org/en/) on your development machine (this will not be needed on your server.)
 * In your project add a `package.json`, either use `npm init` or the minimal, which means your repository is private:
 
-```
+```json
 {
 "private" : true
 }
 ```
 *  Install the Amazon Cognito Auth SDK for JavaScript and the Webpack tool into your project with `npm` (the Node Package Manager, which is installed with Node.js):
 
-```
+```bash
 > npm install --save-dev webpack json-loader
 > npm install --save amazon-cognito-auth-js
 ```
 
 * Create the configuration file for `webpack`, named `webpack.config.js`:
 
-```
+```js
 module.exports = {
   // Example setup for your project:
   // The entry module that requires or imports the rest of your project.
@@ -94,7 +94,7 @@ module.exports = {
 ```
 * Add the following into your `package.json`
 
-```
+```js
 {
   "scripts": {
     "build": "webpack"
@@ -125,7 +125,7 @@ Note that the various errors returned by the service are valid JSON so one can a
 
 The usage examples below use the unqualified names for types in the Amazon Cognito Auth SDK for JavaScript. Remember to import or qualify access to any of these types:
 
-```
+```js
 // When using loose Javascript files:
 var CognitoAuth = AmazonCognitoIdentity.CognitoAuth;
 
@@ -142,7 +142,7 @@ import {CognitoAuth} from 'amazon-cognito-auth-js';
 
 **Use case 1.** Registering an auth with the application. You need to create a CognitoAuth object by providing a App client ID, a App web domain, a scope array, a sign-in redirect URL, and a sign-out redirect URL:
 
-```
+```js
 /*
   TokenScopesArray
   Valid values are found under:
@@ -165,7 +165,7 @@ var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
 
 Also you can provide onSuccess callback and onFailure callback:
 
-```
+```js
 auth.userhandler = {
 	onSuccess: function(result) {
 		alert("Sign in success");
@@ -178,19 +178,19 @@ auth.userhandler = {
 ```
 **Use case 2.** Sign-in using `getSession()` API:
 
-```
+```js
 auth.getSession();
 ```
 
 For the cache tokens and scopes, use the `parseCognitoWebResponse(Response)` API, e.g. the response is the current window url:
 
-```
+```js
 var curUrl = window.location.href;
 auth.parseCognitoWebResponse(curUrl);
 ```
 Typically, you can put this part of logic in the `onLoad()`, e.g.:
 
-```
+```js
 function onLoad() {
 	var auth = initCognitoSDK();
 	var curUrl = window.location.href;
@@ -200,7 +200,7 @@ function onLoad() {
 
 **Use case 3.** Sign-out using `signOut()`:
 
-```
+```js
 auth.signOut();
 ```
 **Important to know**
@@ -228,13 +228,3 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 **v0.9.0:** 
 
 * Public beta release. Developer preview.
-
-
-
-
-
-
-
-
-
-
