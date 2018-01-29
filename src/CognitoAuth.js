@@ -314,8 +314,10 @@
       } else {
         this.signInUserSession.setRefreshToken(refreshToken);
       }
-      this.cacheTokensScopes();
-      return this.userhandler.onSuccess(this.signInUserSession);
+      if(this.signInUserSession.isValid()){
+        this.cacheTokensScopes();
+        return this.userhandler.onSuccess(this.signInUserSession);
+      }
     }
   
     /**
