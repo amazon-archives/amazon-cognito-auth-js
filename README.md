@@ -159,12 +159,12 @@ import {CognitoAuth} from 'amazon-cognito-auth-js/dist/amazon-cognito-auth';
 var authData = {
 	ClientId : '<TODO: add ClientId>', // Your client id here
 	AppWebDomain : '<TODO: add App Web Domain>',
-	TokenScopesArray : <TODO: add scope array>, e.g.['phone', 'email', 'profile','openid', 'aws.cognito.signin.user.admin'], 
+	TokenScopesArray : ['<TODO: add scope array>'], // e.g.['phone', 'email', 'profile','openid', 'aws.cognito.signin.user.admin'],
 	RedirectUriSignIn : '<TODO: add redirect url when signed in>',
-	RedirectUriSignOut : '<TODO: add redirect url when signed out>', 
-	IdentityProvider : '<TODO: add identity provider you want to specify>', e.g. 'Facebook',
+	RedirectUriSignOut : '<TODO: add redirect url when signed out>',
+	IdentityProvider : '<TODO: add identity provider you want to specify>', // e.g. 'Facebook',
 	UserPoolId : '<TODO: add UserPoolId>', // Your user pool id here
-	AdvancedSecurityDataCollectionFlag : <TODO: boolean value indicating whether you want to enable advanced security data collection>, e.g. true
+	AdvancedSecurityDataCollectionFlag : '<TODO: boolean value indicating whether you want to enable advanced security data collection>', // e.g. true
 };
 var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
 ```
