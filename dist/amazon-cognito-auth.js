@@ -74,7 +74,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
 	var _src = __webpack_require__(10);
 
@@ -132,26 +134,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*!
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Amazon Cognito Auth SDK for JavaScript
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Licensed under the Apache License, Version 2.0 (the "License").
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * You may not use this file except in compliance with the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * A copy of the License is located at
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *         http://aws.amazon.com/apache2.0/
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * or in the "license" file accompanying this file.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR CONDITIONS OF ANY KIND, either express or implied. See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * License for the specific language governing permissions
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * and limitations under the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 
 	var _global = __webpack_require__(7);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /*!
-	                                                                                                                                                           * Amazon Cognito Auth SDK for JavaScript
-	                                                                                                                                                           * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-	                                                                                                                                                          
-	                                                                                                                                                           * Licensed under the Apache License, Version 2.0 (the "License").
-	                                                                                                                                                           * You may not use this file except in compliance with the License.
-	                                                                                                                                                           * A copy of the License is located at
-	                                                                                                                                                           *
-	                                                                                                                                                           *         http://aws.amazon.com/apache2.0/
-	                                                                                                                                                           *
-	                                                                                                                                                           * or in the "license" file accompanying this file.
-	                                                                                                                                                           * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
-	                                                                                                                                                           * OR CONDITIONS OF ANY KIND, either express or implied. See the
-	                                                                                                                                                           * License for the specific language governing permissions
-	                                                                                                                                                           * and limitations under the License.
-	                                                                                                                                                           */
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	/** @class */
 	var CognitoAccessToken = function () {
@@ -171,45 +177,51 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 
 
-	  CognitoAccessToken.prototype.getJwtToken = function getJwtToken() {
-	    return this.jwtToken;
-	  };
-
-	  /**
-	   * Sets new value for access token.
-	   * @param {string=} accessToken The JWT access token.
-	   * @returns {void}
-	   */
-
-
-	  CognitoAccessToken.prototype.setJwtToken = function setJwtToken(accessToken) {
-	    this.jwtToken = accessToken;
-	  };
-
-	  /**
-	   * @returns {int} the token's expiration (exp member).
-	   */
-
-
-	  CognitoAccessToken.prototype.getExpiration = function getExpiration() {
-	    var payload = this.jwtToken.split('.')[1];
-	    var expiration = JSON.parse(_global.util.base64.decode(payload).toString('utf8'));
-	    return expiration.exp;
-	  };
-
-	  /**
-	   * @returns {string} the username from payload.
-	   */
-
-
-	  CognitoAccessToken.prototype.getUsername = function getUsername() {
-	    if (this.jwtToken === null) {
-	      return undefined;
+	  _createClass(CognitoAccessToken, [{
+	    key: 'getJwtToken',
+	    value: function getJwtToken() {
+	      return this.jwtToken;
 	    }
-	    var payload = this.jwtToken.split('.')[1];
-	    var usernameSource = JSON.parse(_global.util.base64.decode(payload).toString('utf8'));
-	    return usernameSource.username;
-	  };
+
+	    /**
+	     * Sets new value for access token.
+	     * @param {string=} accessToken The JWT access token.
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'setJwtToken',
+	    value: function setJwtToken(accessToken) {
+	      this.jwtToken = accessToken;
+	    }
+
+	    /**
+	     * @returns {int} the token's expiration (exp member).
+	     */
+
+	  }, {
+	    key: 'getExpiration',
+	    value: function getExpiration() {
+	      var payload = this.jwtToken.split('.')[1];
+	      var expiration = JSON.parse(_global.util.base64.decode(payload).toString('utf8'));
+	      return expiration.exp;
+	    }
+
+	    /**
+	     * @returns {string} the username from payload.
+	     */
+
+	  }, {
+	    key: 'getUsername',
+	    value: function getUsername() {
+	      if (this.jwtToken === null) {
+	        return undefined;
+	      }
+	      var payload = this.jwtToken.split('.')[1];
+	      var usernameSource = JSON.parse(_global.util.base64.decode(payload).toString('utf8'));
+	      return usernameSource.username;
+	    }
+	  }]);
 
 	  return CognitoAccessToken;
 	}();
@@ -222,26 +234,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*!
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Amazon Cognito Auth SDK for JavaScript
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Licensed under the Apache License, Version 2.0 (the "License").
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * You may not use this file except in compliance with the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * A copy of the License is located at
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *         http://aws.amazon.com/apache2.0/
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * or in the "license" file accompanying this file.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR CONDITIONS OF ANY KIND, either express or implied. See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * License for the specific language governing permissions
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * and limitations under the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 
 	var _global = __webpack_require__(7);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /*!
-	                                                                                                                                                           * Amazon Cognito Auth SDK for JavaScript
-	                                                                                                                                                           * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-	                                                                                                                                                          
-	                                                                                                                                                           * Licensed under the Apache License, Version 2.0 (the "License").
-	                                                                                                                                                           * You may not use this file except in compliance with the License.
-	                                                                                                                                                           * A copy of the License is located at
-	                                                                                                                                                           *
-	                                                                                                                                                           *         http://aws.amazon.com/apache2.0/
-	                                                                                                                                                           *
-	                                                                                                                                                           * or in the "license" file accompanying this file.
-	                                                                                                                                                           * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
-	                                                                                                                                                           * OR CONDITIONS OF ANY KIND, either express or implied. See the
-	                                                                                                                                                           * License for the specific language governing permissions
-	                                                                                                                                                           * and limitations under the License.
-	                                                                                                                                                           */
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	/** @class */
 	var CognitoIdToken = function () {
@@ -261,31 +277,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 
 
-	  CognitoIdToken.prototype.getJwtToken = function getJwtToken() {
-	    return this.jwtToken;
-	  };
+	  _createClass(CognitoIdToken, [{
+	    key: 'getJwtToken',
+	    value: function getJwtToken() {
+	      return this.jwtToken;
+	    }
 
-	  /**
-	   * Sets new value for id token.
-	   * @param {string=} idToken The JWT Id token
-	   * @returns {void}
-	   */
+	    /**
+	     * Sets new value for id token.
+	     * @param {string=} idToken The JWT Id token
+	     * @returns {void}
+	     */
 
+	  }, {
+	    key: 'setJwtToken',
+	    value: function setJwtToken(idToken) {
+	      this.jwtToken = idToken;
+	    }
 
-	  CognitoIdToken.prototype.setJwtToken = function setJwtToken(idToken) {
-	    this.jwtToken = idToken;
-	  };
+	    /**
+	     * @returns {int} the token's expiration (exp member).
+	     */
 
-	  /**
-	   * @returns {int} the token's expiration (exp member).
-	   */
-
-
-	  CognitoIdToken.prototype.getExpiration = function getExpiration() {
-	    var payload = this.jwtToken.split('.')[1];
-	    var expiration = JSON.parse(_global.util.base64.decode(payload).toString('utf8'));
-	    return expiration.exp;
-	  };
+	  }, {
+	    key: 'getExpiration',
+	    value: function getExpiration() {
+	      var payload = this.jwtToken.split('.')[1];
+	      var expiration = JSON.parse(_global.util.base64.decode(payload).toString('utf8'));
+	      return expiration.exp;
+	    }
+	  }]);
 
 	  return CognitoIdToken;
 	}();
@@ -298,7 +319,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -337,20 +362,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 
 
-	  CognitoRefreshToken.prototype.getToken = function getToken() {
-	    return this.refreshToken;
-	  };
+	  _createClass(CognitoRefreshToken, [{
+	    key: 'getToken',
+	    value: function getToken() {
+	      return this.refreshToken;
+	    }
 
-	  /**
-	   * Sets new value for refresh token.
-	   * @param {string=} refreshToken The JWT refresh token.
-	   * @returns {void}
-	   */
+	    /**
+	     * Sets new value for refresh token.
+	     * @param {string=} refreshToken The JWT refresh token.
+	     * @returns {void}
+	     */
 
-
-	  CognitoRefreshToken.prototype.setToken = function setToken(refreshToken) {
-	    this.refreshToken = refreshToken;
-	  };
+	  }, {
+	    key: 'setToken',
+	    value: function setToken(refreshToken) {
+	      this.refreshToken = refreshToken;
+	    }
+	  }]);
 
 	  return CognitoRefreshToken;
 	}();
@@ -363,7 +392,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -402,20 +435,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 
 
-	  CognitoTokenScopes.prototype.getScopes = function getScopes() {
-	    return this.tokenScopes;
-	  };
+	  _createClass(CognitoTokenScopes, [{
+	    key: "getScopes",
+	    value: function getScopes() {
+	      return this.tokenScopes;
+	    }
 
-	  /**
-	   * Sets new value for token scopes.
-	   * @param {array=} tokenScopes The token scopes
-	   * @returns {void}
-	   */
+	    /**
+	     * Sets new value for token scopes.
+	     * @param {array=} tokenScopes The token scopes
+	     * @returns {void}
+	     */
 
-
-	  CognitoTokenScopes.prototype.setTokenScopes = function setTokenScopes(tokenScopes) {
-	    this.tokenScopes = tokenScopes;
-	  };
+	  }, {
+	    key: "setTokenScopes",
+	    value: function setTokenScopes(tokenScopes) {
+	      this.tokenScopes = tokenScopes;
+	    }
+	  }]);
 
 	  return CognitoTokenScopes;
 	}();
@@ -428,7 +465,26 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*!
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Amazon Cognito Auth SDK for JavaScript
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Licensed under the Apache License, Version 2.0 (the "License").
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * You may not use this file except in compliance with the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * A copy of the License is located at
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *         http://aws.amazon.com/apache2.0/
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * or in the "license" file accompanying this file.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR CONDITIONS OF ANY KIND, either express or implied. See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * License for the specific language governing permissions
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * and limitations under the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 
 	var _CognitoTokenScopes = __webpack_require__(4);
 
@@ -448,22 +504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /*!
-	                                                                                                                                                           * Amazon Cognito Auth SDK for JavaScript
-	                                                                                                                                                           * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-	                                                                                                                                                          
-	                                                                                                                                                           * Licensed under the Apache License, Version 2.0 (the "License").
-	                                                                                                                                                           * You may not use this file except in compliance with the License.
-	                                                                                                                                                           * A copy of the License is located at
-	                                                                                                                                                           *
-	                                                                                                                                                           *         http://aws.amazon.com/apache2.0/
-	                                                                                                                                                           *
-	                                                                                                                                                           * or in the "license" file accompanying this file.
-	                                                                                                                                                           * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
-	                                                                                                                                                           * OR CONDITIONS OF ANY KIND, either express or implied. See the
-	                                                                                                                                                           * License for the specific language governing permissions
-	                                                                                                                                                           * and limitations under the License.
-	                                                                                                                                                           */
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	/** @class */
 	var CognitoAuthSession = function () {
@@ -510,102 +551,113 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 
 
-	  CognitoAuthSession.prototype.getIdToken = function getIdToken() {
-	    return this.idToken;
-	  };
-
-	  /**
-	   * Set a new Id token
-	   * @param {CognitoIdToken} IdToken The session's Id token.
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuthSession.prototype.setIdToken = function setIdToken(IdToken) {
-	    this.idToken = IdToken;
-	  };
-
-	  /**
-	   * @returns {CognitoRefreshToken} the session's refresh token
-	   */
-
-
-	  CognitoAuthSession.prototype.getRefreshToken = function getRefreshToken() {
-	    return this.refreshToken;
-	  };
-
-	  /**
-	   * Set a new Refresh token
-	   * @param {CognitoRefreshToken} RefreshToken The session's refresh token.
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuthSession.prototype.setRefreshToken = function setRefreshToken(RefreshToken) {
-	    this.refreshToken = RefreshToken;
-	  };
-
-	  /**
-	   * @returns {CognitoAccessToken} the session's access token
-	   */
-
-
-	  CognitoAuthSession.prototype.getAccessToken = function getAccessToken() {
-	    return this.accessToken;
-	  };
-
-	  /**
-	   * Set a new Access token
-	   * @param {CognitoAccessToken} AccessToken The session's access token.
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuthSession.prototype.setAccessToken = function setAccessToken(AccessToken) {
-	    this.accessToken = AccessToken;
-	  };
-
-	  /**
-	   * @returns {CognitoTokenScopes} the session's token scopes
-	   */
-
-
-	  CognitoAuthSession.prototype.getTokenScopes = function getTokenScopes() {
-	    return this.tokenScopes;
-	  };
-
-	  /**
-	   * Set new token scopes
-	   * @param {array}  tokenScopes  The session's token scopes.
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuthSession.prototype.setTokenScopes = function setTokenScopes(tokenScopes) {
-	    this.tokenScopes = tokenScopes;
-	  };
-
-	  /**
-	   * Checks to see if the session is still valid based on session expiry information found
-	   * in Access and Id Tokens and the current time
-	   * @returns {boolean} if the session is still valid
-	   */
-
-
-	  CognitoAuthSession.prototype.isValid = function isValid() {
-	    var now = Math.floor(new Date() / 1000);
-	    try {
-	      if (this.accessToken != null) {
-	        return now < this.accessToken.getExpiration();
-	      }
-	      if (this.idToken != null) {
-	        return now < this.idToken.getExpiration();
-	      }
-	      return false;
-	    } catch (e) {
-	      return false;
+	  _createClass(CognitoAuthSession, [{
+	    key: 'getIdToken',
+	    value: function getIdToken() {
+	      return this.idToken;
 	    }
-	  };
+
+	    /**
+	     * Set a new Id token
+	     * @param {CognitoIdToken} IdToken The session's Id token.
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'setIdToken',
+	    value: function setIdToken(IdToken) {
+	      this.idToken = IdToken;
+	    }
+
+	    /**
+	     * @returns {CognitoRefreshToken} the session's refresh token
+	     */
+
+	  }, {
+	    key: 'getRefreshToken',
+	    value: function getRefreshToken() {
+	      return this.refreshToken;
+	    }
+
+	    /**
+	     * Set a new Refresh token
+	     * @param {CognitoRefreshToken} RefreshToken The session's refresh token.
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'setRefreshToken',
+	    value: function setRefreshToken(RefreshToken) {
+	      this.refreshToken = RefreshToken;
+	    }
+
+	    /**
+	     * @returns {CognitoAccessToken} the session's access token
+	     */
+
+	  }, {
+	    key: 'getAccessToken',
+	    value: function getAccessToken() {
+	      return this.accessToken;
+	    }
+
+	    /**
+	     * Set a new Access token
+	     * @param {CognitoAccessToken} AccessToken The session's access token.
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'setAccessToken',
+	    value: function setAccessToken(AccessToken) {
+	      this.accessToken = AccessToken;
+	    }
+
+	    /**
+	     * @returns {CognitoTokenScopes} the session's token scopes
+	     */
+
+	  }, {
+	    key: 'getTokenScopes',
+	    value: function getTokenScopes() {
+	      return this.tokenScopes;
+	    }
+
+	    /**
+	     * Set new token scopes
+	     * @param {array}  tokenScopes  The session's token scopes.
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'setTokenScopes',
+	    value: function setTokenScopes(tokenScopes) {
+	      this.tokenScopes = tokenScopes;
+	    }
+
+	    /**
+	     * Checks to see if the session is still valid based on session expiry information found
+	     * in Access and Id Tokens and the current time
+	     * @returns {boolean} if the session is still valid
+	     */
+
+	  }, {
+	    key: 'isValid',
+	    value: function isValid() {
+	      var now = Math.floor(new Date() / 1000);
+	      try {
+	        if (this.accessToken != null) {
+	          return now < this.accessToken.getExpiration();
+	        }
+	        if (this.idToken != null) {
+	          return now < this.idToken.getExpiration();
+	        }
+	        return false;
+	      } catch (e) {
+	        return false;
+	      }
+	    }
+	  }]);
 
 	  return CognitoAuthSession;
 	}();
@@ -618,7 +670,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -647,50 +703,58 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _classCallCheck(this, MemoryStorage);
 	  }
 
-	  /**
-	   * This is used to set a specific item in storage
-	   * @param {string} key - the key for the item
-	   * @param {object} value - the value
-	   * @returns {string} value that was set
-	   */
-	  MemoryStorage.setItem = function setItem(key, value) {
-	    dataMemory[key] = value;
-	    return dataMemory[key];
-	  };
-
-	  /**
-	   * This is used to get a specific key from storage
-	   * @param {string} key - the key for the item
-	   * This is used to clear the storage
-	   * @returns {string} the data item
-	   */
+	  _createClass(MemoryStorage, null, [{
+	    key: 'setItem',
 
 
-	  MemoryStorage.getItem = function getItem(key) {
-	    return Object.prototype.hasOwnProperty.call(dataMemory, key) ? dataMemory[key] : undefined;
-	  };
+	    /**
+	     * This is used to set a specific item in storage
+	     * @param {string} key - the key for the item
+	     * @param {object} value - the value
+	     * @returns {string} value that was set
+	     */
+	    value: function setItem(key, value) {
+	      dataMemory[key] = value;
+	      return dataMemory[key];
+	    }
 
-	  /**
-	   * This is used to remove an item from storage
-	   * @param {string} key - the key being set
-	   * @returns {string} value - value that was deleted
-	   */
+	    /**
+	     * This is used to get a specific key from storage
+	     * @param {string} key - the key for the item
+	     * This is used to clear the storage
+	     * @returns {string} the data item
+	     */
 
+	  }, {
+	    key: 'getItem',
+	    value: function getItem(key) {
+	      return Object.prototype.hasOwnProperty.call(dataMemory, key) ? dataMemory[key] : undefined;
+	    }
 
-	  MemoryStorage.removeItem = function removeItem(key) {
-	    return delete dataMemory[key];
-	  };
+	    /**
+	     * This is used to remove an item from storage
+	     * @param {string} key - the key being set
+	     * @returns {string} value - value that was deleted
+	     */
 
-	  /**
-	   * This is used to clear the storage
-	   * @returns {string} nothing
-	   */
+	  }, {
+	    key: 'removeItem',
+	    value: function removeItem(key) {
+	      return delete dataMemory[key];
+	    }
 
+	    /**
+	     * This is used to clear the storage
+	     * @returns {string} nothing
+	     */
 
-	  MemoryStorage.clear = function clear() {
-	    dataMemory = {};
-	    return dataMemory;
-	  };
+	  }, {
+	    key: 'clear',
+	    value: function clear() {
+	      dataMemory = {};
+	      return dataMemory;
+	    }
+	  }]);
 
 	  return MemoryStorage;
 	}();
@@ -722,9 +786,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 
 
-	  StorageHelper.prototype.getStorage = function getStorage() {
-	    return this.storageWindow;
-	  };
+	  _createClass(StorageHelper, [{
+	    key: 'getStorage',
+	    value: function getStorage() {
+	      return this.storageWindow;
+	    }
+	  }]);
 
 	  return StorageHelper;
 	}();
@@ -743,9 +810,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*!
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * Amazon Cognito Auth SDK for JavaScript
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * Licensed under the Apache License, Version 2.0 (the "License").
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * You may not use this file except in compliance with the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * A copy of the License is located at
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       *         http://aws.amazon.com/apache2.0/
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * or in the "license" file accompanying this file.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * OR CONDITIONS OF ANY KIND, either express or implied. See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * License for the specific language governing permissions
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * and limitations under the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
 	var _CognitoTokenScopes = __webpack_require__(4);
 
@@ -773,22 +859,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /*!
-	                                                                                                                                                           * Amazon Cognito Auth SDK for JavaScript
-	                                                                                                                                                           * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-	                                                                                                                                                          
-	                                                                                                                                                           * Licensed under the Apache License, Version 2.0 (the "License").
-	                                                                                                                                                           * You may not use this file except in compliance with the License.
-	                                                                                                                                                           * A copy of the License is located at
-	                                                                                                                                                           *
-	                                                                                                                                                           *         http://aws.amazon.com/apache2.0/
-	                                                                                                                                                           *
-	                                                                                                                                                           * or in the "license" file accompanying this file.
-	                                                                                                                                                           * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
-	                                                                                                                                                           * OR CONDITIONS OF ANY KIND, either express or implied. See the
-	                                                                                                                                                           * License for the specific language governing permissions
-	                                                                                                                                                           * and limitations under the License.
-	                                                                                                                                                           */
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	/** @class */
 	var CognitoAuth = function () {
@@ -803,6 +874,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * which will be launched after authentication as signed in.
 	   * @param {string} data.RedirectUriSignOut Required:
 	   * The redirect Uri, which will be launched when signed out.
+	   * @param {string} data.IdentityProvider Optional: Pre-selected identity provider (this allows to
+	   * automatically trigger social provider authentication flow).
+	   * @param {string} data.UserPoolId Optional: UserPoolId for the configured cognito userPool.
+	   * @param {boolean} data.AdvancedSecurityDataCollectionFlag Optional: boolean flag indicating if the
+	   *        data collection is enabled to support cognito advanced security features. By default, this
+	   *        flag is set to true.
 	   * @param {nodeCallback<CognitoAuthSession>} Optional: userhandler Called on success or error.
 	   */
 	  function CognitoAuth(data) {
@@ -813,7 +890,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        AppWebDomain = _ref.AppWebDomain,
 	        TokenScopesArray = _ref.TokenScopesArray,
 	        RedirectUriSignIn = _ref.RedirectUriSignIn,
-	        RedirectUriSignOut = _ref.RedirectUriSignOut;
+	        RedirectUriSignOut = _ref.RedirectUriSignOut,
+	        IdentityProvider = _ref.IdentityProvider,
+	        UserPoolId = _ref.UserPoolId,
+	        AdvancedSecurityDataCollectionFlag = _ref.AdvancedSecurityDataCollectionFlag;
 
 	    if (data == null || !ClientId || !AppWebDomain || !RedirectUriSignIn || !RedirectUriSignOut) {
 	      throw new Error(this.getCognitoConstants().PARAMETERERROR);
@@ -821,18 +901,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    this.clientId = ClientId;
 	    this.appWebDomain = AppWebDomain;
+	    this.TokenScopesArray = TokenScopesArray || [];
 	    if (!Array.isArray(TokenScopesArray)) {
 	      throw new Error(this.getCognitoConstants().SCOPETYPEERROR);
 	    }
-	    this.TokenScopesArray = TokenScopesArray || [];
 	    var tokenScopes = new _CognitoTokenScopes2.default(this.TokenScopesArray);
 	    this.RedirectUriSignIn = RedirectUriSignIn;
 	    this.RedirectUriSignOut = RedirectUriSignOut;
+	    this.IdentityProvider = IdentityProvider;
 	    this.signInUserSession = new _CognitoAuthSession2.default();
 	    this.responseType = this.getCognitoConstants().TOKEN;
 	    this.storage = new _StorageHelper2.default().getStorage();
 	    this.signInUserSession.setTokenScopes(tokenScopes);
 	    this.username = this.getLastUser();
+	    this.userPoolId = UserPoolId;
+
+	    /**
+	     * By default, AdvancedSecurityDataCollectionFlag is set to true, if no input value is provided.
+	     */
+	    this.advancedSecurityDataCollectionFlag = true;
+	    if (AdvancedSecurityDataCollectionFlag) {
+	      this.advancedSecurityDataCollectionFlag = AdvancedSecurityDataCollectionFlag;
+	    }
 	  }
 
 	  /**
@@ -840,670 +930,734 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 
 
-	  CognitoAuth.prototype.getCognitoConstants = function getCognitoConstants() {
-	    var CognitoConstants = {
-	      DOMAIN_SCHEME: 'https',
-	      DOMAIN_PATH_SIGNIN: 'authorize',
-	      DOMAIN_PATH_SIGNOUT: 'logout',
-	      DOMAIN_QUERY_PARAM_REDIRECT_URI: 'redirect_uri',
-	      DOMAIN_QUERY_PARAM_SIGNOUT_URI: 'logout_uri',
-	      DOMAIN_QUERY_PARAM_RESPONSE_TYPE: 'response_type',
-	      CLIENT_ID: 'client_id',
-	      STATE: 'state',
-	      SCOPE: 'scope',
-	      TOKEN: 'token',
-	      CODE: 'code',
-	      POST: 'POST',
-	      PARAMETERERROR: 'The parameters: App client Id, App web domain' + 'and the rediect URL when you are signed in are required.',
-	      SCOPETYPEERROR: 'Scopes have to be array type. ',
-	      QUESTIONMARK: '?',
-	      POUNDSIGN: '#',
-	      COLONDOUBLESLASH: '://',
-	      SLASH: '/',
-	      AMPERSAND: '&',
-	      EQUALSIGN: '=',
-	      SPACE: ' ',
-	      CONTENTTYPE: 'Content-Type',
-	      CONTENTTYPEVALUE: 'application/x-www-form-urlencoded',
-	      AUTHORIZATIONCODE: 'authorization_code',
-	      IDTOKEN: 'id_token',
-	      ACCESSTOKEN: 'access_token',
-	      REFRESHTOKEN: 'refresh_token',
-	      ERROR: 'error',
-	      STRINGTYPE: 'string',
-	      STATELENGTH: 32,
-	      STATEORIGINSTRING: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-	      WITHCREDENTIALS: 'withCredentials',
-	      UNDEFINED: 'undefined',
-	      SELF: '_self',
-	      HOSTNAMEREGEX: /:\/\/([0-9]?\.)?(.[^/:]+)/i,
-	      QUERYPARAMETERREGEX1: /#(.+)/,
-	      QUERYPARAMETERREGEX2: /=(.+)/,
-	      HEADER: { 'Content-Type': 'application/x-www-form-urlencoded' }
-	    };
-	    return CognitoConstants;
-	  };
-
-	  /**
-	   * @returns {string} the client id
-	   */
-
-
-	  CognitoAuth.prototype.getClientId = function getClientId() {
-	    return this.clientId;
-	  };
-
-	  /**
-	   * @returns {string} the app web domain
-	   */
-
-
-	  CognitoAuth.prototype.getAppWebDomain = function getAppWebDomain() {
-	    return this.appWebDomain;
-	  };
-
-	  /**
-	   * method for getting the current user of the application from the local storage
-	   *
-	   * @returns {CognitoAuth} the user retrieved from storage
-	   */
-
-
-	  CognitoAuth.prototype.getCurrentUser = function getCurrentUser() {
-	    var lastUserKey = 'CognitoIdentityServiceProvider.' + this.clientId + '.LastAuthUser';
-
-	    var lastAuthUser = this.storage.getItem(lastUserKey);
-	    return lastAuthUser;
-	  };
-
-	  /**
-	   * @param {string} Username the user's name
-	   * method for setting the current user's name
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuth.prototype.setUser = function setUser(Username) {
-	    this.username = Username;
-	  };
-
-	  /**
-	   * sets response type to 'code'
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuth.prototype.useCodeGrantFlow = function useCodeGrantFlow() {
-	    this.responseType = this.getCognitoConstants().CODE;
-	  };
-
-	  /**
-	   * sets response type to 'token'
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuth.prototype.useImplicitFlow = function useImplicitFlow() {
-	    this.responseType = this.getCognitoConstants().TOKEN;
-	  };
-
-	  /**
-	   * @returns {CognitoAuthSession} the current session for this user
-	   */
-
-
-	  CognitoAuth.prototype.getSignInUserSession = function getSignInUserSession() {
-	    return this.signInUserSession;
-	  };
-
-	  /**
-	   * @returns {string} the user's username
-	   */
-
-
-	  CognitoAuth.prototype.getUsername = function getUsername() {
-	    return this.username;
-	  };
-
-	  /**
-	   * @param {string} Username the user's username
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuth.prototype.setUsername = function setUsername(Username) {
-	    this.username = Username;
-	  };
-
-	  /**
-	   * This is used to get a session, either from the session object
-	   * or from the local storage, or by using a refresh token
-	   * @param {string} RedirectUriSignIn Required: The redirect Uri,
-	   * which will be launched after authentication.
-	   * @param {array} TokenScopesArray Required: The token scopes, it is an
-	   * array of strings specifying all scopes for the tokens.
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuth.prototype.getSession = function getSession() {
-	    var tokenScopesInputSet = new Set(this.TokenScopesArray);
-	    var cachedScopesSet = new Set(this.signInUserSession.tokenScopes.getScopes());
-	    var URL = this.getFQDNSignIn();
-	    if (this.signInUserSession != null && this.signInUserSession.isValid()) {
-	      return this.userhandler.onSuccess(this.signInUserSession);
+	  _createClass(CognitoAuth, [{
+	    key: 'getCognitoConstants',
+	    value: function getCognitoConstants() {
+	      var CognitoConstants = {
+	        DOMAIN_SCHEME: 'https',
+	        DOMAIN_PATH_SIGNIN: 'oauth2/authorize',
+	        DOMAIN_PATH_TOKEN: 'oauth2/token',
+	        DOMAIN_PATH_SIGNOUT: 'logout',
+	        DOMAIN_QUERY_PARAM_REDIRECT_URI: 'redirect_uri',
+	        DOMAIN_QUERY_PARAM_SIGNOUT_URI: 'logout_uri',
+	        DOMAIN_QUERY_PARAM_RESPONSE_TYPE: 'response_type',
+	        DOMAIN_QUERY_PARAM_IDENTITY_PROVIDER: 'identity_provider',
+	        DOMAIN_QUERY_PARAM_USERCONTEXTDATA: "userContextData",
+	        CLIENT_ID: 'client_id',
+	        STATE: 'state',
+	        SCOPE: 'scope',
+	        TOKEN: 'token',
+	        CODE: 'code',
+	        POST: 'POST',
+	        PARAMETERERROR: 'The parameters: App client Id, App web domain' + ', the redirect URL when you are signed in and the ' + 'redirect URL when you are signed out are required.',
+	        SCOPETYPEERROR: 'Scopes have to be array type. ',
+	        QUESTIONMARK: '?',
+	        POUNDSIGN: '#',
+	        COLONDOUBLESLASH: '://',
+	        SLASH: '/',
+	        AMPERSAND: '&',
+	        EQUALSIGN: '=',
+	        SPACE: ' ',
+	        CONTENTTYPE: 'Content-Type',
+	        CONTENTTYPEVALUE: 'application/x-www-form-urlencoded',
+	        AUTHORIZATIONCODE: 'authorization_code',
+	        IDTOKEN: 'id_token',
+	        ACCESSTOKEN: 'access_token',
+	        REFRESHTOKEN: 'refresh_token',
+	        ERROR: 'error',
+	        STRINGTYPE: 'string',
+	        STATELENGTH: 32,
+	        STATEORIGINSTRING: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+	        WITHCREDENTIALS: 'withCredentials',
+	        UNDEFINED: 'undefined',
+	        SELF: '_self',
+	        HOSTNAMEREGEX: /:\/\/([0-9]?\.)?(.[^/:]+)/i,
+	        QUERYPARAMETERREGEX1: /#(.+)/,
+	        QUERYPARAMETERREGEX2: /=(.+)/,
+	        HEADER: { 'Content-Type': 'application/x-www-form-urlencoded' }
+	      };
+	      return CognitoConstants;
 	    }
-	    this.signInUserSession = this.getCachedSession();
-	    // compare scopes
-	    if (!this.compareSets(tokenScopesInputSet, cachedScopesSet)) {
-	      var tokenScopes = new _CognitoTokenScopes2.default(this.TokenScopesArray);
+
+	    /**
+	     * @returns {string} the client id
+	     */
+
+	  }, {
+	    key: 'getClientId',
+	    value: function getClientId() {
+	      return this.clientId;
+	    }
+
+	    /**
+	     * @returns {string} the app web domain
+	     */
+
+	  }, {
+	    key: 'getAppWebDomain',
+	    value: function getAppWebDomain() {
+	      return this.appWebDomain;
+	    }
+
+	    /**
+	     * method for getting the current user of the application from the local storage
+	     *
+	     * @returns {CognitoAuth} the user retrieved from storage
+	     */
+
+	  }, {
+	    key: 'getCurrentUser',
+	    value: function getCurrentUser() {
+	      var lastUserKey = 'CognitoIdentityServiceProvider.' + this.clientId + '.LastAuthUser';
+
+	      var lastAuthUser = this.storage.getItem(lastUserKey);
+	      return lastAuthUser;
+	    }
+
+	    /**
+	     * @param {string} Username the user's name
+	     * method for setting the current user's name
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'setUser',
+	    value: function setUser(Username) {
+	      this.username = Username;
+	    }
+
+	    /**
+	     * sets response type to 'code'
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'useCodeGrantFlow',
+	    value: function useCodeGrantFlow() {
+	      this.responseType = this.getCognitoConstants().CODE;
+	    }
+
+	    /**
+	     * sets response type to 'token'
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'useImplicitFlow',
+	    value: function useImplicitFlow() {
+	      this.responseType = this.getCognitoConstants().TOKEN;
+	    }
+
+	    /**
+	     * @returns {CognitoAuthSession} the current session for this user
+	     */
+
+	  }, {
+	    key: 'getSignInUserSession',
+	    value: function getSignInUserSession() {
+	      return this.signInUserSession;
+	    }
+
+	    /**
+	     * @returns {string} the user's username
+	     */
+
+	  }, {
+	    key: 'getUsername',
+	    value: function getUsername() {
+	      return this.username;
+	    }
+
+	    /**
+	     * @param {string} Username the user's username
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'setUsername',
+	    value: function setUsername(Username) {
+	      this.username = Username;
+	    }
+
+	    /**
+	     * This is used to get a session, either from the session object
+	     * or from the local storage, or by using a refresh token
+	     * @param {string} RedirectUriSignIn Required: The redirect Uri,
+	     * which will be launched after authentication.
+	     * @param {array} TokenScopesArray Required: The token scopes, it is an
+	     * array of strings specifying all scopes for the tokens.
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'getSession',
+	    value: function getSession() {
+	      var tokenScopesInputSet = new Set(this.TokenScopesArray);
+	      var cachedScopesSet = new Set(this.signInUserSession.tokenScopes.getScopes());
+	      var URL = this.getFQDNSignIn();
+	      if (this.signInUserSession != null && this.signInUserSession.isValid()) {
+	        return this.userhandler.onSuccess(this.signInUserSession);
+	      }
+	      this.signInUserSession = this.getCachedSession();
+	      // compare scopes
+	      if (!this.compareSets(tokenScopesInputSet, cachedScopesSet)) {
+	        var tokenScopes = new _CognitoTokenScopes2.default(this.TokenScopesArray);
+	        var idToken = new _CognitoIdToken2.default();
+	        var accessToken = new _CognitoAccessToken2.default();
+	        var refreshToken = new _CognitoRefreshToken2.default();
+	        this.signInUserSession.setTokenScopes(tokenScopes);
+	        this.signInUserSession.setIdToken(idToken);
+	        this.signInUserSession.setAccessToken(accessToken);
+	        this.signInUserSession.setRefreshToken(refreshToken);
+	        this.launchUri(URL);
+	      } else if (this.signInUserSession.isValid()) {
+	        return this.userhandler.onSuccess(this.signInUserSession);
+	      } else if (!this.signInUserSession.getRefreshToken() || !this.signInUserSession.getRefreshToken().getToken()) {
+	        this.launchUri(URL);
+	      } else {
+	        this.refreshSession(this.signInUserSession.getRefreshToken().getToken());
+	      }
+	      return undefined;
+	    }
+
+	    /**
+	     * @param {string} httpRequestResponse the http request response
+	     * @returns {void}
+	     * Parse the http request response and proceed according to different response types.
+	     */
+
+	  }, {
+	    key: 'parseCognitoWebResponse',
+	    value: function parseCognitoWebResponse(httpRequestResponse) {
+	      if (httpRequestResponse.indexOf(this.getCognitoConstants().QUESTIONMARK) > -1) {
+	        this.getCodeQueryParameter(httpRequestResponse);
+	      } else if (httpRequestResponse.indexOf(this.getCognitoConstants().POUNDSIGN) > -1) {
+	        // To parse the response to get tokens
+	        this.getTokenQueryParameter(httpRequestResponse);
+	      }
+	    }
+
+	    /**
+	     * @param {string} httpRequestResponse the http request response
+	     * @returns {void}
+	     * Parse the http request response and proceed according to code response type.
+	     */
+
+	  }, {
+	    key: 'getCodeQueryParameter',
+	    value: function getCodeQueryParameter(httpRequestResponse) {
+	      var map = this.getQueryParameters(httpRequestResponse, this.getCognitoConstants().QUESTIONMARK);
+	      if (map.has(this.getCognitoConstants().CODE)) {
+	        // if the response contains code
+	        // To parse the response and get the code value.
+	        var codeParameter = map.get(this.getCognitoConstants().CODE);
+	        var url = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_TOKEN);
+	        var header = this.getCognitoConstants().HEADER;
+	        var body = { grant_type: this.getCognitoConstants().AUTHORIZATIONCODE,
+	          client_id: this.getClientId(),
+	          redirect_uri: this.RedirectUriSignIn,
+	          code: codeParameter };
+	        var boundOnSuccess = this.onSuccessExchangeForToken.bind(this);
+	        var boundOnFailure = this.onFailure.bind(this);
+	        this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure);
+	      }
+	    }
+
+	    /**
+	     * Parse the http request response and proceed according to token response type.
+	     * @param {string} httpRequestResponse the http request response
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'getTokenQueryParameter',
+	    value: function getTokenQueryParameter(httpRequestResponse) {
+	      var map = this.getQueryParameters(httpRequestResponse, this.getCognitoConstants().QUERYPARAMETERREGEX1);
 	      var idToken = new _CognitoIdToken2.default();
 	      var accessToken = new _CognitoAccessToken2.default();
 	      var refreshToken = new _CognitoRefreshToken2.default();
-	      this.signInUserSession.setTokenScopes(tokenScopes);
-	      this.signInUserSession.setIdToken(idToken);
-	      this.signInUserSession.setAccessToken(accessToken);
-	      this.signInUserSession.setRefreshToken(refreshToken);
-	      this.launchUri(URL);
-	    } else if (this.signInUserSession.isValid()) {
-	      return this.userhandler.onSuccess(this.signInUserSession);
-	    } else if (!this.signInUserSession.getRefreshToken() || !this.signInUserSession.getRefreshToken().getToken()) {
-	      this.launchUri(URL);
-	    } else {
-	      this.refreshSession(this.signInUserSession.getRefreshToken().getToken());
-	    }
-	    return undefined;
-	  };
-
-	  /**
-	   * @param {string} httpRequestResponse the http request response
-	   * @returns {void}
-	   * Parse the http request response and proceed according to different response types.
-	   */
-
-
-	  CognitoAuth.prototype.parseCognitoWebResponse = function parseCognitoWebResponse(httpRequestResponse) {
-	    if (httpRequestResponse.indexOf(this.getCognitoConstants().QUESTIONMARK) > -1) {
-	      this.getCodeQueryParameter(httpRequestResponse);
-	    } else if (httpRequestResponse.indexOf(this.getCognitoConstants().POUNDSIGN) > -1) {
-	      // To parse the response to get tokens
-	      this.getTokenQueryParameter(httpRequestResponse);
-	    }
-	  };
-
-	  /**
-	   * @param {string} httpRequestResponse the http request response
-	   * @returns {void}
-	   * Parse the http request response and proceed according to code response type.
-	   */
-
-
-	  CognitoAuth.prototype.getCodeQueryParameter = function getCodeQueryParameter(httpRequestResponse) {
-	    var mapSecond = new Map();
-	    mapSecond = this.getQueryParameters(httpRequestResponse, mapSecond);
-	    if (mapSecond.has(this.getCognitoConstants().CODE)) {
-	      // if the response contains code
-	      // To parse the response and get the code value.
-	      var codeParameter = this.getCodeParameter(httpRequestResponse);
-	      var url = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().TOKEN);
-	      var header = this.getCognitoConstants().HEADER;
-	      var body = { grant_type: this.getCognitoConstants().AUTHORIZATIONCODE,
-	        client_id: this.getClientId(),
-	        redirect_uri: this.RedirectUriSignIn,
-	        code: codeParameter };
-	      var boundOnSuccess = this.onSuccessExchangeForToken.bind(this);
-	      var boundOnFailure = this.onFailure.bind(this);
-	      this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure);
-	    }
-	  };
-
-	  /**
-	   * Parse the http request response and proceed according to token response type.
-	   * @param {string} httpRequestResponse the http request response
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuth.prototype.getTokenQueryParameter = function getTokenQueryParameter(httpRequestResponse) {
-	    var map = new Map();
-	    map = this.getQueryParameters(httpRequestResponse, map);
-	    var idToken = new _CognitoIdToken2.default();
-	    var accessToken = new _CognitoAccessToken2.default();
-	    var refreshToken = new _CognitoRefreshToken2.default();
-	    if (httpRequestResponse.indexOf(this.getCognitoConstants().IDTOKEN) > -1) {
-	      idToken.setJwtToken(map.get(this.getCognitoConstants().IDTOKEN));
-	      this.signInUserSession.setIdToken(idToken);
-	    } else {
-	      this.signInUserSession.setIdToken(idToken);
-	    }
-	    if (httpRequestResponse.indexOf(this.getCognitoConstants().ACCESSTOKEN) > -1) {
-	      accessToken.setJwtToken(map.get(this.getCognitoConstants().ACCESSTOKEN));
-	      this.signInUserSession.setAccessToken(accessToken);
-	    } else {
-	      this.signInUserSession.setAccessToken(accessToken);
-	    }
-	    if (httpRequestResponse.indexOf(this.getCognitoConstants().REFRESHTOKEN) > -1) {
-	      refreshToken.setToken(map.get(this.getCognitoConstants().REFRESHTOKEN));
-	      this.signInUserSession.setRefreshToken(refreshToken);
-	    } else {
-	      this.signInUserSession.setRefreshToken(refreshToken);
-	    }
-	    this.cacheTokensScopes();
-	    return this.userhandler.onSuccess(this.signInUserSession);
-	  };
-
-	  /**
-	   * Get cached tokens and scopes and return a new session using all the cached data.
-	   * @returns {CognitoAuthSession} the auth session
-	   */
-
-
-	  CognitoAuth.prototype.getCachedSession = function getCachedSession() {
-	    if (!this.username) {
-	      return new _CognitoAuthSession2.default();
-	    }
-	    var keyPrefix = 'CognitoIdentityServiceProvider.' + this.getClientId() + '.' + this.username;
-	    var idTokenKey = keyPrefix + '.idToken';
-	    var accessTokenKey = keyPrefix + '.accessToken';
-	    var refreshTokenKey = keyPrefix + '.refreshToken';
-	    var scopeKey = keyPrefix + '.tokenScopesString';
-
-	    var scopesString = this.storage.getItem(scopeKey);
-	    var scopesArray = [];
-	    if (scopesString) {
-	      scopesArray = scopesString.split(' ');
-	    }
-	    var tokenScopes = new _CognitoTokenScopes2.default(scopesArray);
-	    var idToken = new _CognitoIdToken2.default(this.storage.getItem(idTokenKey));
-	    var accessToken = new _CognitoAccessToken2.default(this.storage.getItem(accessTokenKey));
-	    var refreshToken = new _CognitoRefreshToken2.default(this.storage.getItem(refreshTokenKey));
-
-	    var sessionData = {
-	      IdToken: idToken,
-	      AccessToken: accessToken,
-	      RefreshToken: refreshToken,
-	      TokenScopes: tokenScopes
-	    };
-	    var cachedSession = new _CognitoAuthSession2.default(sessionData);
-	    return cachedSession;
-	  };
-
-	  /**
-	   * This is used to get last signed in user from local storage
-	   * @returns {string} the last user name
-	   */
-
-
-	  CognitoAuth.prototype.getLastUser = function getLastUser() {
-	    var keyPrefix = 'CognitoIdentityServiceProvider.' + this.getClientId();
-	    var lastUserKey = keyPrefix + '.LastAuthUser';
-	    var lastUserName = this.storage.getItem(lastUserKey);
-	    if (lastUserName) {
-	      return lastUserName;
-	    }
-	    return undefined;
-	  };
-
-	  /**
-	   * This is used to save the session tokens, scope and state to local storage
-	   * Input parameter is a set of strings.
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuth.prototype.cacheTokensScopes = function cacheTokensScopes() {
-	    var keyPrefix = 'CognitoIdentityServiceProvider.' + this.getClientId();
-	    var tokenUserName = this.signInUserSession.getAccessToken().getUsername();
-	    var idTokenKey = keyPrefix + '.' + tokenUserName + '.idToken';
-	    var accessTokenKey = keyPrefix + '.' + tokenUserName + '.accessToken';
-	    var refreshTokenKey = keyPrefix + '.' + tokenUserName + '.refreshToken';
-	    var lastUserKey = keyPrefix + '.LastAuthUser';
-	    var scopeKey = keyPrefix + '.' + tokenUserName + '.tokenScopesString';
-	    var scopesArray = this.signInUserSession.getTokenScopes().getScopes();
-	    var scopesString = scopesArray.join(' ');
-	    this.storage.setItem(idTokenKey, this.signInUserSession.getIdToken().getJwtToken());
-	    this.storage.setItem(accessTokenKey, this.signInUserSession.getAccessToken().getJwtToken());
-	    this.storage.setItem(refreshTokenKey, this.signInUserSession.getRefreshToken().getToken());
-	    this.storage.setItem(lastUserKey, tokenUserName);
-	    this.storage.setItem(scopeKey, scopesString);
-	  };
-
-	  /**
-	   * Compare two sets if they are identical.
-	   * @param {set} set1 one set
-	   * @param {set} set2 the other set
-	   * @returns {boolean} boolean value is true if two sets are identical
-	   */
-
-
-	  CognitoAuth.prototype.compareSets = function compareSets(set1, set2) {
-	    if (set1.size !== set2.size) {
-	      return false;
-	    }
-	    for (var _iterator = set1, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-	      var _ref2;
-
-	      if (_isArray) {
-	        if (_i >= _iterator.length) break;
-	        _ref2 = _iterator[_i++];
+	      if (map.has(this.getCognitoConstants().IDTOKEN)) {
+	        idToken.setJwtToken(map.get(this.getCognitoConstants().IDTOKEN));
+	        this.signInUserSession.setIdToken(idToken);
 	      } else {
-	        _i = _iterator.next();
-	        if (_i.done) break;
-	        _ref2 = _i.value;
+	        this.signInUserSession.setIdToken(idToken);
 	      }
-
-	      var item = _ref2;
-
-	      if (!set2.has(item)) {
-	        return false;
+	      if (map.has(this.getCognitoConstants().ACCESSTOKEN)) {
+	        accessToken.setJwtToken(map.get(this.getCognitoConstants().ACCESSTOKEN));
+	        this.signInUserSession.setAccessToken(accessToken);
+	      } else {
+	        this.signInUserSession.setAccessToken(accessToken);
 	      }
-	    }
-	    return true;
-	  };
-
-	  /**
-	   * @param {string} url the url string
-	   * Get the hostname from url.
-	   * @returns {string} hostname string
-	   */
-
-
-	  CognitoAuth.prototype.getHostName = function getHostName(url) {
-	    var match = url.match(this.getCognitoConstants().HOSTNAMEREGEX);
-	    if (match != null && match.length > 2 && _typeof(match[2]) === this.getCognitoConstants().STRINGTYPE && match[2].length > 0) {
-	      return match[2];
-	    }
-	    return undefined;
-	  };
-
-	  /**
-	   * Get http query parameters and store them into a map.
-	   * @param {string} url the url string
-	   * @param {map} map the query parameter map
-	   * @returns {map} map
-	   */
-
-
-	  CognitoAuth.prototype.getQueryParameters = function getQueryParameters(url, map) {
-	    var str = String(url).split(this.getCognitoConstants().QUERYPARAMETERREGEX1);
-	    var url2 = str[1];
-	    var str1 = String(url2).split(this.getCognitoConstants().AMPERSAND);
-	    var num = str1.length;
-	    var i = void 0;
-	    for (i = 0; i < num; i++) {
-	      str1[i] = String(str1[i]).split(this.getCognitoConstants().QUERYPARAMETERREGEX2);
-	      map.set(str1[i][0], str1[i][1]);
-	    }
-	    return map;
-	  };
-
-	  /**
-	   * Get the code parameter from the url.
-	   * @param {string} url the url string
-	   * @returns {string} code
-	   */
-
-
-	  CognitoAuth.prototype.getCodeParameter = function getCodeParameter(url) {
-	    var urlEdit = String(url).split(this.getCognitoConstants().QUESTIONMARK);
-	    var url1 = urlEdit[1];
-	    var urlStr = String(url1).split(this.getCognitoConstants().EQUALSIGN);
-	    var code = urlStr[1];
-	    return code;
-	  };
-
-	  /**
-	   * helper function to generate a random string
-	   * @param {int} length the length of string
-	   * @param {string} chars a original string
-	   * @returns {string} a random value.
-	   */
-
-
-	  CognitoAuth.prototype.generateRandomString = function generateRandomString(length, chars) {
-	    var result = '';
-	    var i = length;
-	    for (; i > 0; --i) {
-	      result += chars[Math.round(Math.random() * (chars.length - 1))];
-	    }return result;
-	  };
-
-	  /**
-	   * This is used to clear the session tokens, scopes and state from local storage
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuth.prototype.clearCachedTokensScopes = function clearCachedTokensScopes() {
-	    var keyPrefix = 'CognitoIdentityServiceProvider.' + this.getClientId();
-	    var idTokenKey = keyPrefix + '.' + this.username + '.idToken';
-	    var accessTokenKey = keyPrefix + '.' + this.username + '.accessToken';
-	    var refreshTokenKey = keyPrefix + '.' + this.username + '.refreshToken';
-	    var lastUserKey = keyPrefix + '.LastAuthUser';
-	    var scopeKey = keyPrefix + '.' + this.username + '.tokenScopesString';
-
-	    this.storage.removeItem(idTokenKey);
-	    this.storage.removeItem(accessTokenKey);
-	    this.storage.removeItem(refreshTokenKey);
-	    this.storage.removeItem(lastUserKey);
-	    this.storage.removeItem(scopeKey);
-	  };
-
-	  /**
-	   * This is used to build a user session from tokens retrieved in the authentication result
-	   * @param {object} refreshToken authResult Successful auth response from server.
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuth.prototype.refreshSession = function refreshSession(refreshToken) {
-	    // https POST call for refreshing token
-	    var url = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().TOKEN);
-	    var header = this.getCognitoConstants().HEADER;
-	    var body = { grant_type: this.getCognitoConstants().REFRESHTOKEN,
-	      client_id: this.getClientId(),
-	      redirect_uri: this.RedirectUriSignIn,
-	      refresh_token: refreshToken };
-	    var boundOnSuccess = this.onSuccessRefreshToken.bind(this);
-	    var boundOnFailure = this.onFailure.bind(this);
-	    this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure);
-	  };
-
-	  /**
-	   * Make the http POST request.
-	   * @param {JSON} header header JSON object
-	   * @param {JSON} body body JSON object
-	   * @param {string} url string
-	   * @param {function} onSuccess callback
-	   * @param {function} onFailure callback
-	   * @returns {void}
-	   */
-
-
-	  CognitoAuth.prototype.makePOSTRequest = function makePOSTRequest(header, body, url, onSuccess, onFailure) {
-	    // This is a sample server that supports CORS.
-	    var xhr = this.createCORSRequest(this.getCognitoConstants().POST, url);
-	    var bodyString = '';
-	    var i = 0;
-	    var j = 0;
-	    var jsonData = xhr.responseText;
-	    if (!xhr) {
-	      return;
-	    }
-	    // set header
-	    for (; j < header.length; j++) {
-	      xhr.setRequestHeader(j, header[j]);
-	    }
-	    for (; i < body.length; i++) {
-	      bodyString = bodyString.concat(i, this.getCognitoConstants().EQUALSIGN, body[i], this.getCognitoConstants().AMPERSAND);
-	    }
-	    bodyString = bodyString.substring(0, bodyString.length - 1);
-	    xhr.send(bodyString);
-	    xhr.onreadystatechange = function addressState() {
-	      if (xhr.readyState === 4) {
-	        if (xhr.status === 200) {
-	          xhr.onload = onSuccess(jsonData);
-	        } else {
-	          xhr.onerror = onFailure(jsonData);
-	        }
-	      }
-	    };
-	  };
-
-	  /**
-	   * Create the XHR object
-	   * @param {string} method which method to call
-	   * @param {string} url the url string
-	   * @returns {object} xhr
-	   */
-
-
-	  CognitoAuth.prototype.createCORSRequest = function createCORSRequest(method, url) {
-	    var xhr = new XMLHttpRequest();
-	    xhr.open(method, url, true);
-	    if (this.getCognitoConstants().WITHCREDENTIALS in xhr) {
-	      // XHR for Chrome/Firefox/Opera/Safari.
-	      xhr.open(method, url, true);
-	    } else if ((typeof XDomainRequest === 'undefined' ? 'undefined' : _typeof(XDomainRequest)) !== this.getCognitoConstants().UNDEFINED) {
-	      // XDomainRequest for IE.
-	      xhr = new XDomainRequest();
-	      xhr.open(method, url);
-	    } else {
-	      // CORS not supported.
-	      xhr = null;
-	    }
-	    return xhr;
-	  };
-
-	  /**
-	   * The http POST request onFailure callback.
-	   * @param {object} err the error object
-	   * @returns {function} onFailure
-	   */
-
-
-	  CognitoAuth.prototype.onFailure = function onFailure(err) {
-	    this.userhandler.onFailure(err);
-	  };
-
-	  /**
-	   * The http POST request onSuccess callback when refreshing tokens.
-	   * @param {JSON} jsonData tokens
-	   * @returns {function} onSuccess
-	   */
-
-
-	  CognitoAuth.prototype.onSuccessRefreshToken = function onSuccessRefreshToken(jsonData) {
-	    var jsonDataObject = JSON.parse(jsonData);
-	    if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().ERROR)) {
-	      var URL = this.getFQDNSignIn();
-	      this.launchUri(URL);
-	    } else {
-	      if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().IDTOKEN)) {
-	        this.signInUserSession.setIdToken(new _CognitoIdToken2.default(jsonDataObject.id_token));
-	      }
-	      if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().ACCESSTOKEN)) {
-	        this.signInUserSession.setAccessToken(new _CognitoAccessToken2.default(jsonDataObject.access_token));
+	      if (map.has(this.getCognitoConstants().REFRESHTOKEN)) {
+	        refreshToken.setToken(map.get(this.getCognitoConstants().REFRESHTOKEN));
+	        this.signInUserSession.setRefreshToken(refreshToken);
+	      } else {
+	        this.signInUserSession.setRefreshToken(refreshToken);
 	      }
 	      this.cacheTokensScopes();
 	      return this.userhandler.onSuccess(this.signInUserSession);
 	    }
-	    return undefined;
-	  };
 
-	  /**
-	   * The http POST request onSuccess callback when exchanging code for tokens.
-	   * @param {JSON} jsonData tokens
-	   * @returns {function} onSuccess
-	   */
+	    /**
+	     * Get cached tokens and scopes and return a new session using all the cached data.
+	     * @returns {CognitoAuthSession} the auth session
+	     */
 
+	  }, {
+	    key: 'getCachedSession',
+	    value: function getCachedSession() {
+	      if (!this.username) {
+	        return new _CognitoAuthSession2.default();
+	      }
+	      var keyPrefix = 'CognitoIdentityServiceProvider.' + this.getClientId() + '.' + this.username;
+	      var idTokenKey = keyPrefix + '.idToken';
+	      var accessTokenKey = keyPrefix + '.accessToken';
+	      var refreshTokenKey = keyPrefix + '.refreshToken';
+	      var scopeKey = keyPrefix + '.tokenScopesString';
 
-	  CognitoAuth.prototype.onSuccessExchangeForToken = function onSuccessExchangeForToken(jsonData) {
-	    var jsonDataObject = JSON.parse(jsonData);
-	    var refreshToken = new _CognitoRefreshToken2.default();
-	    var accessToken = new _CognitoAccessToken2.default();
-	    var idToken = new _CognitoIdToken2.default();
-	    if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().ERROR)) {
-	      return this.userhandler.onFailure(jsonData);
+	      var scopesString = this.storage.getItem(scopeKey);
+	      var scopesArray = [];
+	      if (scopesString) {
+	        scopesArray = scopesString.split(' ');
+	      }
+	      var tokenScopes = new _CognitoTokenScopes2.default(scopesArray);
+	      var idToken = new _CognitoIdToken2.default(this.storage.getItem(idTokenKey));
+	      var accessToken = new _CognitoAccessToken2.default(this.storage.getItem(accessTokenKey));
+	      var refreshToken = new _CognitoRefreshToken2.default(this.storage.getItem(refreshTokenKey));
+
+	      var sessionData = {
+	        IdToken: idToken,
+	        AccessToken: accessToken,
+	        RefreshToken: refreshToken,
+	        TokenScopes: tokenScopes
+	      };
+	      var cachedSession = new _CognitoAuthSession2.default(sessionData);
+	      return cachedSession;
 	    }
-	    if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().IDTOKEN)) {
-	      this.signInUserSession.setIdToken(new _CognitoIdToken2.default(jsonDataObject.id_token));
-	    } else {
-	      this.signInUserSession.setIdToken(idToken);
+
+	    /**
+	     * This is used to get last signed in user from local storage
+	     * @returns {string} the last user name
+	     */
+
+	  }, {
+	    key: 'getLastUser',
+	    value: function getLastUser() {
+	      var keyPrefix = 'CognitoIdentityServiceProvider.' + this.getClientId();
+	      var lastUserKey = keyPrefix + '.LastAuthUser';
+	      var lastUserName = this.storage.getItem(lastUserKey);
+	      if (lastUserName) {
+	        return lastUserName;
+	      }
+	      return undefined;
 	    }
-	    if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().ACCESSTOKEN)) {
-	      this.signInUserSession.setAccessToken(new _CognitoAccessToken2.default(jsonDataObject.access_token));
-	    } else {
-	      this.signInUserSession.setAccessToken(accessToken);
+
+	    /**
+	     * This is used to save the session tokens, scope and state to local storage
+	     * Input parameter is a set of strings.
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'cacheTokensScopes',
+	    value: function cacheTokensScopes() {
+	      var keyPrefix = 'CognitoIdentityServiceProvider.' + this.getClientId();
+	      var tokenUserName = this.signInUserSession.getAccessToken().getUsername();
+	      this.username = tokenUserName;
+	      var idTokenKey = keyPrefix + '.' + tokenUserName + '.idToken';
+	      var accessTokenKey = keyPrefix + '.' + tokenUserName + '.accessToken';
+	      var refreshTokenKey = keyPrefix + '.' + tokenUserName + '.refreshToken';
+	      var lastUserKey = keyPrefix + '.LastAuthUser';
+	      var scopeKey = keyPrefix + '.' + tokenUserName + '.tokenScopesString';
+	      var scopesArray = this.signInUserSession.getTokenScopes().getScopes();
+	      var scopesString = scopesArray.join(' ');
+	      this.storage.setItem(idTokenKey, this.signInUserSession.getIdToken().getJwtToken());
+	      this.storage.setItem(accessTokenKey, this.signInUserSession.getAccessToken().getJwtToken());
+	      this.storage.setItem(refreshTokenKey, this.signInUserSession.getRefreshToken().getToken());
+	      this.storage.setItem(lastUserKey, tokenUserName);
+	      this.storage.setItem(scopeKey, scopesString);
 	    }
-	    if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().REFRESHTOKEN)) {
-	      this.signInUserSession.setRefreshToken(new _CognitoRefreshToken2.default(jsonDataObject.refresh_token));
-	    } else {
-	      this.signInUserSession.setRefreshToken(refreshToken);
+
+	    /**
+	     * Compare two sets if they are identical.
+	     * @param {set} set1 one set
+	     * @param {set} set2 the other set
+	     * @returns {boolean} boolean value is true if two sets are identical
+	     */
+
+	  }, {
+	    key: 'compareSets',
+	    value: function compareSets(set1, set2) {
+	      if (set1.size !== set2.size) {
+	        return false;
+	      }
+	      var _iteratorNormalCompletion = true;
+	      var _didIteratorError = false;
+	      var _iteratorError = undefined;
+
+	      try {
+	        for (var _iterator = set1[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	          var item = _step.value;
+
+	          if (!set2.has(item)) {
+	            return false;
+	          }
+	        }
+	      } catch (err) {
+	        _didIteratorError = true;
+	        _iteratorError = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion && _iterator.return) {
+	            _iterator.return();
+	          }
+	        } finally {
+	          if (_didIteratorError) {
+	            throw _iteratorError;
+	          }
+	        }
+	      }
+
+	      return true;
 	    }
-	    this.cacheTokensScopes();
-	    return this.userhandler.onSuccess(this.signInUserSession);
-	  };
 
-	  /**
-	   * Launch Cognito Auth UI page.
-	   * @param {string} URL the url to launch
-	   * @returns {void}
-	   */
+	    /**
+	     * @param {string} url the url string
+	     * Get the hostname from url.
+	     * @returns {string} hostname string
+	     */
 
+	  }, {
+	    key: 'getHostName',
+	    value: function getHostName(url) {
+	      var match = url.match(this.getCognitoConstants().HOSTNAMEREGEX);
+	      if (match != null && match.length > 2 && _typeof(match[2]) === this.getCognitoConstants().STRINGTYPE && match[2].length > 0) {
+	        return match[2];
+	      }
+	      return undefined;
+	    }
 
-	  CognitoAuth.prototype.launchUri = function launchUri(URL) {
-	    window.open(URL, this.getCognitoConstants().SELF);
-	  };
+	    /**
+	     * Get http query parameters and return them as a map.
+	     * @param {string} url the url string
+	     * @param {string} splitMark query parameters split mark (prefix)
+	     * @returns {map} map
+	     */
 
-	  /**
-	   * @returns {string} scopes string
-	   */
+	  }, {
+	    key: 'getQueryParameters',
+	    value: function getQueryParameters(url, splitMark) {
+	      var str = String(url).split(splitMark);
+	      var url2 = str[1];
+	      var str1 = String(url2).split(this.getCognitoConstants().AMPERSAND);
+	      var num = str1.length;
+	      var map = new Map();
+	      var i = void 0;
+	      for (i = 0; i < num; i++) {
+	        str1[i] = String(str1[i]).split(this.getCognitoConstants().QUERYPARAMETERREGEX2);
+	        map.set(str1[i][0], str1[i][1]);
+	      }
+	      return map;
+	    }
 
+	    /**
+	     * helper function to generate a random string
+	     * @param {int} length the length of string
+	     * @param {string} chars a original string
+	     * @returns {string} a random value.
+	     */
 
-	  CognitoAuth.prototype.getSpaceSeperatedScopeString = function getSpaceSeperatedScopeString() {
-	    var tokenScopesString = this.signInUserSession.getTokenScopes().getScopes();
-	    tokenScopesString = tokenScopesString.join(this.getCognitoConstants().SPACE);
-	    return encodeURIComponent(tokenScopesString);
-	  };
+	  }, {
+	    key: 'generateRandomString',
+	    value: function generateRandomString(length, chars) {
+	      var result = '';
+	      var i = length;
+	      for (; i > 0; --i) {
+	        result += chars[Math.round(Math.random() * (chars.length - 1))];
+	      }return result;
+	    }
 
-	  /**
-	   * Create the FQDN(fully qualified domain name) for authorization endpoint.
-	   * @returns {string} url
-	   */
+	    /**
+	     * This is used to clear the session tokens, scopes and state from local storage
+	     * @returns {void}
+	     */
 
+	  }, {
+	    key: 'clearCachedTokensScopes',
+	    value: function clearCachedTokensScopes() {
+	      var keyPrefix = 'CognitoIdentityServiceProvider.' + this.getClientId();
+	      var idTokenKey = keyPrefix + '.' + this.username + '.idToken';
+	      var accessTokenKey = keyPrefix + '.' + this.username + '.accessToken';
+	      var refreshTokenKey = keyPrefix + '.' + this.username + '.refreshToken';
+	      var lastUserKey = keyPrefix + '.LastAuthUser';
+	      var scopeKey = keyPrefix + '.' + this.username + '.tokenScopesString';
 
-	  CognitoAuth.prototype.getFQDNSignIn = function getFQDNSignIn() {
-	    var state = this.generateRandomString(this.getCognitoConstants().STATELENGTH, this.getCognitoConstants().STATEORIGINSTRING);
-	    var tokenScopesString = this.getSpaceSeperatedScopeString();
-	    // Build the complete web domain to launch the login screen
-	    var uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNIN, this.getCognitoConstants().QUESTIONMARK, this.getCognitoConstants().DOMAIN_QUERY_PARAM_REDIRECT_URI, this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignIn), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().DOMAIN_QUERY_PARAM_RESPONSE_TYPE, this.getCognitoConstants().EQUALSIGN, this.responseType, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID, this.getCognitoConstants().EQUALSIGN, this.getClientId(), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE, this.getCognitoConstants().EQUALSIGN, state, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString);
-	    return uri;
-	  };
+	      this.storage.removeItem(idTokenKey);
+	      this.storage.removeItem(accessTokenKey);
+	      this.storage.removeItem(refreshTokenKey);
+	      this.storage.removeItem(lastUserKey);
+	      this.storage.removeItem(scopeKey);
+	    }
 
-	  /**
-	   * Sign out the user.
-	   * @returns {void}
-	   */
+	    /**
+	     * This is used to build a user session from tokens retrieved in the authentication result
+	     * @param {object} refreshToken authResult Successful auth response from server.
+	     * @returns {void}
+	     */
 
+	  }, {
+	    key: 'refreshSession',
+	    value: function refreshSession(refreshToken) {
+	      // https POST call for refreshing token
+	      var url = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_TOKEN);
+	      var header = this.getCognitoConstants().HEADER;
+	      var body = { grant_type: this.getCognitoConstants().REFRESHTOKEN,
+	        client_id: this.getClientId(),
+	        redirect_uri: this.RedirectUriSignIn,
+	        refresh_token: refreshToken };
+	      var boundOnSuccess = this.onSuccessRefreshToken.bind(this);
+	      var boundOnFailure = this.onFailure.bind(this);
+	      this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure);
+	    }
 
-	  CognitoAuth.prototype.signOut = function signOut() {
-	    var URL = this.getFQDNSignOut();
-	    this.signInUserSession = null;
-	    this.clearCachedTokensScopes();
-	    this.launchUri(URL);
-	  };
+	    /**
+	     * Make the http POST request.
+	     * @param {JSON} header header JSON object
+	     * @param {JSON} body body JSON object
+	     * @param {string} url string
+	     * @param {function} onSuccess callback
+	     * @param {function} onFailure callback
+	     * @returns {void}
+	     */
 
-	  /**
-	   * Create the FQDN(fully qualified domain name) for signout endpoint.
-	   * @returns {string} url
-	   */
+	  }, {
+	    key: 'makePOSTRequest',
+	    value: function makePOSTRequest(header, body, url, onSuccess, onFailure) {
+	      // This is a sample server that supports CORS.
+	      var xhr = this.createCORSRequest(this.getCognitoConstants().POST, url);
+	      var bodyString = '';
+	      if (!xhr) {
+	        return;
+	      }
+	      // set header
+	      for (var key in header) {
+	        xhr.setRequestHeader(key, header[key]);
+	      }
+	      for (var _key in body) {
+	        bodyString = bodyString.concat(_key, this.getCognitoConstants().EQUALSIGN, body[_key], this.getCognitoConstants().AMPERSAND);
+	      }
+	      bodyString = bodyString.substring(0, bodyString.length - 1);
+	      xhr.send(bodyString);
+	      xhr.onreadystatechange = function addressState() {
+	        if (xhr.readyState === 4) {
+	          if (xhr.status === 200) {
+	            onSuccess(xhr.responseText);
+	          } else {
+	            onFailure(xhr.responseText);
+	          }
+	        }
+	      };
+	    }
 
+	    /**
+	     * Create the XHR object
+	     * @param {string} method which method to call
+	     * @param {string} url the url string
+	     * @returns {object} xhr
+	     */
 
-	  CognitoAuth.prototype.getFQDNSignOut = function getFQDNSignOut() {
-	    var uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNOUT, this.getCognitoConstants().QUESTIONMARK, this.getCognitoConstants().DOMAIN_QUERY_PARAM_SIGNOUT_URI, this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignOut), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID, this.getCognitoConstants().EQUALSIGN, this.getClientId());
-	    return uri;
-	  };
+	  }, {
+	    key: 'createCORSRequest',
+	    value: function createCORSRequest(method, url) {
+	      var xhr = new XMLHttpRequest();
+	      xhr.open(method, url, true);
+	      if (this.getCognitoConstants().WITHCREDENTIALS in xhr) {
+	        // XHR for Chrome/Firefox/Opera/Safari.
+	        xhr.open(method, url, true);
+	      } else if ((typeof XDomainRequest === 'undefined' ? 'undefined' : _typeof(XDomainRequest)) !== this.getCognitoConstants().UNDEFINED) {
+	        // XDomainRequest for IE.
+	        xhr = new XDomainRequest();
+	        xhr.open(method, url);
+	      } else {
+	        // CORS not supported.
+	        xhr = null;
+	      }
+	      return xhr;
+	    }
+
+	    /**
+	     * The http POST request onFailure callback.
+	     * @param {object} err the error object
+	     * @returns {function} onFailure
+	     */
+
+	  }, {
+	    key: 'onFailure',
+	    value: function onFailure(err) {
+	      this.userhandler.onFailure(err);
+	    }
+
+	    /**
+	     * The http POST request onSuccess callback when refreshing tokens.
+	     * @param {JSON} jsonData tokens
+	     */
+
+	  }, {
+	    key: 'onSuccessRefreshToken',
+	    value: function onSuccessRefreshToken(jsonData) {
+	      var jsonDataObject = JSON.parse(jsonData);
+	      if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().ERROR)) {
+	        var URL = this.getFQDNSignIn();
+	        this.launchUri(URL);
+	      } else {
+	        if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().IDTOKEN)) {
+	          this.signInUserSession.setIdToken(new _CognitoIdToken2.default(jsonDataObject.id_token));
+	        }
+	        if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().ACCESSTOKEN)) {
+	          this.signInUserSession.setAccessToken(new _CognitoAccessToken2.default(jsonDataObject.access_token));
+	        }
+	        this.cacheTokensScopes();
+	        this.userhandler.onSuccess(this.signInUserSession);
+	      }
+	    }
+
+	    /**
+	     * The http POST request onSuccess callback when exchanging code for tokens.
+	     * @param {JSON} jsonData tokens
+	     */
+
+	  }, {
+	    key: 'onSuccessExchangeForToken',
+	    value: function onSuccessExchangeForToken(jsonData) {
+	      var jsonDataObject = JSON.parse(jsonData);
+	      var refreshToken = new _CognitoRefreshToken2.default();
+	      var accessToken = new _CognitoAccessToken2.default();
+	      var idToken = new _CognitoIdToken2.default();
+	      if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().ERROR)) {
+	        return this.userhandler.onFailure(jsonData);
+	      }
+	      if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().IDTOKEN)) {
+	        this.signInUserSession.setIdToken(new _CognitoIdToken2.default(jsonDataObject.id_token));
+	      } else {
+	        this.signInUserSession.setIdToken(idToken);
+	      }
+	      if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().ACCESSTOKEN)) {
+	        this.signInUserSession.setAccessToken(new _CognitoAccessToken2.default(jsonDataObject.access_token));
+	      } else {
+	        this.signInUserSession.setAccessToken(accessToken);
+	      }
+	      if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().REFRESHTOKEN)) {
+	        this.signInUserSession.setRefreshToken(new _CognitoRefreshToken2.default(jsonDataObject.refresh_token));
+	      } else {
+	        this.signInUserSession.setRefreshToken(refreshToken);
+	      }
+	      this.cacheTokensScopes();
+	      this.userhandler.onSuccess(this.signInUserSession);
+	    }
+
+	    /**
+	     * Launch Cognito Auth UI page.
+	     * @param {string} URL the url to launch
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'launchUri',
+	    value: function launchUri(URL) {
+	      window.open(URL, this.getCognitoConstants().SELF);
+	    }
+
+	    /**
+	     * @returns {string} scopes string
+	     */
+
+	  }, {
+	    key: 'getSpaceSeperatedScopeString',
+	    value: function getSpaceSeperatedScopeString() {
+	      var tokenScopesString = this.signInUserSession.getTokenScopes().getScopes();
+	      tokenScopesString = tokenScopesString.join(this.getCognitoConstants().SPACE);
+	      return encodeURIComponent(tokenScopesString);
+	    }
+
+	    /**
+	     * Create the FQDN(fully qualified domain name) for authorization endpoint.
+	     * @returns {string} url
+	     */
+
+	  }, {
+	    key: 'getFQDNSignIn',
+	    value: function getFQDNSignIn() {
+	      var state = this.generateRandomString(this.getCognitoConstants().STATELENGTH, this.getCognitoConstants().STATEORIGINSTRING);
+	      var identityProviderParam = this.IdentityProvider ? this.getCognitoConstants().AMPERSAND.concat(this.getCognitoConstants().DOMAIN_QUERY_PARAM_IDENTITY_PROVIDER, this.getCognitoConstants().EQUALSIGN, this.IdentityProvider) : '';
+	      var tokenScopesString = this.getSpaceSeperatedScopeString();
+
+	      var userContextDataParam = '';
+	      var userContextData = this.getUserContextData();
+	      if (userContextData) {
+	        userContextDataParam = this.getCognitoConstants().AMPERSAND + this.getCognitoConstants().DOMAIN_QUERY_PARAM_USERCONTEXTDATA + this.getCognitoConstants().EQUALSIGN + this.getUserContextData();
+	      }
+
+	      // Build the complete web domain to launch the login screen
+	      var uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNIN, this.getCognitoConstants().QUESTIONMARK, this.getCognitoConstants().DOMAIN_QUERY_PARAM_REDIRECT_URI, this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignIn), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().DOMAIN_QUERY_PARAM_RESPONSE_TYPE, this.getCognitoConstants().EQUALSIGN, this.responseType, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID, this.getCognitoConstants().EQUALSIGN, this.getClientId(), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE, this.getCognitoConstants().EQUALSIGN, state, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString, identityProviderParam, userContextDataParam);
+
+	      return uri;
+	    }
+
+	    /**
+	     * Sign out the user.
+	     * @returns {void}
+	     */
+
+	  }, {
+	    key: 'signOut',
+	    value: function signOut() {
+	      var URL = this.getFQDNSignOut();
+	      this.signInUserSession = null;
+	      this.clearCachedTokensScopes();
+	      this.launchUri(URL);
+	    }
+
+	    /**
+	     * Create the FQDN(fully qualified domain name) for signout endpoint.
+	     * @returns {string} url
+	     */
+
+	  }, {
+	    key: 'getFQDNSignOut',
+	    value: function getFQDNSignOut() {
+	      var uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNOUT, this.getCognitoConstants().QUESTIONMARK, this.getCognitoConstants().DOMAIN_QUERY_PARAM_SIGNOUT_URI, this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignOut), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID, this.getCognitoConstants().EQUALSIGN, this.getClientId());
+	      return uri;
+	    }
+
+	    /**
+	     * This method returns the encoded data string used for cognito advanced security feature.
+	     * This would be generated only when developer has included the JS used for collecting the
+	     * data on their client. Please refer to documentation to know more about using AdvancedSecurity
+	     * features
+	     **/
+
+	  }, {
+	    key: 'getUserContextData',
+	    value: function getUserContextData() {
+	      if (typeof AmazonCognitoAdvancedSecurityData === "undefined") {
+	        return;
+	      }
+
+	      var _username = "";
+	      if (this.username) {
+	        _username = this.username;
+	      }
+
+	      var _userpoolId = "";
+	      if (this.userpoolId) {
+	        _userpoolId = this.userpoolId;
+	      }
+
+	      if (this.advancedSecurityDataCollectionFlag) {
+	        return AmazonCognitoAdvancedSecurityData.getData(_username, _userpoolId, this.clientId);
+	      }
+	    }
+	  }]);
 
 	  return CognitoAuth;
 	}();
@@ -1516,7 +1670,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1546,38 +1704,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _classCallCheck(this, DateHelper);
 	  }
 
-	  /**
-	   * @returns {string} The current time in "ddd MMM D HH:mm:ss UTC YYYY" format.
-	   */
-	  DateHelper.prototype.getNowString = function getNowString() {
-	    var now = new Date();
+	  _createClass(DateHelper, [{
+	    key: 'getNowString',
 
-	    var weekDay = weekNames[now.getUTCDay()];
-	    var month = monthNames[now.getUTCMonth()];
-	    var day = now.getUTCDate();
+	    /**
+	     * @returns {string} The current time in "ddd MMM D HH:mm:ss UTC YYYY" format.
+	     */
+	    value: function getNowString() {
+	      var now = new Date();
 
-	    var hours = now.getUTCHours();
-	    if (hours < 10) {
-	      hours = '0' + hours;
+	      var weekDay = weekNames[now.getUTCDay()];
+	      var month = monthNames[now.getUTCMonth()];
+	      var day = now.getUTCDate();
+
+	      var hours = now.getUTCHours();
+	      if (hours < 10) {
+	        hours = '0' + hours;
+	      }
+
+	      var minutes = now.getUTCMinutes();
+	      if (minutes < 10) {
+	        minutes = '0' + minutes;
+	      }
+
+	      var seconds = now.getUTCSeconds();
+	      if (seconds < 10) {
+	        seconds = '0' + seconds;
+	      }
+
+	      var year = now.getUTCFullYear();
+
+	      // ddd MMM D HH:mm:ss UTC YYYY
+	      var dateNow = weekDay + ' ' + month + ' ' + day + ' ' + hours + ':' + minutes + ':' + seconds + ' UTC ' + year;
+
+	      return dateNow;
 	    }
-
-	    var minutes = now.getUTCMinutes();
-	    if (minutes < 10) {
-	      minutes = '0' + minutes;
-	    }
-
-	    var seconds = now.getUTCSeconds();
-	    if (seconds < 10) {
-	      seconds = '0' + seconds;
-	    }
-
-	    var year = now.getUTCFullYear();
-
-	    // ddd MMM D HH:mm:ss UTC YYYY
-	    var dateNow = weekDay + ' ' + month + ' ' + day + ' ' + hours + ':' + minutes + ':' + seconds + ' UTC ' + year;
-
-	    return dateNow;
-	  };
+	  }]);
 
 	  return DateHelper;
 	}();
@@ -1590,7 +1752,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
 	var _CognitoAccessToken = __webpack_require__(1);
 

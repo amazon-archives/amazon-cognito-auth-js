@@ -24,6 +24,10 @@
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="dist/aws-cognito-sdk.js"></script>
 	<script src="dist/amazon-cognito-auth.min.js"></script>
+	<!-- To enable the advanced security feature -->
+	<!-- <script src="https://amazon-cognito-assets.<region>.amazoncognito.com/amazon-cognito-advanced-security-data.min.js"></script> -->
+	<!-- E.g. -->
+	<!-- <script src="https://amazon-cognito-assets.us-east-1.amazoncognito.com/amazon-cognito-advanced-security-data.min.js"></script> -->
 </head>
 
 <body  onload="onLoad()">
@@ -80,9 +84,9 @@
 				<br>
 				<h2 id="usertabtitle">Tokens</h2>
 				<div class="user-form" id="usertab">
-					<p id="idtoken"> ... </p>
-          <p id="acctoken"> ... </p>
-          <p id="reftoken"> ... </p>
+					<pre id="idtoken"> ... </pre>
+          <pre id="acctoken"> ... </pre>
+          <pre id="reftoken"> ... </pre>
 				</div>
 			</div>
 		</div>
@@ -158,13 +162,15 @@
 			var idToken = session.getIdToken().getJwtToken();
 			if (idToken) {
 				var payload = idToken.split('.')[1];
-				var formatted = JSON.stringify(atob(payload), null, 4);
+				var tokenobj = JSON.parse(atob(payload));
+				var formatted = JSON.stringify(tokenobj, undefined, 2);
 				document.getElementById('idtoken').innerHTML = formatted;
 			}
 			var accToken = session.getAccessToken().getJwtToken();
 			if (accToken) {
 				var payload = accToken.split('.')[1];
-				var formatted = JSON.stringify(atob(payload), null, 4);
+				var tokenobj = JSON.parse(atob(payload));
+				var formatted = JSON.stringify(tokenobj, undefined, 2);
 				document.getElementById('acctoken').innerHTML = formatted;
 			}
 			var refToken = session.getRefreshToken().getToken();
@@ -189,10 +195,13 @@
 	function initCognitoSDK() {
 		var authData = {
 			ClientId : '<TODO: your app client ID here>', // Your client id here
-			AppWebDomain : '<TODO: your app web domain here>',
-			TokenScopesArray : '<TODO: your scope array here>',
+			AppWebDomain : '<TODO: your app web domain here>', // Exclude the "https://" part. 
+			TokenScopesArray : <TODO: your scope array here>, // like ['openid','email','phone']...
 			RedirectUriSignIn : '<TODO: your redirect url when signed in here>',
-			RedirectUriSignOut : '<TODO: your redirect url when signed out here>'
+			RedirectUriSignOut : '<TODO: your redirect url when signed out here>',
+			IdentityProvider : '<TODO: your identity provider you want to specify here>', 
+	                UserPoolId : '<TODO: your user pool id here>', 
+	                AdvancedSecurityDataCollectionFlag : <TODO: boolean value indicating whether you want to enable advanced security data collection>
 		};
 		var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
 		auth.userhandler = {
