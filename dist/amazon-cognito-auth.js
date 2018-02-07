@@ -1657,6 +1657,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return AmazonCognitoAdvancedSecurityData.getData(_username, _userpoolId, this.clientId);
 	      }
 	    }
+
+	    /**
+	     * Helper method to let the user know if he has either a valid cached session 
+	     * or a valid authenticated session from the app integration callback.
+	     * @returns {boolean} userSignedIn 
+	     */
+
+	  }, {
+	    key: 'isUserSignedIn',
+	    value: function isUserSignedIn() {
+	      return this.getCachedSession() != null && this.getCachedSession().isValid() || this.signInUserSession != null && this.signInUserSession.isValid();
+	    }
 	  }]);
 
 	  return CognitoAuth;
