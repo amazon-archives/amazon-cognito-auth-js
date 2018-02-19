@@ -204,6 +204,8 @@
 	                AdvancedSecurityDataCollectionFlag : <TODO: boolean value indicating whether you want to enable advanced security data collection>
 		};
 		var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
+		// You can also set state parameter 
+		// auth.setState(<state parameter>);
 		auth.userhandler = {
 			onSuccess: <TODO: your onSuccess callback here>,
 			onFailure: <TODO: your onFailure callback here>

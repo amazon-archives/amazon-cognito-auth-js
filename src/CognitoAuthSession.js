@@ -28,8 +28,9 @@ export default class CognitoAuthSession {
 	 * @param {CognitoRefreshToken} RefreshToken The session's refresh token.
 	 * @param {CognitoAccessToken} AccessToken The session's access token.
 	 * @param {array}  TokenScopes  The session's token scopes.
+   * @param {string} State The session's state. 
 	 */
-  constructor({ IdToken, RefreshToken, AccessToken, TokenScopes } = {}) {
+  constructor({ IdToken, RefreshToken, AccessToken, TokenScopes, State } = {}) {
     if (IdToken) {
       this.idToken = IdToken;
     } else {
@@ -49,6 +50,11 @@ export default class CognitoAuthSession {
       this.tokenScopes = TokenScopes;
     } else {
       this.tokenScopes = new CognitoTokenScopes();
+    }
+    if (State) {
+      this.state = State;
+    } else {
+      this.state = null;
     }
   }
 
@@ -114,6 +120,22 @@ export default class CognitoAuthSession {
    */
   setTokenScopes(tokenScopes) {
     this.tokenScopes = tokenScopes;
+  }
+
+  /**
+   * @returns {string} the session's state
+   */
+  getState() {
+    return this.state;
+  }
+
+  /**
+   * Set new state
+   * @param {string}  state  The session's state.
+   * @returns {void}
+   */
+  setState(State) {
+    this.state = State;
   }
 
   /**

@@ -1,7 +1,7 @@
 /*!
   * Amazon Cognito Auth SDK for JavaScript
   * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- 
+  *
   * Licensed under the Apache License, Version 2.0 (the "License").
   * You may not use this file except in compliance with the License.
   * A copy of the License is located at
@@ -14,7 +14,7 @@
   * License for the specific language governing permissions
   * and limitations under the License.
   */
- 
+
   import CognitoTokenScopes from './CognitoTokenScopes';
   import CognitoAccessToken from './CognitoAccessToken';
   import CognitoIdToken from './CognitoIdToken';
@@ -90,7 +90,7 @@
         DOMAIN_QUERY_PARAM_SIGNOUT_URI: 'logout_uri',
         DOMAIN_QUERY_PARAM_RESPONSE_TYPE: 'response_type',
         DOMAIN_QUERY_PARAM_IDENTITY_PROVIDER: 'identity_provider',
-        DOMAIN_QUERY_PARAM_USERCONTEXTDATA: "userContextData",
+        DOMAIN_QUERY_PARAM_USERCONTEXTDATA: 'userContextData',
         CLIENT_ID: 'client_id',
         STATE: 'state',
         SCOPE: 'scope',
@@ -201,6 +201,21 @@
     setUsername(Username) {
       this.username = Username;
     }
+
+    /**
+     * @returns {string} the user's state
+     */
+    getState() {
+      return this.state;
+    }
+
+    /**
+     * @param {string} State the user's state
+     * @returns {void}
+     */
+    setState(State) {
+      this.state = State;
+    }
   
     /**
      * This is used to get a session, either from the session object
@@ -265,6 +280,13 @@
         httpRequestResponse,
         this.getCognitoConstants().QUESTIONMARK
       );
+      const state = null;
+      if (map.has(this.getCognitoConstants().STATE)) {
+        this.signInUserSession.setState(map.get(this.getCognitoConstants().STATE));
+      } else {
+        this.signInUserSession.setState(state);
+      }
+
       if (map.has(this.getCognitoConstants().CODE)) {
         // if the response contains code
         // To parse the response and get the code value.
@@ -296,6 +318,7 @@
       const idToken = new CognitoIdToken();
       const accessToken = new CognitoAccessToken();
       const refreshToken = new CognitoRefreshToken();
+      const state = null;
       if (map.has(this.getCognitoConstants().IDTOKEN)) {
         idToken.setJwtToken(map.get(this.getCognitoConstants().IDTOKEN));
         this.signInUserSession.setIdToken(idToken);
@@ -314,8 +337,13 @@
       } else {
         this.signInUserSession.setRefreshToken(refreshToken);
       }
+      if (map.has(this.getCognitoConstants().STATE)) {
+        this.signInUserSession.setState(map.get(this.getCognitoConstants().STATE));
+      } else {
+        this.signInUserSession.setState(state);
+      }
       this.cacheTokensScopes();
-      return this.userhandler.onSuccess(this.signInUserSession);
+      return this.userhandler.onSuccess(this.signInUserSession); 
     }
   
     /**
@@ -367,7 +395,7 @@
     }
   
     /**
-     * This is used to save the session tokens, scope and state to local storage
+     * This is used to save the session tokens and scopes to local storage
      * Input parameter is a set of strings.
      * @returns {void}
      */
@@ -455,7 +483,7 @@
     }
   
     /**
-     * This is used to clear the session tokens, scopes and state from local storage
+     * This is used to clear the session tokens and scopes from local storage
      * @returns {void}
      */
     clearCachedTokensScopes() {
@@ -597,6 +625,7 @@
       const refreshToken = new CognitoRefreshToken();
       const accessToken = new CognitoAccessToken();
       const idToken = new CognitoIdToken();
+      const state = null;
       if (Object.prototype.hasOwnProperty.call(jsonDataObject,
       this.getCognitoConstants().ERROR)) {
         return this.userhandler.onFailure(jsonData);
@@ -649,8 +678,11 @@
      * @returns {string} url
      */
     getFQDNSignIn() {
-      const state = this.generateRandomString(this.getCognitoConstants().STATELENGTH,
+      if (this.state == null) {
+        this.state = this.generateRandomString(this.getCognitoConstants().STATELENGTH,
       this.getCognitoConstants().STATEORIGINSTRING);
+      }
+  
       const identityProviderParam = this.IdentityProvider
           ? this.getCognitoConstants().AMPERSAND.concat(
               this.getCognitoConstants().DOMAIN_QUERY_PARAM_IDENTITY_PROVIDER,
@@ -678,7 +710,7 @@
       this.responseType, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID,
       this.getCognitoConstants().EQUALSIGN, this.getClientId(),
       this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE,
-      this.getCognitoConstants().EQUALSIGN, state, this.getCognitoConstants().AMPERSAND,
+      this.getCognitoConstants().EQUALSIGN, this.state, this.getCognitoConstants().AMPERSAND,
       this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString, identityProviderParam,
       userContextDataParam);
   
@@ -738,7 +770,7 @@
         return AmazonCognitoAdvancedSecurityData.getData(_username, _userpoolId, this.clientId);
       }
     }
-	
+
     /**
      * Helper method to let the user know if he has either a valid cached session 
      * or a valid authenticated session from the app integration callback.
@@ -748,4 +780,4 @@
      return ((this.getCachedSession() != null && this.getCachedSession().isValid() || 
        this.signInUserSession != null && this.signInUserSession.isValid()));
     }
-}
+  }

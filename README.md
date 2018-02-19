@@ -182,6 +182,12 @@ auth.userhandler = {
 	}
 };
 ```
+You can also set `state` parameter:
+
+```js
+auth.setState(<state parameter>);
+```
+
 **Use case 2.** Sign-in using `getSession()` API:
 
 ```js
@@ -215,6 +221,11 @@ By default, the SDK uses implicit flow(token flow), if you want to enable author
 Also, when you meet some problems using our SDK, please make sure you downloaded the lastest version directly from Github repo. 
 
 ### Change Log
+
+**v1.1.2**
+
+* Added `isUserSignedIn()` API method and support for developers to set state parameter. Also uploaded `lib` folder.      
+
 
 **v1.1.1**
 
