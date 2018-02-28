@@ -222,6 +222,10 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.1.3**
+
+* Updated doc and uploaded `es` folder. 
+
 **v1.1.2**
 
 * Added `isUserSignedIn()` API method and support for developers to set state parameter. Also uploaded `lib` folder.      
