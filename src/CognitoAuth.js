@@ -61,12 +61,12 @@
       this.RedirectUriSignIn = RedirectUriSignIn;
       this.RedirectUriSignOut = RedirectUriSignOut;
       this.IdentityProvider = IdentityProvider;
-      this.signInUserSession = new CognitoAuthSession();
       this.responseType = this.getCognitoConstants().TOKEN;
       this.storage = new StorageHelper().getStorage();
-      this.signInUserSession.setTokenScopes(tokenScopes);
       this.username = this.getLastUser();
       this.userPoolId = UserPoolId;
+      this.signInUserSession = this.getCachedSession();
+      this.signInUserSession.setTokenScopes(tokenScopes);
   
       /**
        * By default, AdvancedSecurityDataCollectionFlag is set to true, if no input value is provided.
