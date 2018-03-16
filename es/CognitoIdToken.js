@@ -17,7 +17,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * and limitations under the License.
  */
 
-import { util } from 'aws-sdk/global';
+import { Buffer } from 'buffer/';
 
 /** @class */
 
@@ -31,6 +31,7 @@ var CognitoIdToken = function () {
 
     // Assign object
     this.jwtToken = IdToken || '';
+    this.payload = this.decodePayload();
   }
 
   /**
@@ -59,9 +60,21 @@ var CognitoIdToken = function () {
 
 
   CognitoIdToken.prototype.getExpiration = function getExpiration() {
+    return this.payload.exp;
+  };
+
+  /**
+   * @returns {object} the token's payload.
+   */
+
+
+  CognitoIdToken.prototype.decodePayload = function decodePayload() {
     var payload = this.jwtToken.split('.')[1];
-    var expiration = JSON.parse(util.base64.decode(payload).toString('utf8'));
-    return expiration.exp;
+    try {
+      return JSON.parse(Buffer.from(payload, 'base64').toString('utf8'));
+    } catch (err) {
+      return {};
+    }
   };
 
   return CognitoIdToken;

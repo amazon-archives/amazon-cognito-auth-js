@@ -6,7 +6,6 @@ This web page is a sample of using our SDK. It will initialize a CognitoAuth obj
 To add our SDK, you need to include the following two files:
 
 ```
-<script src="dist/aws-cognito-sdk.js"></script>
 <script src="dist/amazon-cognito-auth.min.js"></script>
 ```
 

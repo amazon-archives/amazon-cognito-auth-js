@@ -22,7 +22,6 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="stylesheets/styleSheetStart.css">
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="dist/aws-cognito-sdk.js"></script>
 	<script src="dist/amazon-cognito-auth.min.js"></script>
 	<!-- To enable the advanced security feature -->
 	<!-- <script src="https://amazon-cognito-assets.<region>.amazoncognito.com/amazon-cognito-advanced-security-data.min.js"></script> -->
@@ -41,7 +40,7 @@
 	<h1>
 		<a href="http://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html" target="_blank">
 			<img src="img/MobileServices_AmazonCognito.png" alt="Amazon Cognito" title="Amazon Cognito"
-           style="width:144px;height:144px;"></a><br>
+           style="width:144px;height=144px;"></a><br>
 		Amazon Cognito Auth Demo
 	</h1>
 
@@ -203,9 +202,9 @@
 	                UserPoolId : '<TODO: your user pool id here>', 
 	                AdvancedSecurityDataCollectionFlag : <TODO: boolean value indicating whether you want to enable advanced security data collection>
 		};
-		var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
+		var auth = new AmazonCognitoIdentity.CognitoAuth(authData);
 		// You can also set state parameter 
-		// auth.setState(<state parameter>);
+		// auth.setState(<state parameter>);  
 		auth.userhandler = {
 			onSuccess: <TODO: your onSuccess callback here>,
 			onFailure: <TODO: your onFailure callback here>

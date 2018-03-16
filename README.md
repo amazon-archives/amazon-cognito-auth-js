@@ -16,9 +16,6 @@ Instead of implementing a UI for sign-up and sign-in, this SDK provides the UI v
 
 # Setup
 
-The Amazon Cognito Auth SDK for JavaScript depends on:
-     The `CognitoIdentityServiceProvider` service from the [AWS SDK for JavaScript](https://github.com/aws/aws-sdk-js)
-
 There are two ways to install the Amazon Cognito Auth SDK for JavaScript and its dependencies, depending on your project setup and experience with modern JavaScript build tools:
 
 * Download the JavaScript libraries and include them in your HTML, or
@@ -29,20 +26,15 @@ There are two ways to install the Amazon Cognito Auth SDK for JavaScript and its
 
 This method is simpler and does not require additional tools, but may have worse performance due to the browser having to download multiple files.
 
-Download each of the following JavaScript files for the required libraries and place them in your project:
-
-1. The Amazon Cognito AWS SDK for JavaScript, from `/dist/aws-cognito-sdk.min.js`
-
-	Note that the Amazon Cognito AWS SDK for JavaScript is just a slimmed down version of the AWS Javascript SDK namespaced as `AWSCognito` instead of `AWS`. It references only the Amazon Cognito Identity service.
+Download the following JavaScript file for the required library and place it in your project:
 	
-2. The Amazon Cognito Auth SDK for JavaScript, from `/dist/amazon-cognito-auth.min.js`
+1. The Amazon Cognito Auth SDK for JavaScript, from `/dist/amazon-cognito-auth.min.js`
 
 Optionally, to use other AWS services, include a build of the `AWS SDK for JavaScript`.
 
 Include all of the files in your HTML page before calling any Amazon Cognito Auth SDK APIs:
 
 ```html
-<script src="/path/to/aws-cognito-sdk.min.js"></script>
 <script src="/path/to/amazon-cognito-auth.min.js"></script>
 <!-- optional: only if you use other AWS services -->
 <script src="/path/to/aws-sdk-2.6.10.js"></script>
@@ -86,7 +78,7 @@ module.exports = {
     loaders: [
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        loader: 'json'
       }
     ]
   }
@@ -132,9 +124,6 @@ The usage examples below use the unqualified names for types in the Amazon Cogni
 // When using loose Javascript files:
 var CognitoAuth = AmazonCognitoIdentity.CognitoAuth;
 
-// Under the original name:
-var CognitoAuth = AWSCognito.CognitoIdentityServiceProvider.CognitoAuth;
-
 // Modules, e.g. Webpack:
 var AmazonCognitoIdentity = require('amazon-cognito-auth-js');
 var CognitoAuth = AmazonCognitoIdentity.CognitoAuth;
@@ -166,7 +155,7 @@ var authData = {
 	UserPoolId : '<TODO: add UserPoolId>', // Your user pool id here
 	AdvancedSecurityDataCollectionFlag : '<TODO: boolean value indicating whether you want to enable advanced security data collection>', // e.g. true
 };
-var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
+var auth = new AmazonCognitoIdentity.CognitoAuth(authData);
 ```
 
 Also you can provide onSuccess callback and onFailure callback:
@@ -222,9 +211,15 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.1.4**
+
+* Removed the dependency on the `CognitoIdentityServiceProvider` service from the AWS SDK for JavaScript. 
+
+
 **v1.1.3**
 
 * Updated doc and uploaded `es` folder. 
+
 
 **v1.1.2**
 
@@ -234,6 +229,7 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 **v1.1.1**
 
 * Bug fix, username should be updated when caching tokens and scopes.
+
 
 **v1.1.0**
 

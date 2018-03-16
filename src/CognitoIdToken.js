@@ -15,7 +15,7 @@
  * and limitations under the License.
  */
 
-import { util } from 'aws-sdk/global';
+import { Buffer } from 'buffer/';
 
 /** @class */
 export default class CognitoIdToken {
@@ -26,6 +26,7 @@ export default class CognitoIdToken {
   constructor(IdToken) {
     // Assign object
     this.jwtToken = IdToken || '';
+    this.payload = this.decodePayload();
   }
 
   /**
@@ -48,8 +49,18 @@ export default class CognitoIdToken {
    * @returns {int} the token's expiration (exp member).
    */
   getExpiration() {
+    return this.payload.exp;
+  }
+
+  /**
+   * @returns {object} the token's payload.
+   */
+  decodePayload() {
     const payload = this.jwtToken.split('.')[1];
-    const expiration = JSON.parse(util.base64.decode(payload).toString('utf8'));
-    return expiration.exp;
+    try {
+      return JSON.parse(Buffer.from(payload, 'base64').toString('utf8'));
+    } catch (err) {
+      return {};
+    }
   }
 }
