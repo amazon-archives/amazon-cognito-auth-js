@@ -45,6 +45,7 @@
   "main": "lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
+  "types": "./index.d.ts",
   "dependencies": {
     "buffer": "4.9.1"
   },
