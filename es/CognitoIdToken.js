@@ -3,7 +3,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /*!
  * Amazon Cognito Auth SDK for JavaScript
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
@@ -17,10 +16,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * and limitations under the License.
  */
 
-import { Buffer } from 'buffer/';
-
 /** @class */
-
 var CognitoIdToken = function () {
   /**
    * Constructs a new CognitoIdToken object
@@ -60,7 +56,11 @@ var CognitoIdToken = function () {
 
 
   CognitoIdToken.prototype.getExpiration = function getExpiration() {
-    return this.payload.exp;
+    if (this.jwtToken === null) {
+      return undefined;
+    }
+    var jwtPayload = this.jwtToken.split('.')[1];
+    return JSON.parse(atob(jwtPayload)).exp;
   };
 
   /**
@@ -69,9 +69,9 @@ var CognitoIdToken = function () {
 
 
   CognitoIdToken.prototype.decodePayload = function decodePayload() {
-    var payload = this.jwtToken.split('.')[1];
+    var jwtPayload = this.jwtToken.split('.')[1];
     try {
-      return JSON.parse(Buffer.from(payload, 'base64').toString('utf8'));
+      return JSON.parse(atob(jwtPayload));
     } catch (err) {
       return {};
     }

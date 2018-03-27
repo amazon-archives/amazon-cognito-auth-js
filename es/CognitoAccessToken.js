@@ -17,10 +17,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * and limitations under the License.
  */
 
-import { Buffer } from 'buffer/';
-
 /** @class */
-
 var CognitoAccessToken = function () {
   /**
    * Constructs a new CognitoAccessToken object
@@ -60,7 +57,11 @@ var CognitoAccessToken = function () {
 
 
   CognitoAccessToken.prototype.getExpiration = function getExpiration() {
-    return this.payload.exp;
+    if (this.jwtToken === null) {
+      return undefined;
+    }
+    var jwtPayload = this.jwtToken.split('.')[1];
+    return JSON.parse(atob(jwtPayload)).exp;
   };
 
   /**
@@ -72,7 +73,8 @@ var CognitoAccessToken = function () {
     if (this.jwtToken === null) {
       return undefined;
     }
-    return this.payload.username;
+    var jwtPayload = this.jwtToken.split('.')[1];
+    return JSON.parse(atob(jwtPayload)).username;
   };
 
   /**
@@ -81,9 +83,9 @@ var CognitoAccessToken = function () {
 
 
   CognitoAccessToken.prototype.decodePayload = function decodePayload() {
-    var payload = this.jwtToken.split('.')[1];
+    var jwtPayload = this.jwtToken.split('.')[1];
     try {
-      return JSON.parse(Buffer.from(payload, 'base64').toString('utf8'));
+      return JSON.parse(atob(jwtPayload));
     } catch (err) {
       return {};
     }

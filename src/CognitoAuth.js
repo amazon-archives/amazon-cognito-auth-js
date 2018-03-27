@@ -115,6 +115,7 @@
         ACCESSTOKEN: 'access_token',
         REFRESHTOKEN: 'refresh_token',
         ERROR: 'error',
+        ERROR_DESCRIPTION: 'error_description',
         STRINGTYPE: 'string',
         STATELENGTH: 32,
         STATEORIGINSTRING: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -147,12 +148,12 @@
      * method for getting the current user of the application from the local storage
      *
      * @returns {CognitoAuth} the user retrieved from storage
-     */
-    getCurrentUser() {
+     */    
+     getCurrentUser() {
       const lastUserKey = `CognitoIdentityServiceProvider.${this.clientId}.LastAuthUser`;
   
       const lastAuthUser = this.storage.getItem(lastUserKey);
-      return lastAuthUser;
+      return lastAuthUser;    
     }
   
     /**
@@ -262,24 +263,32 @@
      * Parse the http request response and proceed according to different response types.
      */
     parseCognitoWebResponse(httpRequestResponse) {
+      let map;
       if (httpRequestResponse.indexOf(this.getCognitoConstants().QUESTIONMARK) > -1) {
-        this.getCodeQueryParameter(httpRequestResponse);
+        map = this.getQueryParameters(
+        httpRequestResponse,
+        this.getCognitoConstants().QUESTIONMARK
+        );
+        this.getCodeQueryParameter(map);
       } else if (httpRequestResponse.indexOf(this.getCognitoConstants().POUNDSIGN) > -1) {
-        // To parse the response to get tokens
-        this.getTokenQueryParameter(httpRequestResponse);
+        map = this.getQueryParameters(
+        httpRequestResponse,
+        this.getCognitoConstants().QUERYPARAMETERREGEX1
+        );
+        if (map.has(this.getCognitoConstants().ERROR)) {
+          return this.userhandler.onFailure(map.get(this.getCognitoConstants().ERROR_DESCRIPTION));
+        }
+        // To use the map to get tokens
+        this.getTokenQueryParameter(map);
       }
     }
   
     /**
-     * @param {string} httpRequestResponse the http request response
+     * @param {map} Query parameter map 
      * @returns {void}
-     * Parse the http request response and proceed according to code response type.
+     * Get the query parameter map and proceed according to code response type.
      */
-    getCodeQueryParameter(httpRequestResponse) {
-      const map = this.getQueryParameters(
-        httpRequestResponse,
-        this.getCognitoConstants().QUESTIONMARK
-      );
+    getCodeQueryParameter(map) {
       const state = null;
       if (map.has(this.getCognitoConstants().STATE)) {
         this.signInUserSession.setState(map.get(this.getCognitoConstants().STATE));
@@ -306,15 +315,11 @@
     }
   
     /**
-     * Parse the http request response and proceed according to token response type.
-     * @param {string} httpRequestResponse the http request response
+     * Get the query parameter map and proceed according to token response type.
+     * @param {map} Query parameter map 
      * @returns {void}
      */
-    getTokenQueryParameter(httpRequestResponse) {
-      const map = this.getQueryParameters(
-        httpRequestResponse,
-        this.getCognitoConstants().QUERYPARAMETERREGEX1
-      );
+    getTokenQueryParameter(map) {
       const idToken = new CognitoIdToken();
       const accessToken = new CognitoAccessToken();
       const refreshToken = new CognitoRefreshToken();
@@ -331,19 +336,13 @@
       } else {
         this.signInUserSession.setAccessToken(accessToken);
       }
-      if (map.has(this.getCognitoConstants().REFRESHTOKEN)) {
-        refreshToken.setToken(map.get(this.getCognitoConstants().REFRESHTOKEN));
-        this.signInUserSession.setRefreshToken(refreshToken);
-      } else {
-        this.signInUserSession.setRefreshToken(refreshToken);
-      }
       if (map.has(this.getCognitoConstants().STATE)) {
         this.signInUserSession.setState(map.get(this.getCognitoConstants().STATE));
       } else {
         this.signInUserSession.setState(state);
       }
       this.cacheTokensScopes();
-      return this.userhandler.onSuccess(this.signInUserSession); 
+      this.userhandler.onSuccess(this.signInUserSession); 
     }
   
     /**

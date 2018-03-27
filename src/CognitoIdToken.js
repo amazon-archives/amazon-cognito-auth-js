@@ -1,7 +1,6 @@
 /*!
  * Amazon Cognito Auth SDK for JavaScript
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
@@ -14,8 +13,6 @@
  * License for the specific language governing permissions
  * and limitations under the License.
  */
-
-import { Buffer } from 'buffer/';
 
 /** @class */
 export default class CognitoIdToken {
@@ -49,16 +46,20 @@ export default class CognitoIdToken {
    * @returns {int} the token's expiration (exp member).
    */
   getExpiration() {
-    return this.payload.exp;
+    if (this.jwtToken === null) {
+      return undefined;
+    }
+    const jwtPayload = this.jwtToken.split('.')[1];
+    return JSON.parse(atob(jwtPayload)).exp;
   }
 
   /**
    * @returns {object} the token's payload.
    */
   decodePayload() {
-    const payload = this.jwtToken.split('.')[1];
+    const jwtPayload = this.jwtToken.split('.')[1];
     try {
-      return JSON.parse(Buffer.from(payload, 'base64').toString('utf8'));
+      return JSON.parse(atob(jwtPayload));
     } catch (err) {
       return {};
     }

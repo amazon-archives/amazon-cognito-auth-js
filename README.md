@@ -211,6 +211,11 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.1.5**
+
+* Added `parseCognitoWebResponse()` onFailure() callback and fixed the `CognitoAuth.getCurrentUser()` returning `undefined` when using implicit grant flow. 
+
+
 **v1.1.4**
 
 * Removed the dependency on the `CognitoIdentityServiceProvider` service from the AWS SDK for JavaScript. 
@@ -218,7 +223,7 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 **v1.1.3**
 
-* Updated doc and uploaded `es` folder. 
+* Updated doc and uploaded `es` folder.
 
 
 **v1.1.2**
@@ -229,7 +234,6 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 **v1.1.1**
 
 * Bug fix, username should be updated when caching tokens and scopes.
-
 
 **v1.1.0**
 

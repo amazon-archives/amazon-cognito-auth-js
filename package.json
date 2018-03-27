@@ -1,7 +1,7 @@
 {
   "name": "amazon-cognito-auth-js",
   "description": "Amazon Cognito Auth JavaScript SDK",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "author": {
     "name": "Amazon Web Services",
     "email": "aws@amazon.com",
@@ -45,9 +45,6 @@
   "main": "lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
-  "dependencies": {
-    "buffer": "4.9.1"
-  },
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-core": "^6.13.2",

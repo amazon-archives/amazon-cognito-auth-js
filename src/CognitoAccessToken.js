@@ -15,8 +15,6 @@
  * and limitations under the License.
  */
 
-import { Buffer } from 'buffer/';
-
 /** @class */
 export default class CognitoAccessToken {
   /**
@@ -49,7 +47,11 @@ export default class CognitoAccessToken {
    * @returns {int} the token's expiration (exp member).
    */
   getExpiration() {
-    return this.payload.exp;
+    if (this.jwtToken === null) {
+      return undefined;
+    }
+    const jwtPayload = this.jwtToken.split('.')[1];
+    return JSON.parse(atob(jwtPayload)).exp;
   }
 
   /**
@@ -59,16 +61,17 @@ export default class CognitoAccessToken {
     if (this.jwtToken === null) {
       return undefined;
     }
-    return this.payload.username;
+    const jwtPayload = this.jwtToken.split('.')[1];
+    return JSON.parse(atob(jwtPayload)).username;
   }
 
   /**
    * @returns {object} the token's payload.
    */
   decodePayload() {
-    const payload = this.jwtToken.split('.')[1];
+    const jwtPayload = this.jwtToken.split('.')[1];
     try {
-      return JSON.parse(Buffer.from(payload, 'base64').toString('utf8'));
+      return JSON.parse(atob(jwtPayload));
     } catch (err) {
       return {};
     }
