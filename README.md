@@ -211,6 +211,11 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.1.6**
+
+* Added support for avoiding a bug exists when sign in with Google or facebook and parse the web response. 
+
+
 **v1.1.5**
 
 * Added `parseCognitoWebResponse()` onFailure() callback and fixed the `CognitoAuth.getCurrentUser()` returning `undefined` when using implicit grant flow. 
