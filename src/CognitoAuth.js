@@ -264,22 +264,27 @@
      */
     parseCognitoWebResponse(httpRequestResponse) {
       let map;
-      if (httpRequestResponse.indexOf(this.getCognitoConstants().QUESTIONMARK) > -1) {
+      if (httpRequestResponse.indexOf(this.getCognitoConstants().QUESTIONMARK) > -1) { // for code type
+        // this is to avoid a bug exists when sign in with Google or facebook
+        // Sometimes the code will contain a poundsign in the end which breaks the parsing
+        const response = (httpRequestResponse.split('#'))[0];
         map = this.getQueryParameters(
-        httpRequestResponse,
-        this.getCognitoConstants().QUESTIONMARK
+          response,
+          this.getCognitoConstants().QUESTIONMARK
         );
         this.getCodeQueryParameter(map);
-      } else if (httpRequestResponse.indexOf(this.getCognitoConstants().POUNDSIGN) > -1) {
+      } else if (httpRequestResponse.indexOf(this.getCognitoConstants().POUNDSIGN) > -1) { // for token type
         map = this.getQueryParameters(
-        httpRequestResponse,
-        this.getCognitoConstants().QUERYPARAMETERREGEX1
+          httpRequestResponse,
+          this.getCognitoConstants().QUERYPARAMETERREGEX1
         );
         if (map.has(this.getCognitoConstants().ERROR)) {
           return this.userhandler.onFailure(map.get(this.getCognitoConstants().ERROR_DESCRIPTION));
         }
         // To use the map to get tokens
         this.getTokenQueryParameter(map);
+      } else {
+        return this.userhandler.onFailure('Failed to parse: invalid callback url');
       }
     }
   
