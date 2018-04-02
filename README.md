@@ -107,7 +107,7 @@ The Amazon Cognito Auth SDK for JavaScript requires three configuration values f
     * When you click the `App settings` tab, you can select the identity provider which you want to use on your App. 
     * In the `sign in and sign out URLs` tab, you can set the `Callback URLs` and `Sign out URLs`. (both are required)
     * Under the `OAuth2.0` tab, you can select the OAuth flows and scopes enabled for this app. (both are required)
-* IdentityProvider (Optional): Pre-selected identity provider (this allows to automatically trigger social provider authentication flow).e.g. `Facebook`
+* IdentityProvider (Optional): Pre-selected identity provider (this allows to automatically trigger social provider authentication flow).e.g. `facebook`
 * UserPoolId (Optional): e.g. `<TODO: add UserPoolId>` 
 * AdvancedSecurityDataCollectionFlag (Optional): boolean flag indicating if the data collection is enabled to support cognito advanced security features. By default, this flag is set to true.
 
@@ -151,7 +151,7 @@ var authData = {
 	TokenScopesArray : ['<TODO: add scope array>'], // e.g.['phone', 'email', 'profile','openid', 'aws.cognito.signin.user.admin'],
 	RedirectUriSignIn : '<TODO: add redirect url when signed in>',
 	RedirectUriSignOut : '<TODO: add redirect url when signed out>',
-	IdentityProvider : '<TODO: add identity provider you want to specify>', // e.g. 'Facebook',
+	IdentityProvider : '<TODO: add identity provider you want to specify>', // e.g. 'facebook',
 	UserPoolId : '<TODO: add UserPoolId>', // Your user pool id here
 	AdvancedSecurityDataCollectionFlag : '<TODO: boolean value indicating whether you want to enable advanced security data collection>', // e.g. true
 };
