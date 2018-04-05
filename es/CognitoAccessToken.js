@@ -1,5 +1,3 @@
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 /*!
  * Amazon Cognito Auth SDK for JavaScript
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -18,14 +16,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  */
 
 /** @class */
-var CognitoAccessToken = function () {
+export default class CognitoAccessToken {
   /**
    * Constructs a new CognitoAccessToken object
    * @param {string=} AccessToken The JWT access token.
    */
-  function CognitoAccessToken(AccessToken) {
-    _classCallCheck(this, CognitoAccessToken);
-
+  constructor(AccessToken) {
     // Assign object
     this.jwtToken = AccessToken || '';
     this.payload = this.decodePayload();
@@ -34,64 +30,50 @@ var CognitoAccessToken = function () {
   /**
    * @returns {string} the record's token.
    */
-
-
-  CognitoAccessToken.prototype.getJwtToken = function getJwtToken() {
+  getJwtToken() {
     return this.jwtToken;
-  };
+  }
 
   /**
    * Sets new value for access token.
    * @param {string=} accessToken The JWT access token.
    * @returns {void}
    */
-
-
-  CognitoAccessToken.prototype.setJwtToken = function setJwtToken(accessToken) {
+  setJwtToken(accessToken) {
     this.jwtToken = accessToken;
-  };
+  }
 
   /**
    * @returns {int} the token's expiration (exp member).
    */
-
-
-  CognitoAccessToken.prototype.getExpiration = function getExpiration() {
+  getExpiration() {
     if (this.jwtToken === null) {
       return undefined;
     }
-    var jwtPayload = this.jwtToken.split('.')[1];
+    const jwtPayload = this.jwtToken.split('.')[1];
     return JSON.parse(atob(jwtPayload)).exp;
-  };
+  }
 
   /**
    * @returns {string} the username from payload.
    */
-
-
-  CognitoAccessToken.prototype.getUsername = function getUsername() {
+  getUsername() {
     if (this.jwtToken === null) {
       return undefined;
     }
-    var jwtPayload = this.jwtToken.split('.')[1];
+    const jwtPayload = this.jwtToken.split('.')[1];
     return JSON.parse(atob(jwtPayload)).username;
-  };
+  }
 
   /**
    * @returns {object} the token's payload.
    */
-
-
-  CognitoAccessToken.prototype.decodePayload = function decodePayload() {
-    var jwtPayload = this.jwtToken.split('.')[1];
+  decodePayload() {
+    const jwtPayload = this.jwtToken.split('.')[1];
     try {
       return JSON.parse(atob(jwtPayload));
     } catch (err) {
       return {};
     }
-  };
-
-  return CognitoAccessToken;
-}();
-
-export default CognitoAccessToken;
+  }
+}

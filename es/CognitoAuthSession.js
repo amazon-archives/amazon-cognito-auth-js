@@ -1,5 +1,3 @@
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 /*!
  * Amazon Cognito Auth SDK for JavaScript
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -23,8 +21,7 @@ import CognitoIdToken from './CognitoIdToken';
 import CognitoRefreshToken from './CognitoRefreshToken';
 
 /** @class */
-
-var CognitoAuthSession = function () {
+export default class CognitoAuthSession {
   /**
    * Constructs a new CognitoUserSession object
    * @param {CognitoIdToken} IdToken The session's Id token.
@@ -33,16 +30,7 @@ var CognitoAuthSession = function () {
    * @param {array}  TokenScopes  The session's token scopes.
     * @param {string} State The session's state. 
    */
-  function CognitoAuthSession() {
-    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-        IdToken = _ref.IdToken,
-        RefreshToken = _ref.RefreshToken,
-        AccessToken = _ref.AccessToken,
-        TokenScopes = _ref.TokenScopes,
-        State = _ref.State;
-
-    _classCallCheck(this, CognitoAuthSession);
-
+  constructor({ IdToken, RefreshToken, AccessToken, TokenScopes, State } = {}) {
     if (IdToken) {
       this.idToken = IdToken;
     } else {
@@ -73,112 +61,90 @@ var CognitoAuthSession = function () {
   /**
    * @returns {CognitoIdToken} the session's Id token
    */
-
-
-  CognitoAuthSession.prototype.getIdToken = function getIdToken() {
+  getIdToken() {
     return this.idToken;
-  };
+  }
 
   /**
    * Set a new Id token
    * @param {CognitoIdToken} IdToken The session's Id token.
    * @returns {void}
    */
-
-
-  CognitoAuthSession.prototype.setIdToken = function setIdToken(IdToken) {
+  setIdToken(IdToken) {
     this.idToken = IdToken;
-  };
+  }
 
   /**
    * @returns {CognitoRefreshToken} the session's refresh token
    */
-
-
-  CognitoAuthSession.prototype.getRefreshToken = function getRefreshToken() {
+  getRefreshToken() {
     return this.refreshToken;
-  };
+  }
 
   /**
    * Set a new Refresh token
    * @param {CognitoRefreshToken} RefreshToken The session's refresh token.
    * @returns {void}
    */
-
-
-  CognitoAuthSession.prototype.setRefreshToken = function setRefreshToken(RefreshToken) {
+  setRefreshToken(RefreshToken) {
     this.refreshToken = RefreshToken;
-  };
+  }
 
   /**
    * @returns {CognitoAccessToken} the session's access token
    */
-
-
-  CognitoAuthSession.prototype.getAccessToken = function getAccessToken() {
+  getAccessToken() {
     return this.accessToken;
-  };
+  }
 
   /**
    * Set a new Access token
    * @param {CognitoAccessToken} AccessToken The session's access token.
    * @returns {void}
    */
-
-
-  CognitoAuthSession.prototype.setAccessToken = function setAccessToken(AccessToken) {
+  setAccessToken(AccessToken) {
     this.accessToken = AccessToken;
-  };
+  }
 
   /**
    * @returns {CognitoTokenScopes} the session's token scopes
    */
-
-
-  CognitoAuthSession.prototype.getTokenScopes = function getTokenScopes() {
+  getTokenScopes() {
     return this.tokenScopes;
-  };
+  }
 
   /**
    * Set new token scopes
    * @param {array}  tokenScopes  The session's token scopes.
    * @returns {void}
    */
-
-
-  CognitoAuthSession.prototype.setTokenScopes = function setTokenScopes(tokenScopes) {
+  setTokenScopes(tokenScopes) {
     this.tokenScopes = tokenScopes;
-  };
+  }
 
   /**
    * @returns {string} the session's state
    */
-
-
-  CognitoAuthSession.prototype.getState = function getState() {
+  getState() {
     return this.state;
-  };
+  }
 
   /**
    * Set new state
    * @param {string}  state  The session's state.
    * @returns {void}
    */
-
-
-  CognitoAuthSession.prototype.setState = function setState(State) {
+  setState(State) {
     this.state = State;
-  };
+  }
 
   /**
    * Checks to see if the session is still valid based on session expiry information found
    * in Access and Id Tokens and the current time
    * @returns {boolean} if the session is still valid
    */
-
-
-  CognitoAuthSession.prototype.isValid = function isValid() {
-    var now = Math.floor(new Date() / 1000);
+  isValid() {
+    const now = Math.floor(new Date() / 1000);
     try {
       if (this.accessToken != null) {
         return now < this.accessToken.getExpiration();
@@ -190,9 +156,5 @@ var CognitoAuthSession = function () {
     } catch (e) {
       return false;
     }
-  };
-
-  return CognitoAuthSession;
-}();
-
-export default CognitoAuthSession;
+  }
+}
