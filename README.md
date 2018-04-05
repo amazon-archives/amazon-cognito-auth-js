@@ -211,6 +211,11 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.1.7**
+
+* Merged in library files. 
+
+
 **v1.1.6**
 
 * Added support for avoiding a bug exists when sign in with Google or facebook and parse the web response. 
