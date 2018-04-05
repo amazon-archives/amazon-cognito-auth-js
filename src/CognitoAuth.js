@@ -267,7 +267,7 @@
       if (httpRequestResponse.indexOf(this.getCognitoConstants().QUESTIONMARK) > -1) { // for code type
         // this is to avoid a bug exists when sign in with Google or facebook
         // Sometimes the code will contain a poundsign in the end which breaks the parsing
-        const response = (httpRequestResponse.split('#'))[0];
+        const response = (httpRequestResponse.split(this.getCognitoConstants().POUNDSIGN))[0];
         map = this.getQueryParameters(
           response,
           this.getCognitoConstants().QUESTIONMARK
