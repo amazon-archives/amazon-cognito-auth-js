@@ -211,6 +211,11 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.1.8**
+
+* Remove `parseCognitoWebResponse()` onFailure() callback to make sure sample APP works correctly. 
+
+
 **v1.1.7**
 
 * Merged in library files. 

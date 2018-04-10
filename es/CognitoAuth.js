@@ -318,8 +318,6 @@ var CognitoAuth = function () {
       }
       // To use the map to get tokens
       this.getTokenQueryParameter(map);
-    } else {
-      return this.userhandler.onFailure('Failed to parse: invalid callback url');
     }
   };
 
