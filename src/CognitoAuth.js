@@ -777,6 +777,6 @@
      * @returns {boolean} userSignedIn 
      */
     isUserSignedIn() {
-      return (this.signInUserSession != null && this.signInUserSession.isValid()) || this.getCachedSession().isValid();
+      return (this.signInUserSession != null && this.signInUserSession.isValid()) || (this.getCachedSession() != null && this.getCachedSession().isValid());
     }
   }
