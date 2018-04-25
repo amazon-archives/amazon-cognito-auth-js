@@ -66,7 +66,7 @@
       this.username = this.getLastUser();
       this.userPoolId = UserPoolId;
       this.signInUserSession = this.getCachedSession();
-+     this.signInUserSession.setTokenScopes(tokenScopes);
+      this.signInUserSession.setTokenScopes(tokenScopes);
   
       /**
        * By default, AdvancedSecurityDataCollectionFlag is set to true, if no input value is provided.
