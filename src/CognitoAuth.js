@@ -21,7 +21,7 @@
   import CognitoRefreshToken from './CognitoRefreshToken';
   import CognitoAuthSession from './CognitoAuthSession';
   import StorageHelper from './StorageHelper';
-  
+
   /** @class */
   export default class CognitoAuth {
     /**
@@ -50,7 +50,7 @@
       if (data == null || !ClientId || !AppWebDomain || !RedirectUriSignIn || !RedirectUriSignOut) {
         throw new Error(this.getCognitoConstants().PARAMETERERROR);
       }
-  
+
       this.clientId = ClientId;
       this.appWebDomain = AppWebDomain;
       this.TokenScopesArray = TokenScopesArray || [];
@@ -67,7 +67,7 @@
       this.userPoolId = UserPoolId;
       this.signInUserSession = this.getCachedSession();
 +     this.signInUserSession.setTokenScopes(tokenScopes);
-  
+
       /**
        * By default, AdvancedSecurityDataCollectionFlag is set to true, if no input value is provided.
        */
@@ -76,14 +76,14 @@
         this.advancedSecurityDataCollectionFlag = AdvancedSecurityDataCollectionFlag;
       }
     }
-  
+
     /**
      * @returns {JSON} the constants
      */
     getCognitoConstants() {
       const CognitoConstants = {
         DOMAIN_SCHEME: 'https',
-        DOMAIN_PATH_SIGNIN: 'oauth2/authorize',
+        DOMAIN_PATH_SIGNIN: 'login',
         DOMAIN_PATH_TOKEN: 'oauth2/token',
         DOMAIN_PATH_SIGNOUT: 'logout',
         DOMAIN_QUERY_PARAM_REDIRECT_URI: 'redirect_uri',
@@ -129,33 +129,33 @@
       };
       return CognitoConstants;
     }
-  
+
     /**
      * @returns {string} the client id
      */
     getClientId() {
       return this.clientId;
     }
-  
+
     /**
      * @returns {string} the app web domain
      */
     getAppWebDomain() {
       return this.appWebDomain;
     }
-  
+
     /**
      * method for getting the current user of the application from the local storage
      *
      * @returns {CognitoAuth} the user retrieved from storage
-     */    
+     */
      getCurrentUser() {
       const lastUserKey = `CognitoIdentityServiceProvider.${this.clientId}.LastAuthUser`;
-  
+
       const lastAuthUser = this.storage.getItem(lastUserKey);
-      return lastAuthUser;    
+      return lastAuthUser;
     }
-  
+
     /**
      * @param {string} Username the user's name
      * method for setting the current user's name
@@ -164,7 +164,7 @@
     setUser(Username) {
       this.username = Username;
     }
-  
+
     /**
      * sets response type to 'code'
      * @returns {void}
@@ -172,7 +172,7 @@
     useCodeGrantFlow() {
       this.responseType = this.getCognitoConstants().CODE;
     }
-  
+
     /**
      * sets response type to 'token'
      * @returns {void}
@@ -180,21 +180,21 @@
     useImplicitFlow() {
       this.responseType = this.getCognitoConstants().TOKEN;
     }
-  
+
     /**
      * @returns {CognitoAuthSession} the current session for this user
      */
     getSignInUserSession() {
       return this.signInUserSession;
     }
-  
+
     /**
      * @returns {string} the user's username
      */
     getUsername() {
       return this.username;
     }
-  
+
     /**
      * @param {string} Username the user's username
      * @returns {void}
@@ -217,7 +217,7 @@
     setState(State) {
       this.state = State;
     }
-  
+
     /**
      * This is used to get a session, either from the session object
      * or from the local storage, or by using a refresh token
@@ -256,7 +256,7 @@
       }
       return undefined;
     }
-  
+
     /**
      * @param {string} httpRequestResponse the http request response
      * @returns {void}
@@ -285,9 +285,9 @@
         this.getTokenQueryParameter(map);
       }
     }
-  
+
     /**
-     * @param {map} Query parameter map 
+     * @param {map} Query parameter map
      * @returns {void}
      * Get the query parameter map and proceed according to code response type.
      */
@@ -316,10 +316,10 @@
         this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure);
       }
     }
-  
+
     /**
      * Get the query parameter map and proceed according to token response type.
-     * @param {map} Query parameter map 
+     * @param {map} Query parameter map
      * @returns {void}
      */
     getTokenQueryParameter(map) {
@@ -345,9 +345,9 @@
         this.signInUserSession.setState(state);
       }
       this.cacheTokensScopes();
-      this.userhandler.onSuccess(this.signInUserSession); 
+      this.userhandler.onSuccess(this.signInUserSession);
     }
-  
+
     /**
      * Get cached tokens and scopes and return a new session using all the cached data.
      * @returns {CognitoAuthSession} the auth session
@@ -361,7 +361,7 @@
       const accessTokenKey = `${keyPrefix}.accessToken`;
       const refreshTokenKey = `${keyPrefix}.refreshToken`;
       const scopeKey = `${keyPrefix}.tokenScopesString`;
-  
+
       const scopesString = this.storage.getItem(scopeKey);
       let scopesArray = [];
       if (scopesString) {
@@ -371,7 +371,7 @@
       const idToken = new CognitoIdToken(this.storage.getItem(idTokenKey));
       const accessToken = new CognitoAccessToken(this.storage.getItem(accessTokenKey));
       const refreshToken = new CognitoRefreshToken(this.storage.getItem(refreshTokenKey));
-  
+
       const sessionData = {
         IdToken: idToken,
         AccessToken: accessToken,
@@ -381,7 +381,7 @@
       const cachedSession = new CognitoAuthSession(sessionData);
       return cachedSession;
     }
-  
+
     /**
      * This is used to get last signed in user from local storage
      * @returns {string} the last user name
@@ -395,7 +395,7 @@
       }
       return undefined;
     }
-  
+
     /**
      * This is used to save the session tokens and scopes to local storage
      * Input parameter is a set of strings.
@@ -418,7 +418,7 @@
       this.storage.setItem(lastUserKey, tokenUserName);
       this.storage.setItem(scopeKey, scopesString);
     }
-  
+
     /**
      * Compare two sets if they are identical.
      * @param {set} set1 one set
@@ -436,7 +436,7 @@
       }
       return true;
     }
-  
+
     /**
      * @param {string} url the url string
      * Get the hostname from url.
@@ -450,7 +450,7 @@
       }
       return undefined;
     }
-  
+
     /**
      * Get http query parameters and return them as a map.
      * @param {string} url the url string
@@ -470,7 +470,7 @@
       }
       return map;
     }
-  
+
     /**
      * helper function to generate a random string
      * @param {int} length the length of string
@@ -483,7 +483,7 @@
       for (; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
       return result;
     }
-  
+
     /**
      * This is used to clear the session tokens and scopes from local storage
      * @returns {void}
@@ -495,14 +495,14 @@
       const refreshTokenKey = `${keyPrefix}.${this.username}.refreshToken`;
       const lastUserKey = `${keyPrefix}.LastAuthUser`;
       const scopeKey = `${keyPrefix}.${this.username}.tokenScopesString`;
-  
+
       this.storage.removeItem(idTokenKey);
       this.storage.removeItem(accessTokenKey);
       this.storage.removeItem(refreshTokenKey);
       this.storage.removeItem(lastUserKey);
       this.storage.removeItem(scopeKey);
     }
-  
+
     /**
      * This is used to build a user session from tokens retrieved in the authentication result
      * @param {object} refreshToken authResult Successful auth response from server.
@@ -522,7 +522,7 @@
       const boundOnFailure = (this.onFailure).bind(this);
       this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure);
     }
-  
+
     /**
      * Make the http POST request.
      * @param {JSON} header header JSON object
@@ -559,7 +559,7 @@
         }
       };
     }
-  
+
     /**
      * Create the XHR object
      * @param {string} method which method to call
@@ -582,7 +582,7 @@
       }
       return xhr;
     }
-  
+
     /**
      * The http POST request onFailure callback.
      * @param {object} err the error object
@@ -591,7 +591,7 @@
     onFailure(err) {
       this.userhandler.onFailure(err);
     }
-  
+
     /**
      * The http POST request onSuccess callback when refreshing tokens.
      * @param {JSON} jsonData tokens
@@ -617,7 +617,7 @@
         this.userhandler.onSuccess(this.signInUserSession);
       }
     }
-  
+
     /**
      * The http POST request onSuccess callback when exchanging code for tokens.
      * @param {JSON} jsonData tokens
@@ -656,7 +656,7 @@
       this.cacheTokensScopes();
       this.userhandler.onSuccess(this.signInUserSession);
     }
-  
+
     /**
      * Launch Cognito Auth UI page.
      * @param {string} URL the url to launch
@@ -665,7 +665,7 @@
     launchUri(URL) {
       window.open(URL, this.getCognitoConstants().SELF);
     }
-  
+
     /**
      * @returns {string} scopes string
      */
@@ -674,7 +674,7 @@
       tokenScopesString = tokenScopesString.join(this.getCognitoConstants().SPACE);
       return encodeURIComponent(tokenScopesString);
     }
-  
+
     /**
      * Create the FQDN(fully qualified domain name) for authorization endpoint.
      * @returns {string} url
@@ -684,21 +684,21 @@
         this.state = this.generateRandomString(this.getCognitoConstants().STATELENGTH,
       this.getCognitoConstants().STATEORIGINSTRING);
       }
-  
+
       const identityProviderParam = this.IdentityProvider
           ? this.getCognitoConstants().AMPERSAND.concat(
               this.getCognitoConstants().DOMAIN_QUERY_PARAM_IDENTITY_PROVIDER,
               this.getCognitoConstants().EQUALSIGN, this.IdentityProvider)
           : '';
       const tokenScopesString = this.getSpaceSeperatedScopeString();
-  
+
       var userContextDataParam = '';
       var userContextData = this.getUserContextData();
       if (userContextData) {
         userContextDataParam = this.getCognitoConstants().AMPERSAND + this.getCognitoConstants().DOMAIN_QUERY_PARAM_USERCONTEXTDATA +
                                this.getCognitoConstants().EQUALSIGN + this.getUserContextData();
       }
-  
+
       // Build the complete web domain to launch the login screen
       const uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(
       this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(),
@@ -715,10 +715,10 @@
       this.getCognitoConstants().EQUALSIGN, this.state, this.getCognitoConstants().AMPERSAND,
       this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString, identityProviderParam,
       userContextDataParam);
-  
+
       return uri;
     }
-  
+
     /**
      * Sign out the user.
      * @returns {void}
@@ -729,7 +729,7 @@
       this.clearCachedTokensScopes();
       this.launchUri(URL);
     }
-  
+
     /**
      * Create the FQDN(fully qualified domain name) for signout endpoint.
      * @returns {string} url
@@ -746,7 +746,7 @@
       this.getCognitoConstants().EQUALSIGN, this.getClientId());
       return uri;
     }
-  
+
     /**
      * This method returns the encoded data string used for cognito advanced security feature.
      * This would be generated only when developer has included the JS used for collecting the
@@ -757,29 +757,29 @@
       if (typeof AmazonCognitoAdvancedSecurityData === "undefined") {
         return;
       }
-  
+
       var _username = "";
       if (this.username){
         _username = this.username;
       }
-  
+
       var _userpoolId = "";
       if (this.userpoolId){
         _userpoolId = this.userpoolId;
       }
-  
+
       if (this.advancedSecurityDataCollectionFlag) {
         return AmazonCognitoAdvancedSecurityData.getData(_username, _userpoolId, this.clientId);
       }
     }
 
     /**
-     * Helper method to let the user know if he has either a valid cached session 
+     * Helper method to let the user know if he has either a valid cached session
      * or a valid authenticated session from the app integration callback.
-     * @returns {boolean} userSignedIn 
+     * @returns {boolean} userSignedIn
      */
     isUserSignedIn() {
-     return (this.signInUserSession != null && this.signInUserSession.isValid()) || 
+     return (this.signInUserSession != null && this.signInUserSession.isValid()) ||
      (this.getCachedSession() != null && this.getCachedSession().isValid());
     }
   }
