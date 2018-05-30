@@ -61,12 +61,12 @@
       this.RedirectUriSignIn = RedirectUriSignIn;
       this.RedirectUriSignOut = RedirectUriSignOut;
       this.IdentityProvider = IdentityProvider;
-      this.signInUserSession = new CognitoAuthSession();
       this.responseType = this.getCognitoConstants().TOKEN;
       this.storage = new StorageHelper().getStorage();
-      this.signInUserSession.setTokenScopes(tokenScopes);
       this.username = this.getLastUser();
       this.userPoolId = UserPoolId;
+      this.signInUserSession = this.getCachedSession();
++     this.signInUserSession.setTokenScopes(tokenScopes);
   
       /**
        * By default, AdvancedSecurityDataCollectionFlag is set to true, if no input value is provided.
@@ -283,8 +283,6 @@
         }
         // To use the map to get tokens
         this.getTokenQueryParameter(map);
-      } else {
-        return this.userhandler.onFailure('Failed to parse: invalid callback url');
       }
     }
   
@@ -781,7 +779,7 @@
      * @returns {boolean} userSignedIn 
      */
     isUserSignedIn() {
-     return ((this.getCachedSession() != null && this.getCachedSession().isValid() || 
-       this.signInUserSession != null && this.signInUserSession.isValid()));
+     return (this.signInUserSession != null && this.signInUserSession.isValid()) || 
+     (this.getCachedSession() != null && this.getCachedSession().isValid());
     }
   }

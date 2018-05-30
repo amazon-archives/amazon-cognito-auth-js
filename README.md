@@ -211,9 +211,19 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.2.0**
+
+* To merge in fixing tokens being empty strings when refreshing the browser of a single page application.     
+
+
+**v1.1.9**
+
+* To sync with NPM version.  
+
+
 **v1.1.8**
 
-* To sync with NPM version. 
+* Remove `parseCognitoWebResponse()` onFailure() callback to make sure sample APP works correctly. 
 
 
 **v1.1.7**
