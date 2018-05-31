@@ -154,7 +154,7 @@ var authData = {
 	IdentityProvider : '<TODO: add identity provider you want to specify>', // e.g. 'Facebook',
 	UserPoolId : '<TODO: add UserPoolId>', // Your user pool id here
 	AdvancedSecurityDataCollectionFlag : '<TODO: boolean value indicating whether you want to enable advanced security data collection>', // e.g. true
-  Storage: '<TODO the storage object>' // OPTIONAL e.g. new CookieStorage(), to use the specified storage provided
+        Storage: '<TODO the storage object>' // OPTIONAL e.g. new CookieStorage(), to use the specified storage provided
 };
 var auth = new AmazonCognitoIdentity.CognitoAuth(authData);
 ```
