@@ -84,6 +84,7 @@
       const CognitoConstants = {
         DOMAIN_SCHEME: 'https',
         DOMAIN_PATH_SIGNIN: 'oauth2/authorize',
+        DOMAIN_PATH_SIGNUP: 'oauth2/signup',
         DOMAIN_PATH_TOKEN: 'oauth2/token',
         DOMAIN_PATH_SIGNOUT: 'logout',
         DOMAIN_QUERY_PARAM_REDIRECT_URI: 'redirect_uri',
@@ -230,7 +231,7 @@
     getSession() {
       const tokenScopesInputSet = new Set(this.TokenScopesArray);
       const cachedScopesSet = new Set(this.signInUserSession.tokenScopes.getScopes());
-      const URL = this.getFQDNSignIn();
+      const URL = this.getFQDNURI(this.getCognitoConstants().DOMAIN_PATH_SIGNIN);
       if (this.signInUserSession != null && this.signInUserSession.isValid()) {
         return this.userhandler.onSuccess(this.signInUserSession);
       }
@@ -256,7 +257,14 @@
       }
       return undefined;
     }
-  
+
+    gotoSignup() {
+      this.signOut();
+      const URL = this.getFQDNURI(this.getCognitoConstants().DOMAIN_PATH_SIGNUP);
+      this.launchUri(URL);
+      return undefined;
+    }
+
     /**
      * @param {string} httpRequestResponse the http request response
      * @returns {void}
@@ -600,7 +608,7 @@
       const jsonDataObject = JSON.parse(jsonData);
       if (Object.prototype.hasOwnProperty.call(jsonDataObject,
       this.getCognitoConstants().ERROR)) {
-        const URL = this.getFQDNSignIn();
+        const URL = this.getFQDNURI(this.getCognitoConstants().DOMAIN_PATH_SIGNIN);
         this.launchUri(URL);
       } else {
         if (Object.prototype.hasOwnProperty.call(jsonDataObject,
@@ -679,7 +687,7 @@
      * Create the FQDN(fully qualified domain name) for authorization endpoint.
      * @returns {string} url
      */
-    getFQDNSignIn() {
+    getFQDNURI(domainPath) {
       if (this.state == null) {
         this.state = this.generateRandomString(this.getCognitoConstants().STATELENGTH,
       this.getCognitoConstants().STATEORIGINSTRING);
@@ -702,7 +710,7 @@
       // Build the complete web domain to launch the login screen
       const uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(
       this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(),
-      this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNIN,
+      this.getCognitoConstants().SLASH, domainPath, //this.getCognitoConstants().DOMAIN_PATH_SIGNIN,
       this.getCognitoConstants().QUESTIONMARK,
       this.getCognitoConstants().DOMAIN_QUERY_PARAM_REDIRECT_URI,
       this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignIn),
