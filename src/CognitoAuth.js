@@ -46,7 +46,7 @@
     constructor(data) {
       const { ClientId, AppWebDomain, TokenScopesArray,
       RedirectUriSignIn, RedirectUriSignOut, IdentityProvider, UserPoolId,
-      AdvancedSecurityDataCollectionFlag } = data || { };
+      AdvancedSecurityDataCollectionFlag, Storage } = data || { };
       if (data == null || !ClientId || !AppWebDomain || !RedirectUriSignIn || !RedirectUriSignOut) {
         throw new Error(this.getCognitoConstants().PARAMETERERROR);
       }
@@ -62,7 +62,7 @@
       this.RedirectUriSignOut = RedirectUriSignOut;
       this.IdentityProvider = IdentityProvider;
       this.responseType = this.getCognitoConstants().TOKEN;
-      this.storage = new StorageHelper().getStorage();
+      this.storage = Storage || new StorageHelper().getStorage();
       this.username = this.getLastUser();
       this.userPoolId = UserPoolId;
       this.signInUserSession = this.getCachedSession();
