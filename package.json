@@ -59,5 +59,8 @@
     "jsdoc": "^3.4.0",
     "rimraf": "^2.6.2",
     "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "js-cookie": "^2.1.4"
   }
 }
