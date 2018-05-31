@@ -260,7 +260,7 @@
 
     /**
      * This is used to take a prospective user straight to the signup screen, 
-     * without first going to the login screen first
+     * without first going to the login screen
      * @returns {void}
      */
     gotoSignup() {
