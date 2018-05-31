@@ -84,7 +84,7 @@
       const CognitoConstants = {
         DOMAIN_SCHEME: 'https',
         DOMAIN_PATH_SIGNIN: 'oauth2/authorize',
-        DOMAIN_PATH_SIGNUP: 'oauth2/signup',
+        DOMAIN_PATH_SIGNUP: 'signup',
         DOMAIN_PATH_TOKEN: 'oauth2/token',
         DOMAIN_PATH_SIGNOUT: 'logout',
         DOMAIN_QUERY_PARAM_REDIRECT_URI: 'redirect_uri',
@@ -258,8 +258,12 @@
       return undefined;
     }
 
+    /**
+     * This is used to take a prospective user straight to the signup screen, 
+     * without first going to the login screen first
+     * @returns {void}
+     */
     gotoSignup() {
-      this.signOut();
       const URL = this.getFQDNURI(this.getCognitoConstants().DOMAIN_PATH_SIGNUP);
       this.launchUri(URL);
       return undefined;
