@@ -940,7 +940,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        RedirectUriSignOut = _ref.RedirectUriSignOut,
 	        IdentityProvider = _ref.IdentityProvider,
 	        UserPoolId = _ref.UserPoolId,
-	        AdvancedSecurityDataCollectionFlag = _ref.AdvancedSecurityDataCollectionFlag;
+	        AdvancedSecurityDataCollectionFlag = _ref.AdvancedSecurityDataCollectionFlag,
+	        Storage = _ref.Storage;
 
 	    if (data == null || !ClientId || !AppWebDomain || !RedirectUriSignIn || !RedirectUriSignOut) {
 	      throw new Error(this.getCognitoConstants().PARAMETERERROR);
@@ -957,7 +958,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.RedirectUriSignOut = RedirectUriSignOut;
 	    this.IdentityProvider = IdentityProvider;
 	    this.responseType = this.getCognitoConstants().TOKEN;
-	    this.storage = new _StorageHelper2.default().getStorage();
+	    this.storage = Storage || new _StorageHelper2.default().getStorage();
 	    this.username = this.getLastUser();
 	    this.userPoolId = UserPoolId;
 	    this.signInUserSession = this.getCachedSession();

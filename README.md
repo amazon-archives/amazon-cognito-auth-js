@@ -212,6 +212,10 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.2.2**
+
+* To update with dist/ build files from update of last version. 
+
 **v1.2.1**
 
 * To add Cookie storage and Storage as an option.    
