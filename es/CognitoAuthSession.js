@@ -1,29 +1,43 @@
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+'use strict';
 
-/*!
- * Amazon Cognito Auth SDK for JavaScript
- * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+exports.__esModule = true;
 
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *         http://aws.amazon.com/apache2.0/
- *
- * or in the "license" file accompanying this file.
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
- * OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions
- * and limitations under the License.
- */
+var _CognitoTokenScopes = require('./CognitoTokenScopes');
 
-import CognitoTokenScopes from './CognitoTokenScopes';
-import CognitoAccessToken from './CognitoAccessToken';
-import CognitoIdToken from './CognitoIdToken';
-import CognitoRefreshToken from './CognitoRefreshToken';
+var _CognitoTokenScopes2 = _interopRequireDefault(_CognitoTokenScopes);
+
+var _CognitoAccessToken = require('./CognitoAccessToken');
+
+var _CognitoAccessToken2 = _interopRequireDefault(_CognitoAccessToken);
+
+var _CognitoIdToken = require('./CognitoIdToken');
+
+var _CognitoIdToken2 = _interopRequireDefault(_CognitoIdToken);
+
+var _CognitoRefreshToken = require('./CognitoRefreshToken');
+
+var _CognitoRefreshToken2 = _interopRequireDefault(_CognitoRefreshToken);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /*!
+                                                                                                                                                           * Amazon Cognito Auth SDK for JavaScript
+                                                                                                                                                           * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+                                                                                                                                                          
+                                                                                                                                                           * Licensed under the Apache License, Version 2.0 (the "License").
+                                                                                                                                                           * You may not use this file except in compliance with the License.
+                                                                                                                                                           * A copy of the License is located at
+                                                                                                                                                           *
+                                                                                                                                                           *         http://aws.amazon.com/apache2.0/
+                                                                                                                                                           *
+                                                                                                                                                           * or in the "license" file accompanying this file.
+                                                                                                                                                           * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+                                                                                                                                                           * OR CONDITIONS OF ANY KIND, either express or implied. See the
+                                                                                                                                                           * License for the specific language governing permissions
+                                                                                                                                                           * and limitations under the License.
+                                                                                                                                                           */
 
 /** @class */
-
 var CognitoAuthSession = function () {
   /**
    * Constructs a new CognitoUserSession object
@@ -46,22 +60,22 @@ var CognitoAuthSession = function () {
     if (IdToken) {
       this.idToken = IdToken;
     } else {
-      this.idToken = new CognitoIdToken();
+      this.idToken = new _CognitoIdToken2.default();
     }
     if (RefreshToken) {
       this.refreshToken = RefreshToken;
     } else {
-      this.refreshToken = new CognitoRefreshToken();
+      this.refreshToken = new _CognitoRefreshToken2.default();
     }
     if (AccessToken) {
       this.accessToken = AccessToken;
     } else {
-      this.accessToken = new CognitoAccessToken();
+      this.accessToken = new _CognitoAccessToken2.default();
     }
     if (TokenScopes) {
       this.tokenScopes = TokenScopes;
     } else {
-      this.tokenScopes = new CognitoTokenScopes();
+      this.tokenScopes = new _CognitoTokenScopes2.default();
     }
     if (State) {
       this.state = State;
@@ -195,4 +209,4 @@ var CognitoAuthSession = function () {
   return CognitoAuthSession;
 }();
 
-export default CognitoAuthSession;
+exports.default = CognitoAuthSession;

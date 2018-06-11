@@ -1,33 +1,53 @@
+'use strict';
+
+exports.__esModule = true;
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _CognitoTokenScopes = require('./CognitoTokenScopes');
 
-/*!
-  * Amazon Cognito Auth SDK for JavaScript
-  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  *
-  * Licensed under the Apache License, Version 2.0 (the "License").
-  * You may not use this file except in compliance with the License.
-  * A copy of the License is located at
-  *
-  *         http://aws.amazon.com/apache2.0/
-  *
-  * or in the "license" file accompanying this file.
-  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
-  * OR CONDITIONS OF ANY KIND, either express or implied. See the
-  * License for the specific language governing permissions
-  * and limitations under the License.
-  */
+var _CognitoTokenScopes2 = _interopRequireDefault(_CognitoTokenScopes);
 
-import CognitoTokenScopes from './CognitoTokenScopes';
-import CognitoAccessToken from './CognitoAccessToken';
-import CognitoIdToken from './CognitoIdToken';
-import CognitoRefreshToken from './CognitoRefreshToken';
-import CognitoAuthSession from './CognitoAuthSession';
-import StorageHelper from './StorageHelper';
+var _CognitoAccessToken = require('./CognitoAccessToken');
+
+var _CognitoAccessToken2 = _interopRequireDefault(_CognitoAccessToken);
+
+var _CognitoIdToken = require('./CognitoIdToken');
+
+var _CognitoIdToken2 = _interopRequireDefault(_CognitoIdToken);
+
+var _CognitoRefreshToken = require('./CognitoRefreshToken');
+
+var _CognitoRefreshToken2 = _interopRequireDefault(_CognitoRefreshToken);
+
+var _CognitoAuthSession = require('./CognitoAuthSession');
+
+var _CognitoAuthSession2 = _interopRequireDefault(_CognitoAuthSession);
+
+var _StorageHelper = require('./StorageHelper');
+
+var _StorageHelper2 = _interopRequireDefault(_StorageHelper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /*!
+                                                                                                                                                            * Amazon Cognito Auth SDK for JavaScript
+                                                                                                                                                            * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+                                                                                                                                                            *
+                                                                                                                                                            * Licensed under the Apache License, Version 2.0 (the "License").
+                                                                                                                                                            * You may not use this file except in compliance with the License.
+                                                                                                                                                            * A copy of the License is located at
+                                                                                                                                                            *
+                                                                                                                                                            *         http://aws.amazon.com/apache2.0/
+                                                                                                                                                            *
+                                                                                                                                                            * or in the "license" file accompanying this file.
+                                                                                                                                                            * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+                                                                                                                                                            * OR CONDITIONS OF ANY KIND, either express or implied. See the
+                                                                                                                                                            * License for the specific language governing permissions
+                                                                                                                                                            * and limitations under the License.
+                                                                                                                                                            */
 
 /** @class */
-
 var CognitoAuth = function () {
   /**
    * Constructs a new CognitoAuth object
@@ -59,7 +79,8 @@ var CognitoAuth = function () {
         RedirectUriSignOut = _ref.RedirectUriSignOut,
         IdentityProvider = _ref.IdentityProvider,
         UserPoolId = _ref.UserPoolId,
-        AdvancedSecurityDataCollectionFlag = _ref.AdvancedSecurityDataCollectionFlag;
+        AdvancedSecurityDataCollectionFlag = _ref.AdvancedSecurityDataCollectionFlag,
+        Storage = _ref.Storage;
 
     if (data == null || !ClientId || !AppWebDomain || !RedirectUriSignIn || !RedirectUriSignOut) {
       throw new Error(this.getCognitoConstants().PARAMETERERROR);
@@ -71,12 +92,12 @@ var CognitoAuth = function () {
     if (!Array.isArray(TokenScopesArray)) {
       throw new Error(this.getCognitoConstants().SCOPETYPEERROR);
     }
-    var tokenScopes = new CognitoTokenScopes(this.TokenScopesArray);
+    var tokenScopes = new _CognitoTokenScopes2.default(this.TokenScopesArray);
     this.RedirectUriSignIn = RedirectUriSignIn;
     this.RedirectUriSignOut = RedirectUriSignOut;
     this.IdentityProvider = IdentityProvider;
     this.responseType = this.getCognitoConstants().TOKEN;
-    this.storage = new StorageHelper().getStorage();
+    this.storage = Storage || new _StorageHelper2.default().getStorage();
     this.username = this.getLastUser();
     this.userPoolId = UserPoolId;
     this.signInUserSession = this.getCachedSession();
@@ -275,10 +296,10 @@ var CognitoAuth = function () {
     this.signInUserSession = this.getCachedSession();
     // compare scopes
     if (!this.compareSets(tokenScopesInputSet, cachedScopesSet)) {
-      var tokenScopes = new CognitoTokenScopes(this.TokenScopesArray);
-      var idToken = new CognitoIdToken();
-      var accessToken = new CognitoAccessToken();
-      var refreshToken = new CognitoRefreshToken();
+      var tokenScopes = new _CognitoTokenScopes2.default(this.TokenScopesArray);
+      var idToken = new _CognitoIdToken2.default();
+      var accessToken = new _CognitoAccessToken2.default();
+      var refreshToken = new _CognitoRefreshToken2.default();
       this.signInUserSession.setTokenScopes(tokenScopes);
       this.signInUserSession.setIdToken(idToken);
       this.signInUserSession.setAccessToken(accessToken);
@@ -360,9 +381,9 @@ var CognitoAuth = function () {
 
 
   CognitoAuth.prototype.getTokenQueryParameter = function getTokenQueryParameter(map) {
-    var idToken = new CognitoIdToken();
-    var accessToken = new CognitoAccessToken();
-    var refreshToken = new CognitoRefreshToken();
+    var idToken = new _CognitoIdToken2.default();
+    var accessToken = new _CognitoAccessToken2.default();
+    var refreshToken = new _CognitoRefreshToken2.default();
     var state = null;
     if (map.has(this.getCognitoConstants().IDTOKEN)) {
       idToken.setJwtToken(map.get(this.getCognitoConstants().IDTOKEN));
@@ -393,7 +414,7 @@ var CognitoAuth = function () {
 
   CognitoAuth.prototype.getCachedSession = function getCachedSession() {
     if (!this.username) {
-      return new CognitoAuthSession();
+      return new _CognitoAuthSession2.default();
     }
     var keyPrefix = 'CognitoIdentityServiceProvider.' + this.getClientId() + '.' + this.username;
     var idTokenKey = keyPrefix + '.idToken';
@@ -406,10 +427,10 @@ var CognitoAuth = function () {
     if (scopesString) {
       scopesArray = scopesString.split(' ');
     }
-    var tokenScopes = new CognitoTokenScopes(scopesArray);
-    var idToken = new CognitoIdToken(this.storage.getItem(idTokenKey));
-    var accessToken = new CognitoAccessToken(this.storage.getItem(accessTokenKey));
-    var refreshToken = new CognitoRefreshToken(this.storage.getItem(refreshTokenKey));
+    var tokenScopes = new _CognitoTokenScopes2.default(scopesArray);
+    var idToken = new _CognitoIdToken2.default(this.storage.getItem(idTokenKey));
+    var accessToken = new _CognitoAccessToken2.default(this.storage.getItem(accessTokenKey));
+    var refreshToken = new _CognitoRefreshToken2.default(this.storage.getItem(refreshTokenKey));
 
     var sessionData = {
       IdToken: idToken,
@@ -417,7 +438,7 @@ var CognitoAuth = function () {
       RefreshToken: refreshToken,
       TokenScopes: tokenScopes
     };
-    var cachedSession = new CognitoAuthSession(sessionData);
+    var cachedSession = new _CognitoAuthSession2.default(sessionData);
     return cachedSession;
   };
 
@@ -474,24 +495,33 @@ var CognitoAuth = function () {
     if (set1.size !== set2.size) {
       return false;
     }
-    for (var _iterator = set1, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-      var _ref2;
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
 
-      if (_isArray) {
-        if (_i >= _iterator.length) break;
-        _ref2 = _iterator[_i++];
-      } else {
-        _i = _iterator.next();
-        if (_i.done) break;
-        _ref2 = _i.value;
+    try {
+      for (var _iterator = set1[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var item = _step.value;
+
+        if (!set2.has(item)) {
+          return false;
+        }
       }
-
-      var item = _ref2;
-
-      if (!set2.has(item)) {
-        return false;
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
       }
     }
+
     return true;
   };
 
@@ -676,10 +706,10 @@ var CognitoAuth = function () {
       this.launchUri(URL);
     } else {
       if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().IDTOKEN)) {
-        this.signInUserSession.setIdToken(new CognitoIdToken(jsonDataObject.id_token));
+        this.signInUserSession.setIdToken(new _CognitoIdToken2.default(jsonDataObject.id_token));
       }
       if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().ACCESSTOKEN)) {
-        this.signInUserSession.setAccessToken(new CognitoAccessToken(jsonDataObject.access_token));
+        this.signInUserSession.setAccessToken(new _CognitoAccessToken2.default(jsonDataObject.access_token));
       }
       this.cacheTokensScopes();
       this.userhandler.onSuccess(this.signInUserSession);
@@ -694,25 +724,25 @@ var CognitoAuth = function () {
 
   CognitoAuth.prototype.onSuccessExchangeForToken = function onSuccessExchangeForToken(jsonData) {
     var jsonDataObject = JSON.parse(jsonData);
-    var refreshToken = new CognitoRefreshToken();
-    var accessToken = new CognitoAccessToken();
-    var idToken = new CognitoIdToken();
+    var refreshToken = new _CognitoRefreshToken2.default();
+    var accessToken = new _CognitoAccessToken2.default();
+    var idToken = new _CognitoIdToken2.default();
     var state = null;
     if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().ERROR)) {
       return this.userhandler.onFailure(jsonData);
     }
     if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().IDTOKEN)) {
-      this.signInUserSession.setIdToken(new CognitoIdToken(jsonDataObject.id_token));
+      this.signInUserSession.setIdToken(new _CognitoIdToken2.default(jsonDataObject.id_token));
     } else {
       this.signInUserSession.setIdToken(idToken);
     }
     if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().ACCESSTOKEN)) {
-      this.signInUserSession.setAccessToken(new CognitoAccessToken(jsonDataObject.access_token));
+      this.signInUserSession.setAccessToken(new _CognitoAccessToken2.default(jsonDataObject.access_token));
     } else {
       this.signInUserSession.setAccessToken(accessToken);
     }
     if (Object.prototype.hasOwnProperty.call(jsonDataObject, this.getCognitoConstants().REFRESHTOKEN)) {
-      this.signInUserSession.setRefreshToken(new CognitoRefreshToken(jsonDataObject.refresh_token));
+      this.signInUserSession.setRefreshToken(new _CognitoRefreshToken2.default(jsonDataObject.refresh_token));
     } else {
       this.signInUserSession.setRefreshToken(refreshToken);
     }
@@ -834,4 +864,4 @@ var CognitoAuth = function () {
   return CognitoAuth;
 }();
 
-export default CognitoAuth;
+exports.default = CognitoAuth;
