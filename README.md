@@ -212,6 +212,10 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.2.4**
+
+* To add newest /es and /lib folders.    
+
 **v1.2.3**
 
 * To add exporting cookieStorage in index.js. 
