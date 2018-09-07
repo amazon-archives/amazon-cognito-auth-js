@@ -147,7 +147,7 @@ import {CognitoAuth} from 'amazon-cognito-auth-js';
 */
 var authData = {
 	ClientId : '<TODO: add ClientId>', // Your client id here
-	AppWebDomain : '<TODO: add App Web Domain>',
+	AppWebDomain : '<TODO: add App Web Domain>', // Exclude protocol (e.g. 'my-app.auth.us-west-2.amazoncognito.com')
 	TokenScopesArray : ['<TODO: add scope array>'], // e.g.['phone', 'email', 'profile','openid', 'aws.cognito.signin.user.admin'],
 	RedirectUriSignIn : '<TODO: add redirect url when signed in>',
 	RedirectUriSignOut : '<TODO: add redirect url when signed out>',
