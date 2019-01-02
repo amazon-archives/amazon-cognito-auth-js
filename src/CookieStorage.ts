@@ -1,11 +1,18 @@
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 import * as Cookies from 'js-cookie';
 
+interface CookieStorageInterface {
+  domain: string;
+  path: string;
+  expires: number;
+  secure: boolean;
+}
 /** @class */
-
-var CookieStorage = function () {
-
+export default class CookieStorage {
+  domain: string;
+  path: string;
+  expires: number;
+  secure: boolean;
   /**
    * Constructs a new CookieStorage object
    * @param {object} data Creation options.
@@ -14,25 +21,16 @@ var CookieStorage = function () {
    * @param {integer} data.expires Cookie expiration (in days, default: 365)
    * @param {boolean} data.secure Cookie secure flag (default: true)
    */
-  function CookieStorage(data) {
-    _classCallCheck(this, CookieStorage);
-
+  constructor(data: CookieStorageInterface = {
+    domain: '/',
+    path: '/',
+    expires: 365,
+    secure: true
+  }) {
     this.domain = data.domain;
-    if (data.path) {
-      this.path = data.path;
-    } else {
-      this.path = '/';
-    }
-    if (Object.prototype.hasOwnProperty.call(data, 'expires')) {
-      this.expires = data.expires;
-    } else {
-      this.expires = 365;
-    }
-    if (Object.prototype.hasOwnProperty.call(data, 'secure')) {
-      this.secure = data.secure;
-    } else {
-      this.secure = true;
-    }
+    this.path = data.path;
+    this.expires = data.expires;
+    this.secure = data.secure;
   }
 
   /**
@@ -41,17 +39,16 @@ var CookieStorage = function () {
    * @param {object} value - the value
    * @returns {string} value that was set
    */
-
-
-  CookieStorage.prototype.setItem = function setItem(key, value) {
+  setItem(key, value) {
     Cookies.set(key, value, {
       path: this.path,
       expires: this.expires,
       domain: this.domain,
-      secure: this.secure
-    });
+      secure: this.secure,
+    }
+    );
     return Cookies.get(key);
-  };
+  }
 
   /**
    * This is used to get a specific key from storage
@@ -59,43 +56,34 @@ var CookieStorage = function () {
    * This is used to clear the storage
    * @returns {string} the data item
    */
-
-
-  CookieStorage.prototype.getItem = function getItem(key) {
+  getItem(key) {
     return Cookies.get(key);
-  };
+  }
 
   /**
    * This is used to remove an item from storage
    * @param {string} key - the key being set
    * @returns {string} value - value that was deleted
    */
-
-
-  CookieStorage.prototype.removeItem = function removeItem(key) {
+  removeItem(key) {
     return Cookies.remove(key, {
       path: this.path,
       domain: this.domain,
-      secure: this.secure
-    });
-  };
+      secure: this.secure,
+    }
+    );
+  }
 
   /**
    * This is used to clear the storage
    * @returns {string} nothing
    */
-
-
-  CookieStorage.prototype.clear = function clear() {
-    var cookies = Cookies.get();
-    var index = void 0;
+  clear() {
+    const cookies = Cookies.get();
+    let index;
     for (index = 0; index < cookies.length; ++index) {
       Cookies.remove(cookies[index]);
     }
     return {};
-  };
-
-  return CookieStorage;
-}();
-
-export default CookieStorage;
+  }
+}

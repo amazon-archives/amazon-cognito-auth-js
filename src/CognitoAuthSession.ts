@@ -20,43 +20,45 @@ import CognitoAccessToken from './CognitoAccessToken';
 import CognitoIdToken from './CognitoIdToken';
 import CognitoRefreshToken from './CognitoRefreshToken';
 
+export interface CognitoAuthSessionInterface {
+  IdToken: CognitoIdToken,
+  RefreshToken: CognitoRefreshToken,
+  AccessToken: CognitoAccessToken,
+  TokenScopes: any;
+  State?: string,
+}
+
 /** @class */
 export default class CognitoAuthSession {
+
+  idToken: CognitoIdToken;
+  refreshToken: CognitoRefreshToken;
+  accessToken: CognitoAccessToken;
+  state: string;
+  tokenScopes: any;
 	/**
 	 * Constructs a new CognitoUserSession object
 	 * @param {CognitoIdToken} IdToken The session's Id token.
 	 * @param {CognitoRefreshToken} RefreshToken The session's refresh token.
 	 * @param {CognitoAccessToken} AccessToken The session's access token.
-	 * @param {array}  TokenScopes  The session's token scopes.
+	 * @param {array}  AccessToken  The session's token scopes.
    * @param {string} State The session's state. 
 	 */
-  constructor({ IdToken, RefreshToken, AccessToken, TokenScopes, State } = {}) {
-    if (IdToken) {
-      this.idToken = IdToken;
-    } else {
-      this.idToken = new CognitoIdToken();
-    }
-    if (RefreshToken) {
-      this.refreshToken = RefreshToken;
-    } else {
-      this.refreshToken = new CognitoRefreshToken();
-    }
-    if (AccessToken) {
-      this.accessToken = AccessToken;
-    } else {
-      this.accessToken = new CognitoAccessToken();
-    }
-    if (TokenScopes) {
-      this.tokenScopes = TokenScopes;
-    } else {
-      this.tokenScopes = new CognitoTokenScopes();
-    }
-    if (State) {
-      this.state = State;
-    } else {
-      this.state = null;
-    }
+  constructor({ IdToken,
+    RefreshToken, AccessToken, TokenScopes, State }:CognitoAuthSessionInterface = {
+      IdToken: new CognitoIdToken(),
+      RefreshToken: new CognitoRefreshToken(),
+      AccessToken: new CognitoAccessToken(),
+      TokenScopes: new CognitoTokenScopes(),
+      State: null
+    }) {
+    this.idToken = IdToken;
+    this.refreshToken = RefreshToken;
+    this.accessToken = AccessToken;
+    this.tokenScopes = TokenScopes;
+    this.state = State;
   }
+
 
   /**
    * @returns {CognitoIdToken} the session's Id token
@@ -144,7 +146,7 @@ export default class CognitoAuthSession {
    * @returns {boolean} if the session is still valid
    */
   isValid() {
-    const now = Math.floor(new Date() / 1000);
+    const now = Math.floor(new Date().getTime() / 1000);
     try {
       if (this.accessToken != null) {
         return now < this.accessToken.getExpiration();

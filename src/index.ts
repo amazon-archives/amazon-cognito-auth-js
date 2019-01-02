@@ -15,6 +15,11 @@
  * and limitations under the License.
  */
 
+/*if (typeof window !== 'undefined' && !window.crypto && window.msCrypto) {
+    window.crypto = window.msCrypto;
+  }*/
+  
+
 export { default as CognitoAccessToken } from './CognitoAccessToken';
 export { default as CognitoIdToken } from './CognitoIdToken';
 export { default as CognitoRefreshToken } from './CognitoRefreshToken';
@@ -23,3 +28,5 @@ export { default as CognitoAuth } from './CognitoAuth';
 export { default as CognitoAuthSession } from './CognitoAuthSession';
 export { default as DateHelper } from './DateHelper';
 export { default as StorageHelper } from './StorageHelper';
+export { default as CookieStorage } from './CookieStorage';
+export { default as CognitoConstants } from './CognitoConstants';

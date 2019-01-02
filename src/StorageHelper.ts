@@ -61,7 +61,7 @@ class MemoryStorage {
 
 /** @class */
 export default class StorageHelper {
-
+  storageWindow:any;
   /**
    * This is used to get a storage object
    * @returns {object} the storage

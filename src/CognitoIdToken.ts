@@ -1,7 +1,6 @@
 /*!
  * Amazon Cognito Auth SDK for JavaScript
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
@@ -14,16 +13,22 @@
  * License for the specific language governing permissions
  * and limitations under the License.
  */
-
+export interface CognitoIdTokenInterface {
+  jwtToken: string;
+  payload: any; 
+}
 /** @class */
-export default class CognitoAccessToken {
+export default class CognitoIdToken implements CognitoIdTokenInterface {
+
+  jwtToken: string;
+  payload: any; //todo type
   /**
-   * Constructs a new CognitoAccessToken object
-   * @param {string=} AccessToken The JWT access token.
+   * Constructs a new CognitoIdToken object
+   * @param {string=} IdToken The JWT Id token
    */
-  constructor(AccessToken) {
+  constructor(IdToken:string = '') {
     // Assign object
-    this.jwtToken = AccessToken || '';
+    this.jwtToken = IdToken;
     this.payload = this.decodePayload();
   }
 
@@ -35,12 +40,12 @@ export default class CognitoAccessToken {
   }
 
   /**
-   * Sets new value for access token.
-   * @param {string=} accessToken The JWT access token.
+   * Sets new value for id token.
+   * @param {string=} idToken The JWT Id token
    * @returns {void}
    */
-  setJwtToken(accessToken) {
-    this.jwtToken = accessToken;
+  setJwtToken(idToken) {
+    this.jwtToken = idToken;
   }
 
   /**
@@ -52,17 +57,6 @@ export default class CognitoAccessToken {
     }
     const jwtPayload = this.jwtToken.split('.')[1];
     return JSON.parse(atob(jwtPayload)).exp;
-  }
-
-  /**
-   * @returns {string} the username from payload.
-   */
-  getUsername() {
-    if (this.jwtToken === null) {
-      return undefined;
-    }
-    const jwtPayload = this.jwtToken.split('.')[1];
-    return JSON.parse(atob(jwtPayload)).username;
   }
 
   /**

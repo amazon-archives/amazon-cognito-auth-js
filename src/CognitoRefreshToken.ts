@@ -16,29 +16,30 @@
  */
 
 /** @class */
-export default class CognitoTokenScopes {
+export default class CognitoRefreshToken {
+  refreshToken: string;
   /**
-   * Constructs a new CognitoTokenScopes object
-   * @param {array=} TokenScopesArray The token scopes
+   * Constructs a new CognitoRefreshToken object
+   * @param {string=} RefreshToken The JWT refresh token.
    */
-  constructor(TokenScopesArray) {
+  constructor(RefreshToken:string='') {
     // Assign object
-    this.tokenScopes = TokenScopesArray || [];
+    this.refreshToken = RefreshToken;
   }
 
   /**
-   * @returns {Array} the token scopes.
+   * @returns {string} the record's token.
    */
-  getScopes() {
-    return this.tokenScopes;
+  getToken() {
+    return this.refreshToken;
   }
 
   /**
-   * Sets new value for token scopes.
-   * @param {array=} tokenScopes The token scopes
+   * Sets new value for refresh token.
+   * @param {string=} refreshToken The JWT refresh token.
    * @returns {void}
    */
-  setTokenScopes(tokenScopes) {
-    this.tokenScopes = tokenScopes;
+  setToken(refreshToken) {
+    this.refreshToken = refreshToken;
   }
 }
