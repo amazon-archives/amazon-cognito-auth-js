@@ -16,14 +16,13 @@
  */
 
 import CognitoTokenScopes from './CognitoTokenScopes';
-import CognitoAccessToken from './CognitoAccessToken';
-import CognitoIdToken from './CognitoIdToken';
+import CognitoToken from './CognitoToken';
 import CognitoRefreshToken from './CognitoRefreshToken';
 
 export interface CognitoAuthSessionInterface {
-  IdToken: CognitoIdToken,
+  IdToken: CognitoToken,
   RefreshToken: CognitoRefreshToken,
-  AccessToken: CognitoAccessToken,
+  AccessToken: CognitoToken,
   TokenScopes: any;
   State?: string,
 }
@@ -31,11 +30,11 @@ export interface CognitoAuthSessionInterface {
 /** @class */
 export default class CognitoAuthSession {
 
-  idToken: CognitoIdToken;
+  idToken: CognitoToken;
   refreshToken: CognitoRefreshToken;
-  accessToken: CognitoAccessToken;
+  accessToken: CognitoToken;
   state: string;
-  tokenScopes: any;
+  tokenScopes: CognitoTokenScopes;
 	/**
 	 * Constructs a new CognitoUserSession object
 	 * @param {CognitoIdToken} IdToken The session's Id token.
@@ -46,9 +45,9 @@ export default class CognitoAuthSession {
 	 */
   constructor({ IdToken,
     RefreshToken, AccessToken, TokenScopes, State }:CognitoAuthSessionInterface = {
-      IdToken: new CognitoIdToken(),
+      IdToken: new CognitoToken(),
       RefreshToken: new CognitoRefreshToken(),
-      AccessToken: new CognitoAccessToken(),
+      AccessToken: new CognitoToken(),
       TokenScopes: new CognitoTokenScopes(),
       State: null
     }) {

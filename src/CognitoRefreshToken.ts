@@ -22,15 +22,15 @@ export default class CognitoRefreshToken {
    * Constructs a new CognitoRefreshToken object
    * @param {string=} RefreshToken The JWT refresh token.
    */
-  constructor(RefreshToken:string='') {
+  constructor(refreshToken:string='') {
     // Assign object
-    this.refreshToken = RefreshToken;
+    this.refreshToken = refreshToken;
   }
 
   /**
    * @returns {string} the record's token.
    */
-  getToken() {
+  getToken():string {
     return this.refreshToken;
   }
 
@@ -39,7 +39,7 @@ export default class CognitoRefreshToken {
    * @param {string=} refreshToken The JWT refresh token.
    * @returns {void}
    */
-  setToken(refreshToken) {
+  setToken(refreshToken:string) {
     this.refreshToken = refreshToken;
   }
 }

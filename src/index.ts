@@ -18,10 +18,20 @@
 /*if (typeof window !== 'undefined' && !window.crypto && window.msCrypto) {
     window.crypto = window.msCrypto;
   }*/
+  /*
+  import * as enhancements from './src';
+
+  export * from './src';
+  
+  // The version of crypto-browserify included by aws-sdk only
+  // checks for window.crypto, not window.msCrypto as used by
+  // IE 11 – so we set it explicitly here
+  if (typeof window !== 'undefined' && !window.crypto && window.msCrypto) {
+    window.crypto = window.msCrypto;
+  }*/
   
 
-export { default as CognitoAccessToken } from './CognitoAccessToken';
-export { default as CognitoIdToken } from './CognitoIdToken';
+export { default as CognitoToken } from './CognitoToken';
 export { default as CognitoRefreshToken } from './CognitoRefreshToken';
 export { default as CognitoTokenScopes } from './CognitoTokenScopes';
 export { default as CognitoAuth } from './CognitoAuth';
