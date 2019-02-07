@@ -272,6 +272,9 @@
           response,
           this.getCognitoConstants().QUESTIONMARK
         );
+        if (map.has(this.getCognitoConstants().ERROR)) {
+          return this.userhandler.onFailure(map.get(this.getCognitoConstants().ERROR_DESCRIPTION));
+        }
         this.getCodeQueryParameter(map);
       } else if (httpRequestResponse.indexOf(this.getCognitoConstants().POUNDSIGN) > -1) { // for token type
         map = this.getQueryParameters(
