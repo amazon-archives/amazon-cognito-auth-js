@@ -227,12 +227,12 @@
      * array of strings specifying all scopes for the tokens.
      * @returns {void}
      */
-    getSession() {
+    getSession(callback) {
       const tokenScopesInputSet = new Set(this.TokenScopesArray);
       const cachedScopesSet = new Set(this.signInUserSession.tokenScopes.getScopes());
       const URL = this.getFQDNSignIn();
       if (this.signInUserSession != null && this.signInUserSession.isValid()) {
-        return this.userhandler.onSuccess(this.signInUserSession);
+        return callback ? callback(null, this.signInUserSession) : this.userhandler.onSuccess(this.signInUserSession);
       }
       this.signInUserSession = this.getCachedSession();
       // compare scopes
@@ -247,12 +247,12 @@
         this.signInUserSession.setRefreshToken(refreshToken);
         this.launchUri(URL);
       } else if (this.signInUserSession.isValid()) {
-        return this.userhandler.onSuccess(this.signInUserSession);
+        return callback ? callback(null, this.signInUserSession) : this.userhandler.onSuccess(this.signInUserSession);
       } else if (!this.signInUserSession.getRefreshToken()
       || !this.signInUserSession.getRefreshToken().getToken()) {
         this.launchUri(URL);
       } else {
-        this.refreshSession(this.signInUserSession.getRefreshToken().getToken());
+        this.refreshSession(this.signInUserSession.getRefreshToken().getToken(), callback);
       }
       return undefined;
     }
@@ -262,7 +262,7 @@
      * @returns {void}
      * Parse the http request response and proceed according to different response types.
      */
-    parseCognitoWebResponse(httpRequestResponse) {
+    parseCognitoWebResponse(httpRequestResponse, callback) {
       let map;
       if (httpRequestResponse.indexOf(this.getCognitoConstants().QUESTIONMARK) > -1) { // for code type
         // this is to avoid a bug exists when sign in with Google or facebook
@@ -272,17 +272,18 @@
           response,
           this.getCognitoConstants().QUESTIONMARK
         );
-        this.getCodeQueryParameter(map);
+        this.getCodeQueryParameter(map, callback);
       } else if (httpRequestResponse.indexOf(this.getCognitoConstants().POUNDSIGN) > -1) { // for token type
         map = this.getQueryParameters(
           httpRequestResponse,
           this.getCognitoConstants().QUERYPARAMETERREGEX1
         );
         if (map.has(this.getCognitoConstants().ERROR)) {
-          return this.userhandler.onFailure(map.get(this.getCognitoConstants().ERROR_DESCRIPTION));
+          const error = map.get(this.getCognitoConstants().ERROR_DESCRIPTION)
+          return callback ? callback(error) : this.userhandler.onFailure(error);
         }
         // To use the map to get tokens
-        this.getTokenQueryParameter(map);
+        this.getTokenQueryParameter(map, callback);
       }
     }
   
@@ -291,7 +292,7 @@
      * @returns {void}
      * Get the query parameter map and proceed according to code response type.
      */
-    getCodeQueryParameter(map) {
+    getCodeQueryParameter(map, callback) {
       const state = null;
       if (map.has(this.getCognitoConstants().STATE)) {
         this.signInUserSession.setState(map.get(this.getCognitoConstants().STATE));
@@ -313,7 +314,9 @@
           code: codeParameter };
         const boundOnSuccess = (this.onSuccessExchangeForToken).bind(this);
         const boundOnFailure = (this.onFailure).bind(this);
-        this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure);
+        this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure, callback);
+      } else {
+        callback ? callback(xhr.responseText) : onFailure(xhr.responseText);
       }
     }
   
@@ -322,7 +325,7 @@
      * @param {map} Query parameter map 
      * @returns {void}
      */
-    getTokenQueryParameter(map) {
+    getTokenQueryParameter(map, callback) {
       const idToken = new CognitoIdToken();
       const accessToken = new CognitoAccessToken();
       const refreshToken = new CognitoRefreshToken();
@@ -345,7 +348,7 @@
         this.signInUserSession.setState(state);
       }
       this.cacheTokensScopes();
-      this.userhandler.onSuccess(this.signInUserSession); 
+      callback ? callback(null, this.signInUserSession) : this.userhandler.onSuccess(this.signInUserSession);
     }
   
     /**
@@ -508,7 +511,7 @@
      * @param {object} refreshToken authResult Successful auth response from server.
      * @returns {void}
      */
-    refreshSession(refreshToken) {
+    refreshSession(refreshToken, callback) {
       // https POST call for refreshing token
       const url = this.getCognitoConstants().DOMAIN_SCHEME.concat(
       this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(),
@@ -520,7 +523,7 @@
         refresh_token: refreshToken };
       const boundOnSuccess = (this.onSuccessRefreshToken).bind(this);
       const boundOnFailure = (this.onFailure).bind(this);
-      this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure);
+      this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure, callback);
     }
   
     /**
@@ -532,7 +535,7 @@
      * @param {function} onFailure callback
      * @returns {void}
      */
-    makePOSTRequest(header, body, url, onSuccess, onFailure) {
+    makePOSTRequest(header, body, url, onSuccess, onFailure, callback) {
       // This is a sample server that supports CORS.
       const xhr = this.createCORSRequest(this.getCognitoConstants().POST, url);
       let bodyString = '';
@@ -552,9 +555,9 @@
       xhr.onreadystatechange = function addressState() {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            onSuccess(xhr.responseText);
+            onSuccess(xhr.responseText, callback);
           } else {
-            onFailure(xhr.responseText);
+            onFailure(xhr.responseText, callback);
           }
         }
       };
@@ -596,7 +599,7 @@
      * The http POST request onSuccess callback when refreshing tokens.
      * @param {JSON} jsonData tokens
      */
-    onSuccessRefreshToken(jsonData) {
+    onSuccessRefreshToken(jsonData, callback) {
       const jsonDataObject = JSON.parse(jsonData);
       if (Object.prototype.hasOwnProperty.call(jsonDataObject,
       this.getCognitoConstants().ERROR)) {
@@ -614,7 +617,7 @@
           CognitoAccessToken(jsonDataObject.access_token));
         }
         this.cacheTokensScopes();
-        this.userhandler.onSuccess(this.signInUserSession);
+        callback ? callback(this.signInUserSession) : this.userhandler.onSuccess(this.signInUserSession);
       }
     }
   
@@ -622,7 +625,7 @@
      * The http POST request onSuccess callback when exchanging code for tokens.
      * @param {JSON} jsonData tokens
      */
-    onSuccessExchangeForToken(jsonData) {
+    onSuccessExchangeForToken(jsonData, callback) {
       const jsonDataObject = JSON.parse(jsonData);
       const refreshToken = new CognitoRefreshToken();
       const accessToken = new CognitoAccessToken();
@@ -630,7 +633,7 @@
       const state = null;
       if (Object.prototype.hasOwnProperty.call(jsonDataObject,
       this.getCognitoConstants().ERROR)) {
-        return this.userhandler.onFailure(jsonData);
+        return callback ? callback(jsonData) : this.userhandler.onFailure(jsonData);
       }
       if (Object.prototype.hasOwnProperty.call(jsonDataObject,
       this.getCognitoConstants().IDTOKEN)) {
@@ -654,7 +657,7 @@
         this.signInUserSession.setRefreshToken(refreshToken);
       }
       this.cacheTokensScopes();
-      this.userhandler.onSuccess(this.signInUserSession);
+      callback ? callback(null, this.signInUserSession) : this.userhandler.onSuccess(this.signInUserSession);
     }
   
     /**
