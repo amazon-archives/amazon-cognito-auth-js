@@ -15,12 +15,20 @@
   * and limitations under the License.
   */
 
+  import crypto from 'crypto-browserify';
   import CognitoTokenScopes from './CognitoTokenScopes';
   import CognitoAccessToken from './CognitoAccessToken';
   import CognitoIdToken from './CognitoIdToken';
   import CognitoRefreshToken from './CognitoRefreshToken';
   import CognitoAuthSession from './CognitoAuthSession';
   import StorageHelper from './StorageHelper';
+  
+  function base64URLEncode(str) {
+    return str.toString('base64')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=/g, '');
+  }
   
   /** @class */
   export default class CognitoAuth {
@@ -111,6 +119,8 @@
         CONTENTTYPE: 'Content-Type',
         CONTENTTYPEVALUE: 'application/x-www-form-urlencoded',
         AUTHORIZATIONCODE: 'authorization_code',
+        CODECHALLENGEMETHOD: 'code_challenge_method',
+        CODECHALLENGE: 'code_challenge',
         IDTOKEN: 'id_token',
         ACCESSTOKEN: 'access_token',
         REFRESHTOKEN: 'refresh_token',
@@ -307,10 +317,13 @@
         this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(),
         this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_TOKEN);
         const header = this.getCognitoConstants().HEADER;
-        const body = { grant_type: this.getCognitoConstants().AUTHORIZATIONCODE,
+        const body = {
+          grant_type: this.getCognitoConstants().AUTHORIZATIONCODE,
           client_id: this.getClientId(),
           redirect_uri: this.RedirectUriSignIn,
-          code: codeParameter };
+          code: codeParameter,
+          code_verifier: this.storage.getItem('verifier')
+        };
         const boundOnSuccess = (this.onSuccessExchangeForToken).bind(this);
         const boundOnFailure = (this.onFailure).bind(this);
         this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure);
@@ -698,23 +711,31 @@
         userContextDataParam = this.getCognitoConstants().AMPERSAND + this.getCognitoConstants().DOMAIN_QUERY_PARAM_USERCONTEXTDATA +
                                this.getCognitoConstants().EQUALSIGN + this.getUserContextData();
       }
+
+      const verifier = base64URLEncode(crypto.randomBytes(32));
+      this.storage.setItem('verifier', verifier);
+      const verifierChallenge = base64URLEncode(crypto.createHash('sha256').update(verifier).digest());
   
       // Build the complete web domain to launch the login screen
       const uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(
-      this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(),
-      this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNIN,
-      this.getCognitoConstants().QUESTIONMARK,
-      this.getCognitoConstants().DOMAIN_QUERY_PARAM_REDIRECT_URI,
-      this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignIn),
-      this.getCognitoConstants().AMPERSAND,
-      this.getCognitoConstants().DOMAIN_QUERY_PARAM_RESPONSE_TYPE,
-      this.getCognitoConstants().EQUALSIGN,
-      this.responseType, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID,
-      this.getCognitoConstants().EQUALSIGN, this.getClientId(),
-      this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE,
-      this.getCognitoConstants().EQUALSIGN, this.state, this.getCognitoConstants().AMPERSAND,
-      this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString, identityProviderParam,
-      userContextDataParam);
+        this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(),
+        this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNIN,
+        this.getCognitoConstants().QUESTIONMARK,
+        this.getCognitoConstants().DOMAIN_QUERY_PARAM_REDIRECT_URI,
+        this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignIn),
+        this.getCognitoConstants().AMPERSAND,
+        this.getCognitoConstants().DOMAIN_QUERY_PARAM_RESPONSE_TYPE,
+        this.getCognitoConstants().EQUALSIGN,
+        this.responseType, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID,
+        this.getCognitoConstants().EQUALSIGN, this.getClientId(),
+        this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE,
+        this.getCognitoConstants().EQUALSIGN, this.state, this.getCognitoConstants().AMPERSAND,
+        this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString,
+        this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CODECHALLENGEMETHOD, this.getCognitoConstants().EQUALSIGN, 'S256',
+        this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CODECHALLENGE, this.getCognitoConstants().EQUALSIGN, verifierChallenge,
+        identityProviderParam,
+        userContextDataParam
+      );
   
       return uri;
     }
