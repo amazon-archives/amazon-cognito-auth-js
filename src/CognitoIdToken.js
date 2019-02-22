@@ -14,6 +14,8 @@
  * and limitations under the License.
  */
 
+import { decode } from './DecodingHelper';
+
 /** @class */
 export default class CognitoIdToken {
   /**
@@ -50,7 +52,7 @@ export default class CognitoIdToken {
       return undefined;
     }
     const jwtPayload = this.jwtToken.split('.')[1];
-    return JSON.parse(atob(jwtPayload)).exp;
+    return JSON.parse(decode(jwtPayload)).exp;
   }
 
   /**
@@ -59,7 +61,7 @@ export default class CognitoIdToken {
   decodePayload() {
     const jwtPayload = this.jwtToken.split('.')[1];
     try {
-      return JSON.parse(atob(jwtPayload));
+      return JSON.parse(decode(jwtPayload));
     } catch (err) {
       return {};
     }
