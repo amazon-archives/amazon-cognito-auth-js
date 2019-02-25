@@ -23,3 +23,4 @@ export { default as CognitoAuth } from './CognitoAuth';
 export { default as CognitoAuthSession } from './CognitoAuthSession';
 export { default as DateHelper } from './DateHelper';
 export { default as StorageHelper } from './StorageHelper';
+export { default as CookieStorage } from './CookieStorage';

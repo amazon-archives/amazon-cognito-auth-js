@@ -21,6 +21,7 @@
   import CognitoRefreshToken from './CognitoRefreshToken';
   import CognitoAuthSession from './CognitoAuthSession';
   import StorageHelper from './StorageHelper';
+  import { launchUri } from './UriHelper';
   
   /** @class */
   export default class CognitoAuth {
@@ -41,12 +42,14 @@
      * @param {boolean} data.AdvancedSecurityDataCollectionFlag Optional: boolean flag indicating if the
      *        data collection is enabled to support cognito advanced security features. By default, this
      *        flag is set to true.
+     * @param {object} data.Storage Optional: e.g. new CookieStorage(), to use the specified storage provided
+     * @param {function} data.LaunchUri Optional: Function to open a url, by default uses window.open in browser, Linking.openUrl in React Native
      * @param {nodeCallback<CognitoAuthSession>} Optional: userhandler Called on success or error.
      */
     constructor(data) {
       const { ClientId, AppWebDomain, TokenScopesArray,
       RedirectUriSignIn, RedirectUriSignOut, IdentityProvider, UserPoolId,
-      AdvancedSecurityDataCollectionFlag } = data || { };
+        AdvancedSecurityDataCollectionFlag, Storage, LaunchUri } = data || { };
       if (data == null || !ClientId || !AppWebDomain || !RedirectUriSignIn || !RedirectUriSignOut) {
         throw new Error(this.getCognitoConstants().PARAMETERERROR);
       }
@@ -62,12 +65,13 @@
       this.RedirectUriSignOut = RedirectUriSignOut;
       this.IdentityProvider = IdentityProvider;
       this.responseType = this.getCognitoConstants().TOKEN;
-      this.storage = new StorageHelper().getStorage();
+      this.storage = Storage || new StorageHelper().getStorage();
       this.username = this.getLastUser();
       this.userPoolId = UserPoolId;
       this.signInUserSession = this.getCachedSession();
       this.signInUserSession.setTokenScopes(tokenScopes);
-  
+      this.launchUri = typeof LaunchUri === 'function' ? LaunchUri : launchUri;
+
       /**
        * By default, AdvancedSecurityDataCollectionFlag is set to true, if no input value is provided.
        */
@@ -121,7 +125,6 @@
         STATEORIGINSTRING: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
         WITHCREDENTIALS: 'withCredentials',
         UNDEFINED: 'undefined',
-        SELF: '_self',
         HOSTNAMEREGEX: /:\/\/([0-9]?\.)?(.[^/:]+)/i,
         QUERYPARAMETERREGEX1: /#(.+)/,
         QUERYPARAMETERREGEX2: /=(.+)/,
@@ -271,6 +274,9 @@
           response,
           this.getCognitoConstants().QUESTIONMARK
         );
+        if (map.has(this.getCognitoConstants().ERROR)) {
+          return this.userhandler.onFailure(map.get(this.getCognitoConstants().ERROR_DESCRIPTION));
+        }
         this.getCodeQueryParameter(map);
       } else if (httpRequestResponse.indexOf(this.getCognitoConstants().POUNDSIGN) > -1) { // for token type
         map = this.getQueryParameters(
@@ -567,7 +573,6 @@
      */
     createCORSRequest(method, url) {
       let xhr = new XMLHttpRequest();
-      xhr.open(method, url, true);
       if (this.getCognitoConstants().WITHCREDENTIALS in xhr) {
         // XHR for Chrome/Firefox/Opera/Safari.
         xhr.open(method, url, true);
@@ -661,9 +666,7 @@
      * @param {string} URL the url to launch
      * @returns {void}
      */
-    launchUri(URL) {
-      window.open(URL, this.getCognitoConstants().SELF);
-    }
+    launchUri() { }; // overwritten in constructor
   
     /**
      * @returns {string} scopes string

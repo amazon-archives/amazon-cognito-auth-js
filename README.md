@@ -110,6 +110,8 @@ The Amazon Cognito Auth SDK for JavaScript requires three configuration values f
 * IdentityProvider (Optional): Pre-selected identity provider (this allows to automatically trigger social provider authentication flow).e.g. `Facebook`
 * UserPoolId (Optional): e.g. `<TODO: add UserPoolId>` 
 * AdvancedSecurityDataCollectionFlag (Optional): boolean flag indicating if the data collection is enabled to support cognito advanced security features. By default, this flag is set to true.
+* Storage (Optional): Storage provider used to store session data. By default, it uses localStorage if available or an in-memory structure.
+* LaunchUri (Optional): A function called to launch an Uri. By default it uses window.location in browsers, and the Linking class in react native.
 
 The [AWS Console for Cognito User Pools](https://console.aws.amazon.com/cognito/users/) can be used to get or create these values.
 
@@ -154,6 +156,7 @@ var authData = {
 	IdentityProvider : '<TODO: add identity provider you want to specify>', // e.g. 'Facebook',
 	UserPoolId : '<TODO: add UserPoolId>', // Your user pool id here
 	AdvancedSecurityDataCollectionFlag : '<TODO: boolean value indicating whether you want to enable advanced security data collection>', // e.g. true
+        Storage: '<TODO the storage object>' // OPTIONAL e.g. new CookieStorage(), to use the specified storage provided
 };
 var auth = new AmazonCognitoIdentity.CognitoAuth(authData);
 ```
@@ -210,6 +213,26 @@ By default, the SDK uses implicit flow(token flow), if you want to enable author
 Also, when you meet some problems using our SDK, please make sure you downloaded the lastest version directly from Github repo. 
 
 ### Change Log
+
+**next**
+
+* Add support for react native.
+
+**v1.2.4**
+
+* To add newest /es and /lib folders.    
+
+**v1.2.3**
+
+* To add exporting cookieStorage in index.js. 
+
+**v1.2.2**
+
+* To update with dist/ build files from update of last version. 
+
+**v1.2.1**
+
+* To add Cookie storage and Storage as an option.    
 
 **v1.2.0**
 
