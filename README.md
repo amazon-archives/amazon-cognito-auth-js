@@ -110,6 +110,8 @@ The Amazon Cognito Auth SDK for JavaScript requires three configuration values f
 * IdentityProvider (Optional): Pre-selected identity provider (this allows to automatically trigger social provider authentication flow).e.g. `Facebook`
 * UserPoolId (Optional): e.g. `<TODO: add UserPoolId>` 
 * AdvancedSecurityDataCollectionFlag (Optional): boolean flag indicating if the data collection is enabled to support cognito advanced security features. By default, this flag is set to true.
+* Storage (Optional): Storage provider used to store session data. By default, it uses localStorage if available or an in-memory structure.
+* LaunchUri (Optional): A function called to launch an Uri. By default it uses window.location in browsers, and the Linking class in react native.
 
 The [AWS Console for Cognito User Pools](https://console.aws.amazon.com/cognito/users/) can be used to get or create these values.
 
@@ -219,6 +221,10 @@ By default, the SDK uses implicit flow(token flow), if you want to enable author
 Also, when you meet some problems using our SDK, please make sure you downloaded the lastest version directly from Github repo. 
 
 ### Change Log
+
+**next**
+
+* Add support for react native.
 
 **v1.2.4**
 
