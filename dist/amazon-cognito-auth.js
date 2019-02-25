@@ -78,7 +78,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _src = __webpack_require__(9);
+	var _src = __webpack_require__(12);
 
 	Object.keys(_src).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -120,7 +120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -128,26 +128,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*!
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Amazon Cognito Auth SDK for JavaScript
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Licensed under the Apache License, Version 2.0 (the "License").
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * You may not use this file except in compliance with the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * A copy of the License is located at
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *         http://aws.amazon.com/apache2.0/
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * or in the "license" file accompanying this file.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR CONDITIONS OF ANY KIND, either express or implied. See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * License for the specific language governing permissions
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * and limitations under the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+	var _DecodingHelper = __webpack_require__(6);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	/*!
-	 * Amazon Cognito Auth SDK for JavaScript
-	 * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-	 * Licensed under the Apache License, Version 2.0 (the "License").
-	 * You may not use this file except in compliance with the License.
-	 * A copy of the License is located at
-	 *
-	 *         http://aws.amazon.com/apache2.0/
-	 *
-	 * or in the "license" file accompanying this file.
-	 * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
-	 * OR CONDITIONS OF ANY KIND, either express or implied. See the
-	 * License for the specific language governing permissions
-	 * and limitations under the License.
-	 */
 
 	/** @class */
 	var CognitoAccessToken = function () {
@@ -197,7 +197,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return undefined;
 	      }
 	      var jwtPayload = this.jwtToken.split('.')[1];
-	      return JSON.parse(atob(jwtPayload)).exp;
+	      return JSON.parse((0, _DecodingHelper.decode)(jwtPayload)).exp;
 	    }
 
 	    /**
@@ -211,7 +211,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return undefined;
 	      }
 	      var jwtPayload = this.jwtToken.split('.')[1];
-	      return JSON.parse(atob(jwtPayload)).username;
+	      return JSON.parse((0, _DecodingHelper.decode)(jwtPayload)).username;
 	    }
 
 	    /**
@@ -223,7 +223,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function decodePayload() {
 	      var jwtPayload = this.jwtToken.split('.')[1];
 	      try {
-	        return JSON.parse(atob(jwtPayload));
+	        return JSON.parse((0, _DecodingHelper.decode)(jwtPayload));
 	      } catch (err) {
 	        return {};
 	      }
@@ -237,7 +237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -245,25 +245,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*!
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Amazon Cognito Auth SDK for JavaScript
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Licensed under the Apache License, Version 2.0 (the "License").
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * You may not use this file except in compliance with the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * A copy of the License is located at
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *         http://aws.amazon.com/apache2.0/
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * or in the "license" file accompanying this file.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * OR CONDITIONS OF ANY KIND, either express or implied. See the
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * License for the specific language governing permissions
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * and limitations under the License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+	var _DecodingHelper = __webpack_require__(6);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	/*!
-	 * Amazon Cognito Auth SDK for JavaScript
-	 * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-	 * Licensed under the Apache License, Version 2.0 (the "License").
-	 * You may not use this file except in compliance with the License.
-	 * A copy of the License is located at
-	 *
-	 *         http://aws.amazon.com/apache2.0/
-	 *
-	 * or in the "license" file accompanying this file.
-	 * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
-	 * OR CONDITIONS OF ANY KIND, either express or implied. See the
-	 * License for the specific language governing permissions
-	 * and limitations under the License.
-	 */
 
 	/** @class */
 	var CognitoIdToken = function () {
@@ -313,7 +313,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return undefined;
 	      }
 	      var jwtPayload = this.jwtToken.split('.')[1];
-	      return JSON.parse(atob(jwtPayload)).exp;
+	      return JSON.parse((0, _DecodingHelper.decode)(jwtPayload)).exp;
 	    }
 
 	    /**
@@ -325,7 +325,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function decodePayload() {
 	      var jwtPayload = this.jwtToken.split('.')[1];
 	      try {
-	        return JSON.parse(atob(jwtPayload));
+	        return JSON.parse((0, _DecodingHelper.decode)(jwtPayload));
 	      } catch (err) {
 	        return {};
 	      }
@@ -721,6 +721,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 6 */
 /***/ (function(module, exports) {
 
+	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var decode = exports.decode = function decode(str) {
+	  return global.atob(str);
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -852,7 +866,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = StorageHelper;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -900,9 +914,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _CognitoAuthSession2 = _interopRequireDefault(_CognitoAuthSession);
 
-	var _StorageHelper = __webpack_require__(6);
+	var _StorageHelper = __webpack_require__(7);
 
 	var _StorageHelper2 = _interopRequireDefault(_StorageHelper);
+
+	var _UriHelper = __webpack_require__(11);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -927,6 +943,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @param {boolean} data.AdvancedSecurityDataCollectionFlag Optional: boolean flag indicating if the
 	   *        data collection is enabled to support cognito advanced security features. By default, this
 	   *        flag is set to true.
+	   * @param {object} data.Storage Optional: e.g. new CookieStorage(), to use the specified storage provided
+	   * @param {function} data.LaunchUri Optional: Function to open a url, by default uses window.open in browser, Linking.openUrl in React Native
 	   * @param {nodeCallback<CognitoAuthSession>} Optional: userhandler Called on success or error.
 	   */
 	  function CognitoAuth(data) {
@@ -941,7 +959,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        IdentityProvider = _ref.IdentityProvider,
 	        UserPoolId = _ref.UserPoolId,
 	        AdvancedSecurityDataCollectionFlag = _ref.AdvancedSecurityDataCollectionFlag,
-	        Storage = _ref.Storage;
+	        Storage = _ref.Storage,
+	        LaunchUri = _ref.LaunchUri;
 
 	    if (data == null || !ClientId || !AppWebDomain || !RedirectUriSignIn || !RedirectUriSignOut) {
 	      throw new Error(this.getCognitoConstants().PARAMETERERROR);
@@ -962,7 +981,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.username = this.getLastUser();
 	    this.userPoolId = UserPoolId;
 	    this.signInUserSession = this.getCachedSession();
-	    +this.signInUserSession.setTokenScopes(tokenScopes);
+	    this.signInUserSession.setTokenScopes(tokenScopes);
+	    this.launchUri = typeof LaunchUri === 'function' ? LaunchUri : _UriHelper.launchUri;
 
 	    /**
 	     * By default, AdvancedSecurityDataCollectionFlag is set to true, if no input value is provided.
@@ -1019,7 +1039,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        STATEORIGINSTRING: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
 	        WITHCREDENTIALS: 'withCredentials',
 	        UNDEFINED: 'undefined',
-	        SELF: '_self',
 	        HOSTNAMEREGEX: /:\/\/([0-9]?\.)?(.[^/:]+)/i,
 	        QUERYPARAMETERREGEX1: /#(.+)/,
 	        QUERYPARAMETERREGEX2: /=(.+)/,
@@ -1206,6 +1225,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // Sometimes the code will contain a poundsign in the end which breaks the parsing
 	        var response = httpRequestResponse.split(this.getCognitoConstants().POUNDSIGN)[0];
 	        map = this.getQueryParameters(response, this.getCognitoConstants().QUESTIONMARK);
+	        if (map.has(this.getCognitoConstants().ERROR)) {
+	          return this.userhandler.onFailure(map.get(this.getCognitoConstants().ERROR_DESCRIPTION));
+	        }
 	        this.getCodeQueryParameter(map);
 	      } else if (httpRequestResponse.indexOf(this.getCognitoConstants().POUNDSIGN) > -1) {
 	        // for token type
@@ -1556,7 +1578,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'createCORSRequest',
 	    value: function createCORSRequest(method, url) {
 	      var xhr = new XMLHttpRequest();
-	      xhr.open(method, url, true);
 	      if (this.getCognitoConstants().WITHCREDENTIALS in xhr) {
 	        // XHR for Chrome/Firefox/Opera/Safari.
 	        xhr.open(method, url, true);
@@ -1650,16 +1671,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  }, {
 	    key: 'launchUri',
-	    value: function launchUri(URL) {
-	      window.open(URL, this.getCognitoConstants().SELF);
-	    }
+	    value: function launchUri() {}
+	  }, {
+	    key: 'getSpaceSeperatedScopeString',
+	    // overwritten in constructor
 
 	    /**
 	     * @returns {string} scopes string
 	     */
-
-	  }, {
-	    key: 'getSpaceSeperatedScopeString',
 	    value: function getSpaceSeperatedScopeString() {
 	      var tokenScopesString = this.signInUserSession.getTokenScopes().getScopes();
 	      tokenScopesString = tokenScopesString.join(this.getCognitoConstants().SPACE);
@@ -1767,7 +1786,130 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = CognitoAuth;
 
 /***/ }),
-/* 8 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _jsCookie = __webpack_require__(13);
+
+	var Cookies = _interopRequireWildcard(_jsCookie);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/** @class */
+	var CookieStorage = function () {
+
+	  /**
+	   * Constructs a new CookieStorage object
+	   * @param {object} data Creation options.
+	   * @param {string} data.domain Cookies domain (mandatory).
+	   * @param {string} data.path Cookies path (default: '/')
+	   * @param {integer} data.expires Cookie expiration (in days, default: 365)
+	   * @param {boolean} data.secure Cookie secure flag (default: true)
+	   */
+	  function CookieStorage(data) {
+	    _classCallCheck(this, CookieStorage);
+
+	    this.domain = data.domain;
+	    if (data.path) {
+	      this.path = data.path;
+	    } else {
+	      this.path = '/';
+	    }
+	    if (Object.prototype.hasOwnProperty.call(data, 'expires')) {
+	      this.expires = data.expires;
+	    } else {
+	      this.expires = 365;
+	    }
+	    if (Object.prototype.hasOwnProperty.call(data, 'secure')) {
+	      this.secure = data.secure;
+	    } else {
+	      this.secure = true;
+	    }
+	  }
+
+	  /**
+	   * This is used to set a specific item in storage
+	   * @param {string} key - the key for the item
+	   * @param {object} value - the value
+	   * @returns {string} value that was set
+	   */
+
+
+	  _createClass(CookieStorage, [{
+	    key: 'setItem',
+	    value: function setItem(key, value) {
+	      Cookies.set(key, value, {
+	        path: this.path,
+	        expires: this.expires,
+	        domain: this.domain,
+	        secure: this.secure
+	      });
+	      return Cookies.get(key);
+	    }
+
+	    /**
+	     * This is used to get a specific key from storage
+	     * @param {string} key - the key for the item
+	     * This is used to clear the storage
+	     * @returns {string} the data item
+	     */
+
+	  }, {
+	    key: 'getItem',
+	    value: function getItem(key) {
+	      return Cookies.get(key);
+	    }
+
+	    /**
+	     * This is used to remove an item from storage
+	     * @param {string} key - the key being set
+	     * @returns {string} value - value that was deleted
+	     */
+
+	  }, {
+	    key: 'removeItem',
+	    value: function removeItem(key) {
+	      return Cookies.remove(key, {
+	        path: this.path,
+	        domain: this.domain,
+	        secure: this.secure
+	      });
+	    }
+
+	    /**
+	     * This is used to clear the storage
+	     * @returns {string} nothing
+	     */
+
+	  }, {
+	    key: 'clear',
+	    value: function clear() {
+	      var cookies = Cookies.get();
+	      var index = void 0;
+	      for (index = 0; index < cookies.length; ++index) {
+	        Cookies.remove(cookies[index]);
+	      }
+	      return {};
+	    }
+	  }]);
+
+	  return CookieStorage;
+	}();
+
+	exports.default = CookieStorage;
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1849,7 +1991,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = DateHelper;
 
 /***/ }),
-/* 9 */
+/* 11 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var SELF = '_self';
+
+	var launchUri = exports.launchUri = function launchUri(url) {
+	  return window.open(url, SELF);
+	};
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1894,7 +2051,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 
-	var _CognitoAuth = __webpack_require__(7);
+	var _CognitoAuth = __webpack_require__(8);
 
 	Object.defineProperty(exports, 'CognitoAuth', {
 	  enumerable: true,
@@ -1912,7 +2069,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 
-	var _DateHelper = __webpack_require__(8);
+	var _DateHelper = __webpack_require__(10);
 
 	Object.defineProperty(exports, 'DateHelper', {
 	  enumerable: true,
@@ -1921,7 +2078,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 
-	var _StorageHelper = __webpack_require__(6);
+	var _StorageHelper = __webpack_require__(7);
 
 	Object.defineProperty(exports, 'StorageHelper', {
 	  enumerable: true,
@@ -1930,7 +2087,187 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 
+	var _CookieStorage = __webpack_require__(9);
+
+	Object.defineProperty(exports, 'CookieStorage', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_CookieStorage).default;
+	  }
+	});
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	 * JavaScript Cookie v2.2.0
+	 * https://github.com/js-cookie/js-cookie
+	 *
+	 * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
+	 * Released under the MIT license
+	 */
+	;(function (factory) {
+		var registeredInModuleLoader = false;
+		if (true) {
+			!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+			registeredInModuleLoader = true;
+		}
+		if (true) {
+			module.exports = factory();
+			registeredInModuleLoader = true;
+		}
+		if (!registeredInModuleLoader) {
+			var OldCookies = window.Cookies;
+			var api = window.Cookies = factory();
+			api.noConflict = function () {
+				window.Cookies = OldCookies;
+				return api;
+			};
+		}
+	}(function () {
+		function extend () {
+			var i = 0;
+			var result = {};
+			for (; i < arguments.length; i++) {
+				var attributes = arguments[ i ];
+				for (var key in attributes) {
+					result[key] = attributes[key];
+				}
+			}
+			return result;
+		}
+
+		function init (converter) {
+			function api (key, value, attributes) {
+				var result;
+				if (typeof document === 'undefined') {
+					return;
+				}
+
+				// Write
+
+				if (arguments.length > 1) {
+					attributes = extend({
+						path: '/'
+					}, api.defaults, attributes);
+
+					if (typeof attributes.expires === 'number') {
+						var expires = new Date();
+						expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e+5);
+						attributes.expires = expires;
+					}
+
+					// We're using "expires" because "max-age" is not supported by IE
+					attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
+
+					try {
+						result = JSON.stringify(value);
+						if (/^[\{\[]/.test(result)) {
+							value = result;
+						}
+					} catch (e) {}
+
+					if (!converter.write) {
+						value = encodeURIComponent(String(value))
+							.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+					} else {
+						value = converter.write(value, key);
+					}
+
+					key = encodeURIComponent(String(key));
+					key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
+					key = key.replace(/[\(\)]/g, escape);
+
+					var stringifiedAttributes = '';
+
+					for (var attributeName in attributes) {
+						if (!attributes[attributeName]) {
+							continue;
+						}
+						stringifiedAttributes += '; ' + attributeName;
+						if (attributes[attributeName] === true) {
+							continue;
+						}
+						stringifiedAttributes += '=' + attributes[attributeName];
+					}
+					return (document.cookie = key + '=' + value + stringifiedAttributes);
+				}
+
+				// Read
+
+				if (!key) {
+					result = {};
+				}
+
+				// To prevent the for loop in the first place assign an empty array
+				// in case there are no cookies at all. Also prevents odd result when
+				// calling "get()"
+				var cookies = document.cookie ? document.cookie.split('; ') : [];
+				var rdecode = /(%[0-9A-Z]{2})+/g;
+				var i = 0;
+
+				for (; i < cookies.length; i++) {
+					var parts = cookies[i].split('=');
+					var cookie = parts.slice(1).join('=');
+
+					if (!this.json && cookie.charAt(0) === '"') {
+						cookie = cookie.slice(1, -1);
+					}
+
+					try {
+						var name = parts[0].replace(rdecode, decodeURIComponent);
+						cookie = converter.read ?
+							converter.read(cookie, name) : converter(cookie, name) ||
+							cookie.replace(rdecode, decodeURIComponent);
+
+						if (this.json) {
+							try {
+								cookie = JSON.parse(cookie);
+							} catch (e) {}
+						}
+
+						if (key === name) {
+							result = cookie;
+							break;
+						}
+
+						if (!key) {
+							result[name] = cookie;
+						}
+					} catch (e) {}
+				}
+
+				return result;
+			}
+
+			api.set = api;
+			api.get = function (key) {
+				return api.call(api, key);
+			};
+			api.getJSON = function () {
+				return api.apply({
+					json: true
+				}, [].slice.call(arguments));
+			};
+			api.defaults = {};
+
+			api.remove = function (key, attributes) {
+				api(key, '', extend(attributes, {
+					expires: -1
+				}));
+			};
+
+			api.withConverter = init;
+
+			return api;
+		}
+
+		return init(function () {});
+	}));
+
 
 /***/ })
 /******/ ])

@@ -214,9 +214,11 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
-**next**
+**v1.3.0**
 
-* Add support for react native.
+* Add support for react native (#182)
+* Call onFailure for code flow too (#135)
+* useCodeGrantFlow calls xhr.open twice (throws 'Cannot open, already sending') (#74)
 
 **v1.2.4**
 
