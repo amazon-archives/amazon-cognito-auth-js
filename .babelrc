@@ -1,0 +1,43 @@
+{
+    "env": {
+        "commonjs": {
+            "presets": [
+                [
+                    "es2015",
+                    {
+                        "loose": true
+                    }
+                ]
+            ],
+            "plugins": [
+                [
+                    "transform-es2015-modules-commonjs",
+                    {
+                        "loose": true
+                    }
+                ]
+            ],
+        },
+        "es": {
+            "plugins": [
+                [
+                    "transform-es2015-classes",
+                    {
+                        "loose": true
+                    }
+                ],
+                "transform-es2015-block-scoping",
+                "transform-es2015-destructuring",
+                "transform-es2015-typeof-symbol",
+                "transform-es2015-template-literals",
+                [
+                    "transform-es2015-for-of",
+                    {
+                        "loose": true
+                    }
+                ],
+                "transform-es2015-parameters",
+            ]
+        }
+    }
+}
