@@ -1,3 +1,5 @@
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 /*!
  * Amazon Cognito Auth SDK for JavaScript
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,12 +18,14 @@
  */
 
 /** @class */
-export default class CognitoTokenScopes {
+var CognitoTokenScopes = function () {
   /**
    * Constructs a new CognitoTokenScopes object
    * @param {array=} TokenScopesArray The token scopes
    */
-  constructor(TokenScopesArray) {
+  function CognitoTokenScopes(TokenScopesArray) {
+    _classCallCheck(this, CognitoTokenScopes);
+
     // Assign object
     this.tokenScopes = TokenScopesArray || [];
   }
@@ -29,16 +33,24 @@ export default class CognitoTokenScopes {
   /**
    * @returns {Array} the token scopes.
    */
-  getScopes() {
+
+
+  CognitoTokenScopes.prototype.getScopes = function getScopes() {
     return this.tokenScopes;
-  }
+  };
 
   /**
    * Sets new value for token scopes.
    * @param {array=} tokenScopes The token scopes
    * @returns {void}
    */
-  setTokenScopes(tokenScopes) {
+
+
+  CognitoTokenScopes.prototype.setTokenScopes = function setTokenScopes(tokenScopes) {
     this.tokenScopes = tokenScopes;
-  }
-}
+  };
+
+  return CognitoTokenScopes;
+}();
+
+export default CognitoTokenScopes;

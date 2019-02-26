@@ -1,3 +1,5 @@
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 /*!
  * Amazon Cognito Auth SDK for JavaScript
  * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -17,12 +19,15 @@
 import { decode } from './DecodingHelper';
 
 /** @class */
-export default class CognitoIdToken {
+
+var CognitoIdToken = function () {
   /**
    * Constructs a new CognitoIdToken object
    * @param {string=} IdToken The JWT Id token
    */
-  constructor(IdToken) {
+  function CognitoIdToken(IdToken) {
+    _classCallCheck(this, CognitoIdToken);
+
     // Assign object
     this.jwtToken = IdToken || '';
     this.payload = this.decodePayload();
@@ -31,39 +36,51 @@ export default class CognitoIdToken {
   /**
    * @returns {string} the record's token.
    */
-  getJwtToken() {
+
+
+  CognitoIdToken.prototype.getJwtToken = function getJwtToken() {
     return this.jwtToken;
-  }
+  };
 
   /**
    * Sets new value for id token.
    * @param {string=} idToken The JWT Id token
    * @returns {void}
    */
-  setJwtToken(idToken) {
+
+
+  CognitoIdToken.prototype.setJwtToken = function setJwtToken(idToken) {
     this.jwtToken = idToken;
-  }
+  };
 
   /**
    * @returns {int} the token's expiration (exp member).
    */
-  getExpiration() {
+
+
+  CognitoIdToken.prototype.getExpiration = function getExpiration() {
     if (this.jwtToken === null) {
       return undefined;
     }
-    const jwtPayload = this.jwtToken.split('.')[1];
+    var jwtPayload = this.jwtToken.split('.')[1];
     return JSON.parse(decode(jwtPayload)).exp;
-  }
+  };
 
   /**
    * @returns {object} the token's payload.
    */
-  decodePayload() {
-    const jwtPayload = this.jwtToken.split('.')[1];
+
+
+  CognitoIdToken.prototype.decodePayload = function decodePayload() {
+    var jwtPayload = this.jwtToken.split('.')[1];
     try {
       return JSON.parse(decode(jwtPayload));
     } catch (err) {
       return {};
     }
-  }
-}
+  };
+
+  return CognitoIdToken;
+}();
+
+export default CognitoIdToken;

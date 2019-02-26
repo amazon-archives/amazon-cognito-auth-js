@@ -1,8 +1,10 @@
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 import * as Cookies from 'js-cookie';
 
 /** @class */
-export default class CookieStorage {
+
+var CookieStorage = function () {
 
   /**
    * Constructs a new CookieStorage object
@@ -12,7 +14,9 @@ export default class CookieStorage {
    * @param {integer} data.expires Cookie expiration (in days, default: 365)
    * @param {boolean} data.secure Cookie secure flag (default: true)
    */
-  constructor(data) {
+  function CookieStorage(data) {
+    _classCallCheck(this, CookieStorage);
+
     this.domain = data.domain;
     if (data.path) {
       this.path = data.path;
@@ -37,7 +41,9 @@ export default class CookieStorage {
    * @param {object} value - the value
    * @returns {string} value that was set
    */
-  setItem(key, value) {
+
+
+  CookieStorage.prototype.setItem = function setItem(key, value) {
     Cookies.set(key, value, {
       path: this.path,
       expires: this.expires,
@@ -45,7 +51,7 @@ export default class CookieStorage {
       secure: this.secure
     });
     return Cookies.get(key);
-  }
+  };
 
   /**
    * This is used to get a specific key from storage
@@ -53,33 +59,43 @@ export default class CookieStorage {
    * This is used to clear the storage
    * @returns {string} the data item
    */
-  getItem(key) {
+
+
+  CookieStorage.prototype.getItem = function getItem(key) {
     return Cookies.get(key);
-  }
+  };
 
   /**
    * This is used to remove an item from storage
    * @param {string} key - the key being set
    * @returns {string} value - value that was deleted
    */
-  removeItem(key) {
+
+
+  CookieStorage.prototype.removeItem = function removeItem(key) {
     return Cookies.remove(key, {
       path: this.path,
       domain: this.domain,
       secure: this.secure
     });
-  }
+  };
 
   /**
    * This is used to clear the storage
    * @returns {string} nothing
    */
-  clear() {
-    const cookies = Cookies.get();
-    let index;
+
+
+  CookieStorage.prototype.clear = function clear() {
+    var cookies = Cookies.get();
+    var index = void 0;
     for (index = 0; index < cookies.length; ++index) {
       Cookies.remove(cookies[index]);
     }
     return {};
-  }
-}
+  };
+
+  return CookieStorage;
+}();
+
+export default CookieStorage;

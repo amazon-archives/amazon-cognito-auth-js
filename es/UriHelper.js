@@ -1,3 +1,3 @@
-const SELF = '_self';
+var SELF = '_self';
 
-export const launchUri = url => window.open(url, SELF);
+export var launchUri = url => window.open(url, SELF);
