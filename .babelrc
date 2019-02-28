@@ -26,6 +26,7 @@
                         "loose": true
                     }
                 ],
+                "transform-es2015-arrow-functions",
                 "transform-es2015-block-scoping",
                 "transform-es2015-destructuring",
                 "transform-es2015-typeof-symbol",
