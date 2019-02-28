@@ -1,3 +1,5 @@
 var SELF = '_self';
 
-export var launchUri = url => window.open(url, SELF);
+export var launchUri = function (url) {
+  return window.open(url, SELF);
+};

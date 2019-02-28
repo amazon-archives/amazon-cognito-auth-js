@@ -1,1 +1,3 @@
-export var decode = str => global.atob(str);
+export var decode = function (str) {
+  return global.atob(str);
+};

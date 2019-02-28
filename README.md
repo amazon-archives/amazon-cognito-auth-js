@@ -214,6 +214,14 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.3.2**
+
+* Add arrow function babel transform for ES build (#187)
+
+**v1.3.1**
+
+* Fix transpiling (#185)
+
 **v1.3.0**
 
 * Add support for react native (#182)
