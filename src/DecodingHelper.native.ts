@@ -14,14 +14,7 @@
  * License for the specific language governing permissions
  * and limitations under the License.
  */
+import { Buffer } from 'buffer';
 
-import * as enhancements from './src';
+export const decode = (str) => Buffer.from(str, 'base64').toString('utf8');
 
-export * from './src';
-
-// The version of crypto-browserify included by aws-sdk only
-// checks for window.crypto, not window.msCrypto as used by
-// IE 11 – so we set it explicitly here
-if (typeof window !== 'undefined' && !window.crypto && window.msCrypto) {
-  window.crypto = window.msCrypto;
-}

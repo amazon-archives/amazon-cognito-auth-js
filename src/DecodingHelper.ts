@@ -1,0 +1,1 @@
+export const decode = (str) => atob(str);

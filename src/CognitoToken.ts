@@ -14,6 +14,7 @@
  * License for the specific language governing permissions
  * and limitations under the License.
  */
+import { decode } from './DecodingHelper';
 
 export interface CognitoTokenInterface {
     jwtToken: string;
@@ -60,7 +61,7 @@ export interface CognitoTokenInterface {
         return undefined;
       }
       const jwtPayload = this.jwtToken.split('.')[1];
-      return JSON.parse(atob(jwtPayload)).exp;
+      return JSON.parse(decode(jwtPayload)).exp;
     }
   
     /**
@@ -71,7 +72,7 @@ export interface CognitoTokenInterface {
         return undefined;
       }
       const jwtPayload = this.jwtToken.split('.')[1];
-      return JSON.parse(atob(jwtPayload)).username;
+      return JSON.parse(decode(jwtPayload)).username;
     }
   
     /**
@@ -80,7 +81,7 @@ export interface CognitoTokenInterface {
     decodePayload() {
       const jwtPayload = this.jwtToken.split('.')[1];
       try {
-        return JSON.parse(atob(jwtPayload));
+        return JSON.parse(decode(jwtPayload));
       } catch (err) {
         return {};
       }

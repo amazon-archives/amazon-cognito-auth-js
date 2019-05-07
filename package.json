@@ -40,35 +40,48 @@
     "build": "tsc",
     "doc": "jsdoc src -d docs",
     "lint": "eslint src",
-    "test": "jest --coverage --verbose"
+    "test": "jest --coverage",
+    "migrate": "ts-jest config:migrate package.json"
   },
   "main": "lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "devDependencies": {
-    "@types/jest": "^20.0.8",
-    "jest": "^22.4.3",
-    "ts-jest": "^22.0.0",
-    "typescript": "^3.0.1",
-    "jsdoc": "^3.4.0"
+    "@types/jest": "^24.0.12",
+    "@types/node": "8.10.48",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.5",
+    "jsdoc": "^3.4.0",
+    "react-native": "0.59.5",
+    "react": "16.8.3"
   },
   "dependencies": {
     "js-cookie": "^2.1.4"
   },
   "jest": {
+    "globals": {
+      "ts-jest": {
+        "diagnostics": {
+          "warnOnly": true
+        },
+        "isolatedModules": true
+      }
+    },
+    "verbose": true,
+    "preset": "ts-jest",
     "transform": {
-      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "^.+\\.(js|jsx|ts|tsx)$": "ts-jest"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$",
     "moduleFileExtensions": [
-      "ts",
-      "tsx",
       "js",
       "json",
-      "jsx"
+      "jsx",
+      "ts",
+      "tsx"
     ],
     "testEnvironment": "jsdom",
-    "mapCoverage": true,
     "coverageThreshold": {
       "global": {
         "branches": 0,
@@ -80,6 +93,7 @@
     "testURL": "http://localhost/",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "testMatch": null
   }
 }

@@ -20,7 +20,10 @@
  import CognitoRefreshToken from './CognitoRefreshToken';
  import CognitoAuthSession, { CognitoAuthSessionInterface } from './CognitoAuthSession';
  import StorageHelper from './StorageHelper';
- import CognitoConstants from './CognitoConstants'
+ import CognitoConstants from './CognitoConstants';
+ import { launchUri } from './UriHelper';
+ declare var AmazonCognitoAdvancedSecurityData:any;
+ declare var XDomainRequest:any;
  
  export interface CognitoAuthInterface {
    ClientId: string,
@@ -31,7 +34,8 @@
    IdentityProvider?: string,
    UserPoolId?: string,
    AdvancedSecurityDataCollectionFlag?: boolean,
-   Storage: any
+   Storage: any,
+   LaunchUri?: any
  }
  
  /** @class */
@@ -74,7 +78,7 @@
    constructor(data: CognitoAuthInterface) {
      const { ClientId, AppWebDomain, TokenScopesArray,
        RedirectUriSignIn, RedirectUriSignOut, IdentityProvider, UserPoolId,
-       AdvancedSecurityDataCollectionFlag, Storage } = data;
+       AdvancedSecurityDataCollectionFlag, Storage, LaunchUri } = data;
      if (data == null || !ClientId || !AppWebDomain || !RedirectUriSignIn || !RedirectUriSignOut) {
        throw new Error(CognitoConstants.PARAMETERERROR);
      }
@@ -91,6 +95,7 @@
      this.identityProvider = IdentityProvider;
      this.responseType = CognitoConstants.TOKEN;
      this.storage = Storage || new StorageHelper().getStorage();
+     this.launchUri = typeof LaunchUri === 'function' ? LaunchUri : launchUri;
      this.username = this.getLastUser();
      this.userPoolId = UserPoolId;
      this.signInUserSession = this.getCachedSession();
@@ -320,14 +325,12 @@
      const refreshToken = new CognitoRefreshToken();
      const state = null;
      if (map.has(CognitoConstants.IDTOKEN)) {
-       idToken.setJwtToken(map.get(CognitoConstants.IDTOKEN));
-       this.signInUserSession.setIdToken(idToken);
+       this.signInUserSession.setIdToken(new CognitoToken(map.get(CognitoConstants.IDTOKEN)));
      } else {
        this.signInUserSession.setIdToken(idToken);
      }
      if (map.has(CognitoConstants.ACCESSTOKEN)) {
-       accessToken.setJwtToken(map.get(CognitoConstants.ACCESSTOKEN));
-       this.signInUserSession.setAccessToken(accessToken);
+       this.signInUserSession.setAccessToken(new CognitoToken(map.get(CognitoConstants.ACCESSTOKEN)));
      } else {
        this.signInUserSession.setAccessToken(accessToken);
      }
@@ -571,21 +574,21 @@
     * @returns {object} xhr
     */
    createCORSRequest(method, url) {
-     let xhr = new XMLHttpRequest();
-     //xhr.open(method, url, true);
-     if (CognitoConstants.WITHCREDENTIALS in xhr) {
-       // XHR for Chrome/Firefox/Opera/Safari.
-       xhr.open(method, url, true);
-     } /*else if (typeof XDomainRequest !== CognitoConstants.UNDEFINED) {
-         // XDomainRequest for IE.
-         xhr = new XDomainRequest();
-         xhr.open(method, url);
-       } */else {
-       // CORS not supported.
-       xhr = null;
-     }
-     return xhr;
-   }
+    let xhr = new XMLHttpRequest();
+    //xhr.open(method, url, true);
+    if (CognitoConstants.WITHCREDENTIALS in xhr) {
+      // XHR for Chrome/Firefox/Opera/Safari.
+      xhr.open(method, url, true);
+    } else if (typeof XDomainRequest !== CognitoConstants.UNDEFINED) {
+        // XDomainRequest for IE.
+        xhr = new XDomainRequest();
+        xhr.open(method, url);
+      } else {
+      // CORS not supported.
+      xhr = null;
+    }
+    return xhr;
+  }
  
    /**
     * The http POST request onFailure callback.
@@ -668,9 +671,7 @@
     * @param {string} URL the url to launch
     * @returns {void}
     */
-   launchUri(URL) {
-     window.open(URL, CognitoConstants.SELF);
-   }
+   launchUri(URL: string) {}
  
    /**
     * @returns {string} scopes string
@@ -760,26 +761,25 @@
     * features
     **/
    getUserContextData() {
-     return undefined;
-     //TODO aggiungere dipendenza con l'sdk
-     /*if (typeof AmazonCognitoAdvancedSecurityData === "undefined") {
-       return;
-     }
-  
-     var _username = "";
-     if (this.username){
-       _username = this.username;
-     }
-  
-     var _userpoolId = "";
-     if (this.userPoolId){
-       _userpoolId = this.userPoolId;
-     }
-  
-     if (this.advancedSecurityDataCollectionFlag) {
-       return AmazonCognitoAdvancedSecurityData.getData(_username, _userpoolId, this.clientId);
-     }*/
-   }
+     
+    if (typeof AmazonCognitoAdvancedSecurityData === "undefined") {
+      return;
+    }
+ 
+    var _username = "";
+    if (this.username){
+      _username = this.username;
+    }
+ 
+    var _userpoolId = "";
+    if (this.userPoolId){
+      _userpoolId = this.userPoolId;
+    }
+ 
+    if (this.advancedSecurityDataCollectionFlag) {
+      return AmazonCognitoAdvancedSecurityData.getData(_username, _userpoolId, this.clientId);
+    }
+  }
  
    /**
     * Helper method to let the user know if he has either a valid cached session 

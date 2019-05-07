@@ -1,3 +1,6 @@
 src/
 *.tgz
 tsconfig.json
+__test__
+sample
+coverage
