@@ -257,7 +257,8 @@
        if (map.has(CognitoConstants.ERROR)) {
         return this.userhandler.onFailure(map.get(CognitoConstants.ERROR_DESCRIPTION));
       }
-       await this.getCodeQueryParameter(map);
+       const _response = await this.getCodeQueryParameter(map);
+       return _response;
      } else if (httpRequestResponse.indexOf(CognitoConstants.POUNDSIGN) > -1) { // for token type
        map = this.getQueryParameters(
          httpRequestResponse,
@@ -267,7 +268,8 @@
          return this.userhandler.onFailure(map.get(CognitoConstants.ERROR_DESCRIPTION));
        }
        // To use the map to get tokens
-       await this.getTokenQueryParameter(map);
+       const _response = await this.getTokenQueryParameter(map);
+       return _response;
      }
    }
  
