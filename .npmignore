@@ -1,6 +1,6 @@
 src/
 *.tgz
 tsconfig.json
-__test__
+__tests__
 sample
 coverage

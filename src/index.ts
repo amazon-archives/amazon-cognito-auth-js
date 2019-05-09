@@ -34,7 +34,9 @@
 export { default as CognitoToken } from './CognitoToken';
 export { default as CognitoRefreshToken } from './CognitoRefreshToken';
 export { default as CognitoTokenScopes } from './CognitoTokenScopes';
-export { default as CognitoAuth } from './CognitoAuth';
+export { default as CognitoAuth } from './CognitoAuthToken';
+export { default as CognitoAuthPromisesToken } from './CognitoAuthPromisesToken';
+export { default as CognitoAuthPromisesCode } from './CognitoAuthPromisesCode';
 export { default as CognitoAuthSession } from './CognitoAuthSession';
 export { default as DateHelper } from './DateHelper';
 export { default as StorageHelper } from './StorageHelper';

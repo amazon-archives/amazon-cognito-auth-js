@@ -17,12 +17,12 @@
 
 /** @class */
 export default class CognitoTokenScopes {
-  tokenScopes:string[];
+  tokenScopes:ReadonlyArray<string>;
   /**
    * Constructs a new CognitoTokenScopes object
    * @param {array=} TokenScopesArray The token scopes
    */
-  constructor(tokenScopesArray:string[]=[]) {
+  constructor(tokenScopesArray:ReadonlyArray<string>=[]) {
     // Assign object
     this.tokenScopes = tokenScopesArray ;
   }
@@ -30,7 +30,7 @@ export default class CognitoTokenScopes {
   /**
    * @returns {Array} the token scopes.
    */
-  getScopes():string[] {
+  getScopes():ReadonlyArray<string> {
     return this.tokenScopes;
   }
 
@@ -39,7 +39,7 @@ export default class CognitoTokenScopes {
    * @param {array=} tokenScopes The token scopes
    * @returns {void}
    */
-  setTokenScopes(tokenScopes:string[]) {
+  setTokenScopes(tokenScopes:ReadonlyArray<string>) {
     this.tokenScopes = tokenScopes;
   }
 }

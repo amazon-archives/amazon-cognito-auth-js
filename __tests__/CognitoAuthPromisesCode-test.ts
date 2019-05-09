@@ -1,4 +1,4 @@
-import CognitoAuth from '../src/CognitoAuth';
+import CognitoAuth from '../src/CognitoAuthPromisesCode';
 import CognitoConstants from '../src/CognitoConstants';
 
 
@@ -11,7 +11,7 @@ const authData: any = {
     IdentityProvider: "facebook",
     UserPoolId: "UserPoolId",
 };
-let cognitoAuth: CognitoAuth;
+const cognitoAuth: CognitoAuth = new CognitoAuth(authData);
 
 
 (global as any).open = jest.fn();
@@ -44,43 +44,32 @@ const oldXMLHttpRequest = (window as any).XMLHttpRequest;
 //const open = jest.fn()
 Object.defineProperty(window, 'open', jest.fn());
 
-it('test parseCognitoWebResponse token', function (done) {
-    let str = Object.entries(response).map(([key, val]) => `${key}=${val}`).join('&');
-    const urlParse = "http://localhost:3000#state=state&" + str;
-    cognitoAuth = new CognitoAuth(authData);
-    const result = cognitoAuth.parseCognitoWebResponse(urlParse);
+it('test getSession login', function (done) {
+
+    cognitoAuth.getSession();
     (mockXHR as any).onreadystatechange();
-    return result.then((data) => {
-        console.log(data);
-        expect(data.accessToken).toEqual({
-            payload: payload,
-            jwtToken: jwtToken,
-        })
-        done();
-    }
-    );
+    expect((global as any).open).toBeCalled();
+    done();
 });
 
 
 it('test parseCognitoWebResponse code', function (done) {
     const urlParse = "http://localhost:3000/?code=code&state=state";
-    cognitoAuth = new CognitoAuth(authData);
     const result = cognitoAuth.parseCognitoWebResponse(urlParse);
     (mockXHR as any).onreadystatechange();
     return result.then((data) => {
-        console.log(data);
         expect(data.accessToken).toEqual({
             payload: payload,
             jwtToken: jwtToken,
         })
         done();
     }
-    );
+    ).catch(e => {
+        throw e;}
+    );;
 });
 
-
-
-it('test getSession', function (done) {
+it('test getSession exist', function (done) {
 
     const result = cognitoAuth.getSession();
     (mockXHR as any).onreadystatechange();
@@ -94,10 +83,9 @@ it('test getSession', function (done) {
     );
 });
 
-it('test getSession code flow', function (done) {
+it('test refresh exist', function (done) {
 
-    cognitoAuth.useCodeGrantFlow();
-    const result = cognitoAuth.getSession();
+    const result = cognitoAuth.refreshSession("token");
     (mockXHR as any).onreadystatechange();
     return result.then((data) => {
         expect(data.accessToken).toEqual({
@@ -108,11 +96,14 @@ it('test getSession code flow', function (done) {
     }
     );
 });
+
+
 
 it('test signedin', function (done) {
     expect(cognitoAuth.isUserSignedIn()).toBeTruthy();
     done();
 });
+
 
 it('test signout', function (done) {
     cognitoAuth.signOut();

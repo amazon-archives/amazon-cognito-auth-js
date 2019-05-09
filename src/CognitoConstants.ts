@@ -19,6 +19,8 @@ public static readonly PARAMETERERROR= 'The parameters= App client Id; App web d
                                         '; the redirect URL when you are signed in and the ' +
                                         'redirect URL when you are signed out are required.';
 public static readonly SCOPETYPEERROR= 'Scopes have to be array type. ';
+public static readonly PARSETYPEERROR= 'Parse response error ';
+public static readonly REFRESHTYPEERROR= 'Refresh error: login again ';
 public static readonly QUESTIONMARK= '?';
 public static readonly POUNDSIGN= '#';
 public static readonly COLONDOUBLESLASH= '://';
@@ -44,6 +46,7 @@ public static readonly HOSTNAMEREGEX= /:\/\/([0-9]?\.)?(.[^/:]+)/i;
 public static readonly QUERYPARAMETERREGEX1= /#(.+)/;
 public static readonly QUERYPARAMETERREGEX2= /=(.+)/;
 public static readonly HEADER= { 'Content-Type': 'application/x-www-form-urlencoded' };
+
 
 }
 
