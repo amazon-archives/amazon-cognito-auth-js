@@ -1,7 +1,7 @@
 {
   "name": "amazon-cognito-auth-js",
   "description": "Amazon Cognito Auth JavaScript SDK",
-  "version": "2.0.0-a2",
+  "version": "2.0.0",
   "author": {
     "name": "Amazon Web Services",
     "email": "aws@amazon.com",
