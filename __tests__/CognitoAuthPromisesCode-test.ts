@@ -1,4 +1,4 @@
-import CognitoAuth from '../src/CognitoAuthPromisesCode';
+import CognitoAuth from '../src/CognitoAuth';
 import CognitoConstants from '../src/CognitoConstants';
 
 
@@ -11,7 +11,7 @@ const authData: any = {
     IdentityProvider: "facebook",
     UserPoolId: "UserPoolId",
 };
-const cognitoAuth: CognitoAuth = new CognitoAuth(authData);
+const cognitoAuth: CognitoAuth = new CognitoAuth(authData, false);
 
 
 (global as any).open = jest.fn();

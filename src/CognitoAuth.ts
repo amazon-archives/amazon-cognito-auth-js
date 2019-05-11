@@ -18,12 +18,17 @@
 import CognitoTokenScopes from './CognitoTokenScopes';
 import CognitoToken from './CognitoToken';
 import CognitoRefreshToken from './CognitoRefreshToken';
-import CognitoAuthSession, { CognitoAuthSessionInterface } from './CognitoAuthSession';
+import CognitoAuthSession, { CognitoSessionData } from './CognitoAuthSession';
 import StorageHelper from './StorageHelper';
 import CognitoConstants from './CognitoConstants';
 import { launchUri } from './UriHelper';
+//import CognitoAuthPromisesCode from "./CognitoAuthPromisesCode";
+//import CognitoAuthPromisesToken from "./CognitoAuthPromisesToken";
+//import CognitoAuthToken from "./CognitoAuthToken";
+//import CognitoAuthCode from "./CognitoAuthCode";
 declare var AmazonCognitoAdvancedSecurityData: any;
 declare var XDomainRequest: any;
+
 
 export interface CognitoAuthOptions {
     /**
@@ -83,7 +88,7 @@ interface CognitoAuthUserHandler {
 }
 
 /** @class */
-export default abstract class CognitoAuthPromises {
+export default class CognitoAuth {
 
     username: string;
     clientId: string;
@@ -119,7 +124,7 @@ export default abstract class CognitoAuthPromises {
      *        flag is set to true.
      * @param {nodeCallback<CognitoAuthSession>} Optional: userhandler Called on success or error.
      */
-    constructor(data: CognitoAuthOptions, implicitFlow: boolean) {
+    constructor(data: CognitoAuthOptions, implicitFlow: boolean = true) {
         const { ClientId, AppWebDomain, TokenScopesArray,
             RedirectUriSignIn, RedirectUriSignOut, IdentityProvider, UserPoolId,
             AdvancedSecurityDataCollectionFlag, Storage, LaunchUri } = data;
@@ -148,10 +153,7 @@ export default abstract class CognitoAuthPromises {
         /**
          * By default, AdvancedSecurityDataCollectionFlag is set to true, if no input value is provided.
          */
-        this.advancedSecurityDataCollectionFlag = true;
-        if (AdvancedSecurityDataCollectionFlag) {
-            this.advancedSecurityDataCollectionFlag = AdvancedSecurityDataCollectionFlag;
-        }
+        this.advancedSecurityDataCollectionFlag = Boolean(AdvancedSecurityDataCollectionFlag);
     }
 
     protected getUserhandler() {
@@ -195,6 +197,22 @@ export default abstract class CognitoAuthPromises {
      */
     setUser(username: string) {
         this.username = username;
+    }
+
+    /**
+     * sets response type to 'code'
+     * @returns {void}
+     */
+    useCodeGrantFlow() {
+        this.responseType = CognitoConstants.CODE;
+    }
+
+    /**
+     * sets response type to 'token'
+     * @returns {void}
+     */
+    useImplicitFlow() {
+        this.responseType = CognitoConstants.TOKEN;
     }
 
     setIdentityProvider(identityProvider: string) {
@@ -252,6 +270,9 @@ export default abstract class CognitoAuthPromises {
         const cachedScopesSet = new Set(this.signInUserSession.tokenScopes.getScopes()); //TODO why here?
         const URL = this.getFQDNSignIn();
         if (this.signInUserSession != null && this.signInUserSession.isValid()) {
+            if (this.userhandler) {
+                this.userhandler.onSuccess(this.signInUserSession);
+            }
             return Promise.resolve(this.signInUserSession);
         }
         this.signInUserSession = this.getCachedSession(); //TODO? const cachedScopesSet = new Set(this.signInUserSession.tokenScopes.getScopes());
@@ -267,14 +288,24 @@ export default abstract class CognitoAuthPromises {
             this.signInUserSession.setRefreshToken(refreshToken);
             this.launchUri(URL);
         } else if (this.signInUserSession.isValid()) {
+            if (this.userhandler) {
+                this.userhandler.onSuccess(this.signInUserSession);
+            }
             return Promise.resolve(this.signInUserSession);
         } else if (!this.signInUserSession.getRefreshToken()
             || !this.signInUserSession.getRefreshToken().getToken()) {
             this.launchUri(URL);
         } else {
-            return this.refreshSession(this.signInUserSession.getRefreshToken().getToken()).then(data =>
-                this.signInUserSession
+            return this.refreshSession(this.signInUserSession.getRefreshToken().getToken()).then(data => {
+                if (this.userhandler) {
+                    this.userhandler.onSuccess(this.signInUserSession);
+                }
+                return this.signInUserSession
+            }
             );
+        }
+        if (this.userhandler) {
+            this.userhandler.onSuccess(undefined);
         }
         return Promise.resolve(undefined);
     }
@@ -285,12 +316,78 @@ export default abstract class CognitoAuthPromises {
      * Parse the http request response and proceed according to different response types.
      */
     parseCognitoWebResponse(httpRequestResponse: string): Promise<CognitoAuthSession> {
-        return this._parseCognitoWebResponse(httpRequestResponse).then(data => {
-            return this.resolveCognitoAuthSession(data)
-        })
+        const parsePromise = this.responseType === CognitoConstants.TOKEN ?
+            this.parseCognitoToken(httpRequestResponse) : this.parseCognitoCode(httpRequestResponse);
+        return parsePromise.then(data => {
+            const result = this.resolveCognitoAuthSession(data);
+            if (this.userhandler) this.userhandler.onSuccess(result);
+            return result;
+        }).catch(e => {
+            if (this.userhandler) {
+                this.userhandler.onFailure(e)
+                return undefined;
+            } else {
+                throw e;
+            }
+        });
     }
 
-    abstract _parseCognitoWebResponse(httpRequestResponse): Promise<Map<string, string>>;
+    private parseCognitoToken(httpRequestResponse: string): Promise<Map<string, string>> {
+        const map = this.getQueryParameters(
+            httpRequestResponse,
+            CognitoConstants.QUERYPARAMETERREGEX1
+        );
+        return Promise.resolve(map);
+    }
+
+    private parseCognitoCode(httpRequestResponse: string): Promise<Map<string, string>> {
+        // this is to avoid a bug exists when sign in with Google or facebook
+        // Sometimes the code will contain a poundsign in the end which breaks the parsing
+        const response = (httpRequestResponse.split(CognitoConstants.POUNDSIGN))[0];
+        const map = this.getQueryParameters(
+            response,
+            CognitoConstants.QUESTIONMARK
+        );
+        if (map.has(CognitoConstants.ERROR)) {
+            throw new Error(CognitoConstants.PARSETYPEERROR);
+        }
+        if (map.has(CognitoConstants.STATE)) {
+            this.signInUserSession.setState(map.get(CognitoConstants.STATE));
+        } else {
+            this.signInUserSession.setState(null);
+        }
+
+        if (map.has(CognitoConstants.CODE)) {
+            // if the response contains code
+            // To parse the response and get the code value.
+            const codeParameter = map.get(CognitoConstants.CODE);
+            const body = {
+                grant_type: CognitoConstants.AUTHORIZATIONCODE,
+                code: codeParameter
+            };
+            return this.makePostCode(body);
+        }
+    }
+
+    private makePostCode(bodyOption: any): Promise<Map<string, string>> {
+
+        const url = this.getUrlToken();
+        const header = CognitoConstants.HEADER;
+        const body = {
+            ...bodyOption,
+            client_id: this.getClientId(),
+            redirect_uri: this.getRedirectUriSignIn(),
+        };
+        return this.makePOSTRequest(header, body, url).then(data => {
+            return new Map(Object.entries(JSON.parse(data)));
+        });
+    }
+
+    private getUrlToken() {
+        return CognitoConstants.DOMAIN_SCHEME.concat(
+            CognitoConstants.COLONDOUBLESLASH, this.getAppWebDomain(),
+            CognitoConstants.SLASH, CognitoConstants.DOMAIN_PATH_TOKEN);
+    }
 
     resolveCognitoAuthSession(map: Map<string, string>): CognitoAuthSession {
         const idToken = new CognitoToken();
@@ -349,7 +446,7 @@ export default abstract class CognitoAuthPromises {
         const accessToken = new CognitoToken(this.storage.getItem(accessTokenKey));
         const refreshToken = new CognitoRefreshToken(this.storage.getItem(refreshTokenKey));
 
-        const sessionData: CognitoAuthSessionInterface = {
+        const sessionData: CognitoSessionData = {
             IdToken: idToken,
             AccessToken: accessToken,
             RefreshToken: refreshToken,
@@ -485,24 +582,44 @@ export default abstract class CognitoAuthPromises {
      * @param {object} refreshToken authResult Successful auth response from server.
      * @returns {void}
      */
-    async refreshSession(refreshToken) {
-        // https POST call for refreshing token
-        const url = CognitoConstants.DOMAIN_SCHEME.concat(
-            CognitoConstants.COLONDOUBLESLASH, this.getAppWebDomain(),
-            CognitoConstants.SLASH, CognitoConstants.DOMAIN_PATH_TOKEN);
-        const header = CognitoConstants.HEADER;
-        const body = {
+    refreshSession(refreshToken): Promise<CognitoAuthSession> {
+        /*const refreshPromise = this.responseType === CognitoConstants.TOKEN
+            ? Promise.reject(CognitoConstants.REFRESHTYPEERROR) //TODO Login again?
+            : this.makePostCode({
+                grant_type: CognitoConstants.REFRESHTOKEN,
+                refresh_token: refreshToken
+            });*/
+            
+
+        return this.makePostCode({
             grant_type: CognitoConstants.REFRESHTOKEN,
-            client_id: this.getClientId(),
-            redirect_uri: this.redirectUriSignIn,
             refresh_token: refreshToken
-        };
-        //const boundOnSuccess = (this.onSuccessRefreshToken).bind(this);
-        //const boundOnFailure = (this.onFailure).bind(this);
-        const response = await this.makePOSTRequest(header, body, url);
-        const signInUserSession = await this.onSuccessRefreshToken(response);
-        return signInUserSession;
-        //this.makePOSTRequest(header, body, url, boundOnSuccess, boundOnFailure);
+        }).then(map => {
+            if (map.has(CognitoConstants.ERROR)) {
+                const URL = this.getFQDNSignIn();
+                this.launchUri(URL);
+                throw new Error(CognitoConstants.REFRESHTYPEERROR);
+            } else {
+                if (map.has(CognitoConstants.IDTOKEN)) {
+                    this.signInUserSession.setIdToken(new CognitoToken(map.get(CognitoConstants.IDTOKEN)));
+                }
+                if (map.has(CognitoConstants.ACCESSTOKEN)) {
+                    this.signInUserSession.setAccessToken(new CognitoToken(map.get(CognitoConstants.ACCESSTOKEN)));
+                }
+                this.cacheTokensScopes();
+                if (this.userhandler) {
+                    this.userhandler.onSuccess(this.signInUserSession);
+                }
+                return this.signInUserSession;
+            }
+        }).catch(e => {
+            if (this.userhandler) {
+                this.userhandler.onFailure(e)
+                return undefined;
+            } else {
+                throw e;
+            }
+        });
     }
 
     /**

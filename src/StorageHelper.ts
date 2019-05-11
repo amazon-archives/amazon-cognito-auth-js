@@ -19,6 +19,10 @@ let dataMemory = {};
 /** @class */
 class MemoryStorage {
 
+  static key(index: number): string | null {
+     return null;
+  }
+
   /**
    * This is used to set a specific item in storage
    * @param {string} key - the key for the item
@@ -61,7 +65,7 @@ class MemoryStorage {
 
 /** @class */
 export default class StorageHelper {
-  storageWindow:any;
+  storageWindow: Storage;
   /**
    * This is used to get a storage object
    * @returns {object} the storage
@@ -69,7 +73,7 @@ export default class StorageHelper {
   constructor() {
     try {
       this.storageWindow = window.localStorage;
-      this.storageWindow.setItem('aws.cognito.test-ls', 1);
+      this.storageWindow.setItem('aws.cognito.test-ls', "1");
       this.storageWindow.removeItem('aws.cognito.test-ls');
     } catch (exception) {
       this.storageWindow = MemoryStorage;
@@ -80,7 +84,7 @@ export default class StorageHelper {
    * This is used to return the storage
    * @returns {object} the storage
    */
-  getStorage() {
+  getStorage(): Storage {
     return this.storageWindow;
   }
 }

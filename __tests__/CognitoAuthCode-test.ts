@@ -1,4 +1,4 @@
-import CognitoAuth from '../src/CognitoAuthCode';
+import CognitoAuth from '../src/CognitoAuth';
 import CognitoConstants from '../src/CognitoConstants';
 
 
@@ -11,8 +11,9 @@ const authData: any = {
     IdentityProvider: "facebook",
     UserPoolId: "UserPoolId",
 };
-const cognitoAuth: CognitoAuth = new CognitoAuth(authData);
+const cognitoAuth: CognitoAuth = new CognitoAuth(authData, false);
 
+console.log(cognitoAuth);
 
 (global as any).open = jest.fn();
 
@@ -77,7 +78,7 @@ it('test getSession exist', function (done) {
 
     cognitoAuth.userhandler = {
         onSuccess: function(data) {
-            console.log("onSuccess")
+            console.log("onSuccess", data)
             expect(data.accessToken).toEqual({
                 payload: payload,
                 jwtToken: jwtToken,

@@ -29,14 +29,16 @@
   if (typeof window !== 'undefined' && !window.crypto && window.msCrypto) {
     window.crypto = window.msCrypto;
   }*/
+
+  if (typeof window !== 'undefined' && !window.crypto && (window as any).msCrypto) {
+    (window as any).crypto = (window as any).msCrypto;
+  }
   
 
 export { default as CognitoToken } from './CognitoToken';
 export { default as CognitoRefreshToken } from './CognitoRefreshToken';
 export { default as CognitoTokenScopes } from './CognitoTokenScopes';
-export { default as CognitoAuth } from './CognitoAuthToken';
-export { default as CognitoAuthPromisesToken } from './CognitoAuthPromisesToken';
-export { default as CognitoAuthPromisesCode } from './CognitoAuthPromisesCode';
+export { default as CognitoAuth } from './CognitoAuth';
 export { default as CognitoAuthSession } from './CognitoAuthSession';
 export { default as DateHelper } from './DateHelper';
 export { default as StorageHelper } from './StorageHelper';

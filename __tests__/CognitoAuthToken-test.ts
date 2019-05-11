@@ -1,4 +1,4 @@
-import CognitoAuth from '../src/CognitoAuthToken';
+import CognitoAuth from '../src/CognitoAuth';
 import CognitoConstants from '../src/CognitoConstants';
 
 

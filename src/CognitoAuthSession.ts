@@ -19,12 +19,31 @@ import CognitoTokenScopes from './CognitoTokenScopes';
 import CognitoToken from './CognitoToken';
 import CognitoRefreshToken from './CognitoRefreshToken';
 
-export interface CognitoAuthSessionInterface {
-  IdToken: CognitoToken,
-  RefreshToken: CognitoRefreshToken,
-  AccessToken: CognitoToken,
-  TokenScopes: any;
-  State?: string,
+export interface CognitoSessionData {
+  /**
+   * The session's Id token.
+   */
+  IdToken?: CognitoToken;
+
+  /**
+   * The session's refresh token.
+   */
+  RefreshToken?: CognitoRefreshToken;
+
+  /**
+   * The session's access token.
+   */
+  AccessToken?: CognitoToken;
+
+  /**
+   * The session's token scopes.
+   */
+  TokenScopes?: CognitoTokenScopes;
+
+  /**
+   * The session's state.
+   */
+  State?: string;
 }
 
 /** @class */
@@ -44,7 +63,7 @@ export default class CognitoAuthSession {
    * @param {string} State The session's state. 
 	 */
   constructor({ IdToken,
-    RefreshToken, AccessToken, TokenScopes, State }:CognitoAuthSessionInterface = {
+    RefreshToken, AccessToken, TokenScopes, State }:CognitoSessionData = {
       IdToken: new CognitoToken(),
       RefreshToken: new CognitoRefreshToken(),
       AccessToken: new CognitoToken(),
@@ -62,7 +81,7 @@ export default class CognitoAuthSession {
   /**
    * @returns {CognitoIdToken} the session's Id token
    */
-  getIdToken() {
+  getIdToken(): CognitoToken {
     return this.idToken;
   }
 
@@ -71,14 +90,14 @@ export default class CognitoAuthSession {
    * @param {CognitoIdToken} IdToken The session's Id token.
    * @returns {void}
    */
-  setIdToken(IdToken) {
+  setIdToken(IdToken: CognitoToken) {
     this.idToken = IdToken;
   }
 
   /**
    * @returns {CognitoRefreshToken} the session's refresh token
    */
-  getRefreshToken() {
+  getRefreshToken(): CognitoRefreshToken {
     return this.refreshToken;
   }
 
@@ -87,14 +106,14 @@ export default class CognitoAuthSession {
    * @param {CognitoRefreshToken} RefreshToken The session's refresh token.
    * @returns {void}
    */
-  setRefreshToken(RefreshToken) {
+  setRefreshToken(RefreshToken: CognitoRefreshToken) {
     this.refreshToken = RefreshToken;
   }
 
   /**
    * @returns {CognitoAccessToken} the session's access token
    */
-  getAccessToken() {
+  getAccessToken(): CognitoToken {
     return this.accessToken;
   }
 
@@ -103,14 +122,14 @@ export default class CognitoAuthSession {
    * @param {CognitoAccessToken} AccessToken The session's access token.
    * @returns {void}
    */
-  setAccessToken(AccessToken) {
+  setAccessToken(AccessToken: CognitoToken) {
     this.accessToken = AccessToken;
   }
 
   /**
    * @returns {CognitoTokenScopes} the session's token scopes
    */
-  getTokenScopes() {
+  getTokenScopes(): CognitoTokenScopes {
     return this.tokenScopes;
   }
 
@@ -119,14 +138,14 @@ export default class CognitoAuthSession {
    * @param {array}  tokenScopes  The session's token scopes.
    * @returns {void}
    */
-  setTokenScopes(tokenScopes) {
+  setTokenScopes(tokenScopes: CognitoTokenScopes) {
     this.tokenScopes = tokenScopes;
   }
 
   /**
    * @returns {string} the session's state
    */
-  getState() {
+  getState(): string {
     return this.state;
   }
 
@@ -135,7 +154,7 @@ export default class CognitoAuthSession {
    * @param {string}  state  The session's state.
    * @returns {void}
    */
-  setState(State) {
+  setState(State: string) {
     this.state = State;
   }
 
@@ -144,7 +163,7 @@ export default class CognitoAuthSession {
    * in Access and Id Tokens and the current time
    * @returns {boolean} if the session is still valid
    */
-  isValid() {
+  isValid(): boolean {
     const now = Math.floor(new Date().getTime() / 1000);
     try {
       if (this.accessToken != null) {

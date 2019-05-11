@@ -1,4 +1,4 @@
-import CognitoAuth from '../src/CognitoAuthPromisesToken';
+import CognitoAuth from '../src/CognitoAuth';
 import CognitoConstants from '../src/CognitoConstants';
 
 
@@ -88,7 +88,6 @@ it('test refresh error', function (done) {
     const result = cognitoAuth.refreshSession("token");
     (mockXHR as any).onreadystatechange();
     return result.catch((e) => {
-        console.log("test err", e)
         expect(e).not.toBeNull();
         done();
     }

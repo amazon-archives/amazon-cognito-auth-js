@@ -18,7 +18,7 @@ import { decode } from './DecodingHelper';
 
 export interface CognitoTokenInterface {
     jwtToken: string;
-    payload: any; 
+    payload: object; 
   }
   
   /** @class */
@@ -28,7 +28,7 @@ export interface CognitoTokenInterface {
      * @param {string=} AccessToken The JWT access token.
      */
     jwtToken: string;
-    payload: any; //todo type
+    payload: object;
   
     constructor(token:string = '') {
       // Assign object
@@ -56,29 +56,27 @@ export interface CognitoTokenInterface {
     /**
      * @returns {int} the token's expiration (exp member).
      */
-    getExpiration() {
+    getExpiration():number {
       if (this.jwtToken === null) {
         return undefined;
       }
-      const jwtPayload = this.jwtToken.split('.')[1];
-      return JSON.parse(decode(jwtPayload)).exp;
+      return (this.decodePayload() as any).exp;
     }
   
     /**
      * @returns {string} the username from payload.
      */
-    getUsername() {
+    getUsername(): string {
       if (this.jwtToken === null) {
         return undefined;
       }
-      const jwtPayload = this.jwtToken.split('.')[1];
-      return JSON.parse(decode(jwtPayload)).username;
+      return (this.decodePayload() as any).username;
     }
   
     /**
      * @returns {object} the token's payload.
      */
-    decodePayload() {
+    decodePayload(): object {
       const jwtPayload = this.jwtToken.split('.')[1];
       try {
         return JSON.parse(decode(jwtPayload));
