@@ -477,6 +477,15 @@
       return map;
     }
   
+    _bufferToString(buffer, chars) {
+      const state = [];
+      for (let i = 0; i < buffer.byteLength; i += 1) {
+        const index = buffer[i] % chars.length;
+        state.push(chars[index]);
+      }
+      return state.join("");
+    }
+  
     /**
      * helper function to generate a random string
      * @param {int} length the length of string
@@ -484,12 +493,18 @@
      * @returns {string} a random value.
      */
     generateRandomString(length, chars) {
-      let result = '';
-      let i = length;
-      for (; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
-      return result;
-    }
+      const buffer = new Uint8Array(length);
   
+      if (typeof window !== "undefined" && !!window.crypto) {
+        window.crypto.getRandomValues(buffer);
+      } else {
+        for (let i = 0; i < length; i += 1) {
+          buffer[i] = (Math.random() * chars.length) | 0;
+        }
+      }
+      return this._bufferToString(buffer, chars);
+    }
+
     /**
      * This is used to clear the session tokens and scopes from local storage
      * @returns {void}
