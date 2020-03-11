@@ -214,6 +214,10 @@ Also, when you meet some problems using our SDK, please make sure you downloaded
 
 ### Change Log
 
+**v1.3.3**
+
+* Use window.crypto if available (#224)
+
 **v1.3.2**
 
 * Add arrow function babel transform for ES build (#187)

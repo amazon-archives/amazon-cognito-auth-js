@@ -540,6 +540,15 @@ var CognitoAuth = function () {
     return map;
   };
 
+  CognitoAuth.prototype._bufferToString = function _bufferToString(buffer, chars) {
+    var state = [];
+    for (var i = 0; i < buffer.byteLength; i += 1) {
+      var index = buffer[i] % chars.length;
+      state.push(chars[index]);
+    }
+    return state.join("");
+  };
+
   /**
    * helper function to generate a random string
    * @param {int} length the length of string
@@ -549,11 +558,16 @@ var CognitoAuth = function () {
 
 
   CognitoAuth.prototype.generateRandomString = function generateRandomString(length, chars) {
-    var result = '';
-    var i = length;
-    for (; i > 0; --i) {
-      result += chars[Math.round(Math.random() * (chars.length - 1))];
-    }return result;
+    var buffer = new Uint8Array(length);
+
+    if (typeof window !== "undefined" && !!window.crypto) {
+      window.crypto.getRandomValues(buffer);
+    } else {
+      for (var i = 0; i < length; i += 1) {
+        buffer[i] = Math.random() * chars.length | 0;
+      }
+    }
+    return this._bufferToString(buffer, chars);
   };
 
   /**
