@@ -498,7 +498,7 @@
       if (typeof window !== "undefined" && !!window.crypto) {
         window.crypto.getRandomValues(buffer);
       } else {
-        for (let i = 0; i < size; i += 1) {
+        for (let i = 0; i < length; i += 1) {
           buffer[i] = (Math.random() * chars.length) | 0;
         }
       }
