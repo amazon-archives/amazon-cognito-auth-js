@@ -477,13 +477,11 @@
       return map;
     }
   
-    _bufferToString(buffer) {
-      const CHARSET =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    _bufferToString(buffer, chars) {
       const state = [];
       for (let i = 0; i < buffer.byteLength; i += 1) {
-        const index = buffer[i] % CHARSET.length;
-        state.push(CHARSET[index]);
+        const index = buffer[i] % chars.length;
+        state.push(chars[index]);
       }
       return state.join("");
     }
@@ -495,19 +493,18 @@
      * @returns {string} a random value.
      */
     generateRandomString(length, chars) {
-      const CHARSET = chars;
       const buffer = new Uint8Array(length);
   
       if (typeof window !== "undefined" && !!window.crypto) {
         window.crypto.getRandomValues(buffer);
       } else {
         for (let i = 0; i < size; i += 1) {
-          buffer[i] = (Math.random() * CHARSET.length) | 0;
+          buffer[i] = (Math.random() * chars.length) | 0;
         }
       }
-      return this._bufferToString(buffer);
+      return this._bufferToString(buffer, chars);
     }
-    
+
     /**
      * This is used to clear the session tokens and scopes from local storage
      * @returns {void}
