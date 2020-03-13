@@ -107,7 +107,14 @@
 			userButton(auth);
 		});
 		var curUrl = window.location.href;
-		auth.parseCognitoWebResponse(curUrl);
+		auth.parseCognitoWebResponse(curUrl, function (error, result) {
+			if (error) {
+				alert("Error!" + err);
+			} else {
+				alert("Sign in success");
+				showSignedIn(result);
+			}
+		});
 	}
 
   // Operation when tab is closed.
@@ -148,7 +155,14 @@
 			auth.signOut();
 			showSignedOut();
 		} else {
-			auth.getSession();
+			auth.getSession(function (error, result) {
+				if (error) {
+					alert("Error!" + err);
+				} else {
+					alert("Sign in success");
+					showSignedIn(result);
+				}
+			});
 		}
 	}
 
@@ -199,24 +213,13 @@
 			RedirectUriSignIn : '<TODO: your redirect url when signed in here>',
 			RedirectUriSignOut : '<TODO: your redirect url when signed out here>',
 			IdentityProvider : '<TODO: your identity provider you want to specify here>', 
-	                UserPoolId : '<TODO: your user pool id here>', 
-	                AdvancedSecurityDataCollectionFlag : <TODO: boolean value indicating whether you want to enable advanced security data collection>
+			UserPoolId : '<TODO: your user pool id here>', 
+			AdvancedSecurityDataCollectionFlag : <TODO: boolean value indicating whether you want to enable advanced security data collection>
 		};
 		var auth = new AmazonCognitoIdentity.CognitoAuth(authData);
 		// You can also set state parameter 
-		// auth.setState(<state parameter>);  
-		auth.userhandler = {
-			onSuccess: <TODO: your onSuccess callback here>,
-			onFailure: <TODO: your onFailure callback here>
-			/** E.g.
-			onSuccess: function(result) {
-				alert("Sign in success");
-				showSignedIn(result);
-			},
-			onFailure: function(err) {
-				alert("Error!" + err);
-			}*/
-		};
+		// auth.setState(<state parameter>);
+
 		// The default response_type is "token", uncomment the next line will make it be "code".
 		// auth.useCodeGrantFlow();
 		return auth;

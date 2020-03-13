@@ -168,19 +168,6 @@ var authData = {
 var auth = new AmazonCognitoIdentity.CognitoAuth(authData);
 ```
 
-Also you can provide onSuccess callback and onFailure callback:
-
-```js
-auth.userhandler = {
-	onSuccess: function(result) {
-		alert("Sign in success");
-		showSignedIn(result);
-	},
-	onFailure: function(err) {
-		alert("Error!");
-	}
-};
-```
 You can also set `state` parameter:
 
 ```js
@@ -190,14 +177,28 @@ auth.setState(<state parameter>);
 **Use case 2.** Sign-in using `getSession()` API:
 
 ```js
-auth.getSession();
+auth.getSession(function (error, result) {
+  if (error) {
+    alert("Error!" + err);
+  } else {
+    alert("Sign in success");
+    showSignedIn(result);
+  }
+});
 ```
 
-For the cache tokens and scopes, use the `parseCognitoWebResponse(Response)` API, e.g. the response is the current window url:
+For the cache tokens and scopes, use the `parseCognitoWebResponse(Response, callback)` API, e.g. the response is the current window url:
 
 ```js
 var curUrl = window.location.href;
-auth.parseCognitoWebResponse(curUrl);
+auth.parseCognitoWebResponse(curUrl, function (error, result) {
+  if (error) {
+    alert("Error!" + err);
+  } else {
+    alert("Sign in success");
+    showSignedIn(result);
+  }
+});
 ```
 Typically, you can put this part of logic in the `onLoad()`, e.g.:
 
@@ -205,7 +206,14 @@ Typically, you can put this part of logic in the `onLoad()`, e.g.:
 function onLoad() {
 	var auth = initCognitoSDK();
 	var curUrl = window.location.href;
-	auth.parseCognitoWebResponse(curUrl);
+	auth.parseCognitoWebResponse(curUrl, function (error, result) {
+    if (error) {
+      alert("Error!" + err);
+    } else {
+      alert("Sign in success");
+      showSignedIn(result);
+    }
+  });
 }
 ```
 
