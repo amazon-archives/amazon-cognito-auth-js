@@ -237,7 +237,6 @@
       if (this.signInUserSession != null && this.signInUserSession.isValid()) {
         return this.userhandler.onSuccess(this.signInUserSession);
       }
-      this.signInUserSession = this.getCachedSession();
       // compare scopes
       if (!this.compareSets(tokenScopesInputSet, cachedScopesSet)) {
         const tokenScopes = new CognitoTokenScopes(this.TokenScopesArray);
