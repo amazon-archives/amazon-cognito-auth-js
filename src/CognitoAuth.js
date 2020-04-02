@@ -262,12 +262,13 @@
   
     /**
      * @param {string} httpRequestResponse the http request response
+     * @param {boolean} isHashBasedUrl true if the url is made with hash routing
      * @returns {void}
      * Parse the http request response and proceed according to different response types.
      */
-    parseCognitoWebResponse(httpRequestResponse) {
+    parseCognitoWebResponse(httpRequestResponse,isHashBasedUrl) {
       let map;
-      if (httpRequestResponse.indexOf(this.getCognitoConstants().QUESTIONMARK) > -1) { // for code type
+      if (isHashBasedUrl || httpRequestResponse.indexOf(this.getCognitoConstants().QUESTIONMARK) > -1) { // for code type
         // this is to avoid a bug exists when sign in with Google or facebook
         // Sometimes the code will contain a poundsign in the end which breaks the parsing
         const response = (httpRequestResponse.split(this.getCognitoConstants().POUNDSIGN))[0];
