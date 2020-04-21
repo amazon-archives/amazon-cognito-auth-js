@@ -25,7 +25,7 @@ export default class CognitoAccessToken {
    */
   constructor(AccessToken) {
     // Assign object
-    this.jwtToken = AccessToken || '';
+    this.jwtToken = AccessToken || null;
     this.payload = this.decodePayload();
   }
 
